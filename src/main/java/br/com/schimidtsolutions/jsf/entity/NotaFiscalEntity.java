@@ -1,12 +1,16 @@
 package br.com.schimidtsolutions.jsf.entity;
 
 import java.util.Calendar;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -28,7 +32,7 @@ public class NotaFiscalEntity {
 	
 	@CNPJ
 	@NotNull(message="O CNPJ não pode ser nulo")
-	@Column(name="CNPJ", insertable=true, nullable=false, updatable=true )
+	@Column(name="CNPJ", length=14, insertable=true, nullable=false, updatable=true )
 	private String cnpj;
 	
 	@Temporal(TemporalType.DATE)
@@ -36,6 +40,9 @@ public class NotaFiscalEntity {
 	@Column(name="DATA", insertable=true, nullable=false, updatable=true )
 	private Calendar data;
 
+	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH, CascadeType.REMOVE}, fetch=FetchType.LAZY, mappedBy="notaFiscal")
+	private List<ItemEntity> itens;
+	
 	NotaFiscalEntity() {}
 	
 	public NotaFiscalEntity(String cnpj, Calendar data) {
@@ -45,6 +52,13 @@ public class NotaFiscalEntity {
 	
 	public NotaFiscalEntity(Integer id) {
 		this.id = id;
+	}
+	
+	@Override
+	public String toString() {
+		final int maxLen = 10;
+		return String.format("NotaFiscalEntity [id=%s, cnpj=%s, data=%s, itens=%s]",
+			id, cnpj, data, itens != null ? itens.subList(0, Math.min(itens.size(), maxLen)) : null);
 	}
 
 	@Override
@@ -82,5 +96,9 @@ public class NotaFiscalEntity {
 
 	public Calendar getData() {
 		return data;
+	}
+	
+	public List<ItemEntity> getItens() {
+		return itens;
 	}
 }
