@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head> 
+	<title>Sistema de Notas Fiscais</title>
+</h:head>
+
+<h:body>
+	<h:dataTable value="#{produtoBean.produtos}" var="produto" rendered="#{not empty produtoBean.produtos}">
+		<h:column>
+			<f:facet name="header">Nome</f:facet>
+			#{produto.nome}
+		</h:column>
+		
+		<h:column>
+			<f:facet name="header">Descrição</f:facet>
+			#{produto.descricao}
+		</h:column>
+		
+		<h:column>
+			<f:facet name="header">Preço</f:facet>
+			#{produto.preco}
+		</h:column>
+	</h:dataTable>	
+</h:body>
+</html>

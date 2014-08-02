@@ -2,7 +2,9 @@ package br.com.schimidtsolutions.jsf.binding;
 
 import java.math.BigDecimal;
 
-public class Produto{
+import br.com.schimidtsolutions.jsf.entity.Produto;
+
+public class ProdutoBinding implements Binding<Produto>{
 	private Integer id;
 	private String nome;
 	private String descricao;
@@ -38,5 +40,18 @@ public class Produto{
 	}
 	public void setPreco(BigDecimal preco) {
 		this.preco = preco;
+	}
+
+	@Override
+	public void fromEntity( Produto produto ){
+		this.id = produto.getId();
+		this.nome = produto.getNome();
+		this.descricao = produto.getDescricao();
+		this.preco = produto.getPreco();
+	}
+	
+	@Override
+	public Produto toEntity(){
+		return new Produto( id, nome, descricao, preco);
 	}
 }

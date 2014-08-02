@@ -14,7 +14,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(schema="development", name="ITEM")
-public class ItemEntity {
+public class Item {
 
 	@Id
 	@SequenceGenerator( schema="development", sequenceName="ITEM_SEQ", initialValue=1, allocationSize=1, name="ItemGenerator")
@@ -23,10 +23,10 @@ public class ItemEntity {
 	private Integer id;
 	
 	@ManyToOne(optional=false, cascade=CascadeType.ALL)
-	private NotaFiscalEntity notaFiscal;
+	private NotaFiscal notaFiscal;
 	
 	@ManyToOne(optional=false, cascade=CascadeType.PERSIST)
-	private ProdutoEntity produto;
+	private Produto produto;
 	
 	@Column(name="QUANTIDADE", insertable=true, nullable=false, updatable=true )
 	private Integer quantidade;
@@ -34,13 +34,13 @@ public class ItemEntity {
 	@Column(name="VALOR_UNITARIO", insertable=true, nullable=false, updatable=true )
 	private BigDecimal valorUnitario;
 
-	ItemEntity() {}
+	Item() {}
 	
-	public ItemEntity(Integer id) {
+	public Item(Integer id) {
 		this.id = id;
 	}
 
-	public ItemEntity(NotaFiscalEntity notaFiscal, ProdutoEntity produto, Integer quantidade, BigDecimal valorUnitario) {
+	public Item(NotaFiscal notaFiscal, Produto produto, Integer quantidade, BigDecimal valorUnitario) {
 		this.notaFiscal = notaFiscal;
 		this.produto = produto;
 		this.quantidade = quantidade;
@@ -72,7 +72,7 @@ public class ItemEntity {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ItemEntity other = (ItemEntity) obj;
+		Item other = (Item) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -95,11 +95,11 @@ public class ItemEntity {
 		return id;
 	}
 
-	public NotaFiscalEntity getNotaFiscal() {
+	public NotaFiscal getNotaFiscal() {
 		return notaFiscal;
 	}
 
-	public ProdutoEntity getProduto() {
+	public Produto getProduto() {
 		return produto;
 	}
 

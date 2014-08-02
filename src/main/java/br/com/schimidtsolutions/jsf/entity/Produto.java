@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(schema="development", name="PRODUTO")
-public class ProdutoEntity {
+public class Produto {
 	
 	@Id
 	@SequenceGenerator( schema="development", sequenceName="PRODUTO_SEQ", initialValue=1, allocationSize=1, name="ProdutoGenerator")
@@ -29,16 +29,21 @@ public class ProdutoEntity {
 	@Column(name="PRECO", insertable=true, nullable=false, updatable=true, precision=10, scale=2)
 	private BigDecimal preco;
 
-	ProdutoEntity() {}
+	Produto() {}
 	
-	public ProdutoEntity(String nome, String descricao, BigDecimal preco) {
+	public Produto(Integer id, String nome, String descricao, BigDecimal preco) {
+		this.id = id;
 		this.nome = nome;
 		this.descricao = descricao;
 		this.preco = preco;
 	}
 
-	public ProdutoEntity(Integer id) {
-		this.id = id;
+	public Produto(String nome, String descricao, BigDecimal preco) {
+		this( null, nome, descricao, preco );
+	}
+
+	public Produto(Integer id) {
+		this( id, null, null, null );
 	}
 	
 	@Override
@@ -63,7 +68,7 @@ public class ProdutoEntity {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ProdutoEntity other = (ProdutoEntity) obj;
+		Produto other = (Produto) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

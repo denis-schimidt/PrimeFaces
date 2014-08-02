@@ -1,36 +1,53 @@
 package br.com.schimidtsolutions.jsf;
 
+import java.util.List;
+
 import javax.enterprise.context.RequestScoped;
 import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.Transactional;
 
-import br.com.schimidtsolutions.jsf.binding.Produto;
+import br.com.schimidtsolutions.jsf.binding.ProdutoBinding;
 import br.com.schimidtsolutions.jsf.dao.DAO;
-import br.com.schimidtsolutions.jsf.entity.ProdutoEntity;
+import br.com.schimidtsolutions.jsf.entity.Produto;
 
 @Named
 @RequestScoped
 public class ProdutoBean {
 
 	@Inject
-	private DAO<ProdutoEntity> dao;
+	private DAO<Produto> dao;
 	
-	private Produto produto;
+	@Inject
+	private ProdutoBinding produtoBinding;
 	
-	public ProdutoBean() {
-		produto = new Produto();
-	}
+	private List<Produto> produtos;
 	
 	@Transactional
 	public void inserirNovoProduto( ActionEvent actionEvent ){
-		dao.adicionar( new ProdutoEntity( produto.getNome(), produto.getDescricao(), produto.getPreco() ) );
 		
-		this.produto = new Produto();
+		dao.adicionar( produtoBinding.toEntity() );
+		
+		resetarBindings();
 	}
 	
-	public Produto getProduto() {
-		return produto;
+	@Transactional
+	public List<Produto> getProdutos(){
+		
+		if( produtos == null ){
+			produtos = dao.listarTudo();
+		}
+		
+		return produtos;
+	}
+	
+	public ProdutoBinding getProduto() {
+		return produtoBinding;
+	}
+	
+	private void resetarBindings() {
+		produtoBinding = new ProdutoBinding();
+		produtos = dao.listarTudo();
 	}
 }

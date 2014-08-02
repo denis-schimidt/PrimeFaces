@@ -22,7 +22,7 @@ import br.com.caelum.stella.bean.validation.CNPJ;
 
 @Entity
 @Table(schema="development", name="NOTA_FISCAL")
-public class NotaFiscalEntity {
+public class NotaFiscal {
 
 	@Id
 	@SequenceGenerator( schema="development", sequenceName="NOTA_FISCAL_SEQ", initialValue=1, allocationSize=1, name="NotaFiscalGenerator")
@@ -41,16 +41,16 @@ public class NotaFiscalEntity {
 	private Calendar data;
 
 	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH, CascadeType.REMOVE}, fetch=FetchType.LAZY, mappedBy="notaFiscal")
-	private List<ItemEntity> itens;
+	private List<Item> itens;
 	
-	NotaFiscalEntity() {}
+	NotaFiscal() {}
 	
-	public NotaFiscalEntity(String cnpj, Calendar data) {
+	public NotaFiscal(String cnpj, Calendar data) {
 		this.cnpj = cnpj;
 		this.data = data;
 	}
 	
-	public NotaFiscalEntity(Integer id) {
+	public NotaFiscal(Integer id) {
 		this.id = id;
 	}
 	
@@ -77,7 +77,7 @@ public class NotaFiscalEntity {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		NotaFiscalEntity other = (NotaFiscalEntity) obj;
+		NotaFiscal other = (NotaFiscal) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -98,7 +98,7 @@ public class NotaFiscalEntity {
 		return data;
 	}
 	
-	public List<ItemEntity> getItens() {
+	public List<Item> getItens() {
 		return itens;
 	}
 }
