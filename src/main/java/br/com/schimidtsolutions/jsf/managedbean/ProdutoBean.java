@@ -24,17 +24,6 @@ public class ProdutoBean {
 	private ProdutoBinding produtoBinding;
 	private List<ProdutoBinding> produtosBinding;
 
-	private void atualizarProdutosDoBancoDeDados() {
-
-		List<Produto> produtos = dao.listarTudo();
-
-		produtosBinding = new ArrayList<ProdutoBinding>( produtos.size() );
-
-		for (Produto produto : produtos) {
-			produtosBinding.add(new ProdutoBinding().fromEntity(produto));
-		}
-	}
-
 	@Transactional
 	@Logged
 	public void incluirProduto() {
@@ -59,9 +48,20 @@ public class ProdutoBean {
 
 		return produtosBinding;
 	}
-
+	
 	public ProdutoBinding getProduto() {
 		return produtoBinding;
+	}
+
+	private void atualizarProdutosDoBancoDeDados() {
+
+		List<Produto> produtos = dao.listarTudo();
+
+		produtosBinding = new ArrayList<ProdutoBinding>( produtos.size() );
+
+		for (Produto produto : produtos) {
+			produtosBinding.add(new ProdutoBinding().fromEntity(produto));
+		}
 	}
 
 	private void resetBindings() {
