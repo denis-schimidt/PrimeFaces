@@ -48,6 +48,10 @@ public class ProdutoBean implements Serializable {
 
 		resetBindings();
 	}
+	
+	public void cancelarEdicao(){
+		resetBindings();
+	}
 
 	public List<ProdutoBinding> getProdutos() {
 
@@ -61,7 +65,7 @@ public class ProdutoBean implements Serializable {
 	public ProdutoBinding getProduto() {
 		return produtoBinding;
 	}
-	
+
 	public void setProdutoASerAlterado(ProdutoBinding produtoASerAlterado) {
 		this.produtoBinding = produtoASerAlterado;
 	}
