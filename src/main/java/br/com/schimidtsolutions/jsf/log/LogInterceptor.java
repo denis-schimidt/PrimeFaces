@@ -1,5 +1,6 @@
 package br.com.schimidtsolutions.jsf.log;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 import javax.inject.Inject;
@@ -11,7 +12,9 @@ import org.slf4j.Logger;
 
 @Logged
 @Interceptor
-public class LogInterceptor {
+public class LogInterceptor implements Serializable{
+	private static final long serialVersionUID = -5008586620145003251L;
+
 	private static final String METODO_VOID = "void";
 	
 	@Inject

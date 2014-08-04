@@ -1,8 +1,9 @@
 package br.com.schimidtsolutions.jsf.dao;
 
+import java.io.Serializable;
 import java.util.List;
 
-public interface DAOSomenteLeitura<T> {
+public interface DAOSomenteLeitura<T> extends Serializable {
 
 	public <ID> T pesquisarPorId( ID identity );
 

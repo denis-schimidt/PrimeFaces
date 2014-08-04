@@ -7,6 +7,7 @@ import javax.persistence.TypedQuery;
 import javax.validation.constraints.NotNull;
 
 class DAOGenerico<T> implements DAO<T> {
+	private static final long serialVersionUID = -4243971431843540736L;
 
 	@NotNull(message="A classe genérica do DAO não pode ser nula!")
 	private Class<T> classeEntidade;
@@ -56,7 +57,7 @@ class DAOGenerico<T> implements DAO<T> {
 	}
 
 	@Override
-	public <ID> void apagar(ID IdEntidade) {
+	public <ID> void apagarPorId(ID IdEntidade) {
 		em.remove( pesquisarPorId( IdEntidade ) );		
 	}
 	
@@ -66,5 +67,10 @@ class DAOGenerico<T> implements DAO<T> {
 		private static <T> String gerarSelect( Class<T> classeEntidade ){
 			return String.format( SELECT_GENERICO, classeEntidade.getSimpleName() );
 		}
+	}
+
+	@Override
+	public void apagar(T entidade) {
+		em.remove( em.merge( entidade ) );
 	}
 }

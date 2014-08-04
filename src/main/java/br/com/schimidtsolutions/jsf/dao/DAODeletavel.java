@@ -1,6 +1,10 @@
 package br.com.schimidtsolutions.jsf.dao;
 
-public interface DAODeletavel {
+import java.io.Serializable;
 
-	public <ID> void apagar( ID IdEntidade );
+public interface DAODeletavel<T> extends Serializable {
+
+	public <ID> void apagarPorId( ID IdEntidade );
+	
+	public void apagar(T entidade);
 }
