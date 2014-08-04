@@ -1,10 +1,12 @@
 package br.com.schimidtsolutions.jsf.binding;
 
+import java.io.Serializable;
 
-public interface Binding<T> {
 
-	public abstract void fromEntity(T entidade);
+public interface Binding<Entity,DTOBinding> extends Serializable{
 
-	public abstract T toEntity();
+	public abstract DTOBinding fromEntity(Entity entidade);
+
+	public abstract Entity toEntity();
 
 }

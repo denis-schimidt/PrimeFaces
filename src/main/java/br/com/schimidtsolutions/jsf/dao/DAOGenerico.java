@@ -13,7 +13,7 @@ class DAOGenerico<T> implements DAO<T> {
 	
 	@NotNull(message="O EntityManager não pode ser nulo para o DAOGenérico!")
 	private EntityManager em;
-
+	
 	public DAOGenerico(Class<T> classEntity, EntityManager em) {
 		this.classeEntidade = classEntity;
 		this.em = em;
@@ -24,15 +24,6 @@ class DAOGenerico<T> implements DAO<T> {
 		em.persist( entity );
 		
 		return entity;
-	}
-	
-	@Override
-	public void apagar( T entidade ){
-		T entidadeManaged = pesquisarPorId( entidade );
-		
-		if( entidadeManaged != null ){
-			em.remove( entidadeManaged );
-		}
 	}
 	
 	@Override
@@ -52,12 +43,21 @@ class DAOGenerico<T> implements DAO<T> {
 		return query.getResultList();
 	}
 	
-
 	@Override
 	public List<T> listarTudo(){
 		TypedQuery<T> query = em.createQuery( JpqlHelper.gerarSelect( classeEntidade ), classeEntidade );
 		
 		return query.getResultList();
+	}
+	
+	@Override
+	public void atualizar( T entity ){
+		em.merge( entity );
+	}
+
+	@Override
+	public <ID> void apagar(ID IdEntidade) {
+		em.remove( pesquisarPorId( IdEntidade ) );		
 	}
 	
 	private static class JpqlHelper {
@@ -66,10 +66,5 @@ class DAOGenerico<T> implements DAO<T> {
 		private static <T> String gerarSelect( Class<T> classeEntidade ){
 			return String.format( SELECT_GENERICO, classeEntidade.getSimpleName() );
 		}
-	}
-	
-	@Override
-	public void atualizar( T entity ){
-		em.merge( entity );
 	}
 }

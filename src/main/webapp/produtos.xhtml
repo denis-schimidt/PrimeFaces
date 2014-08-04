@@ -23,8 +23,34 @@
 			<h:outputLabel value="Preço:" for="campoPreco" />
 			<h:inputText id="campoPreco" value="#{produtoBean.produto.preco}"/>
 			
-			<h:commandButton id="botaoGravar" value="Gravar" actionListener="#{produtoBean.inserirNovoProduto}" />
+			<h:commandButton id="botaoGravar" value="Gravar" action="#{produtoBean.incluirProduto}" />
 		</h:panelGrid>
 	</h:form>
+	
+	<br/>
+	
+	<h:form>
+		<h:dataTable value="#{produtoBean.produtos}" var="produto" rendered="#{not empty produtoBean.produtos}">
+			<h:column>
+				<f:facet name="header">Nome</f:facet>
+				#{produto.nome}
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Descrição</f:facet>
+				#{produto.descricao}
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Preço</f:facet>
+				#{produto.preco}
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Ações</f:facet>
+				<h:commandLink action="#{produtoBean.excluirProduto(produto)}" value="Remover"/>
+			</h:column>
+		</h:dataTable>
+	</h:form>	
 </h:body>
 </html>

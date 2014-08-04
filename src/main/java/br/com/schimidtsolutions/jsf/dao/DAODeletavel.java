@@ -1,6 +1,6 @@
 package br.com.schimidtsolutions.jsf.dao;
 
-public interface DAODeletavel<T> {
+public interface DAODeletavel {
 
-	public abstract void apagar(T identity);
+	public <ID> void apagar( ID IdEntidade );
 }

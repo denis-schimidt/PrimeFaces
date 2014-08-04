@@ -9,7 +9,7 @@ import javax.persistence.PersistenceContext;
 
 public class DAOFactory<T> {
 
-	@PersistenceContext(unitName="estudo")
+	@PersistenceContext(name="estudo")
 	private EntityManager em;
 	
 	@Produces

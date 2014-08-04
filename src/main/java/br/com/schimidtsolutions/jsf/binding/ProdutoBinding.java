@@ -4,7 +4,8 @@ import java.math.BigDecimal;
 
 import br.com.schimidtsolutions.jsf.entity.Produto;
 
-public class ProdutoBinding implements Binding<Produto>{
+public class ProdutoBinding implements Binding<Produto, ProdutoBinding>{
+	private static final long serialVersionUID = 3695699891016105184L;
 	private Integer id;
 	private String nome;
 	private String descricao;
@@ -43,11 +44,13 @@ public class ProdutoBinding implements Binding<Produto>{
 	}
 
 	@Override
-	public void fromEntity( Produto produto ){
+	public ProdutoBinding fromEntity( Produto produto ){
 		this.id = produto.getId();
 		this.nome = produto.getNome();
 		this.descricao = produto.getDescricao();
 		this.preco = produto.getPreco();
+		
+		return this;
 	}
 	
 	@Override

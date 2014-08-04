@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE project> 
+<configuration status="WARN">
+	<appenders>
+		<Console name="ConsoleAppender" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+		</Console>
+
+		<File name="FileAppender" fileName="logs/app.log" immediateFlush="true">
+			<PatternLayout pattern="%d{dd-MM-yyyy HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+		</File>
+
+		<Async name="AsyncAppender">
+			<AppenderRef ref="ConsoleAppender" />
+			<AppenderRef ref="FileAppender" />
+		</Async>
+	</appenders>
+
+	<loggers>
+		<root level="INFO">
+			<appender-ref ref="AsyncAppender" />
+		</root>
+	</loggers>
+</configuration>
