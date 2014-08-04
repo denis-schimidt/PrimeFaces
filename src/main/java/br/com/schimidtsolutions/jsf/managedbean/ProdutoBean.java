@@ -49,7 +49,7 @@ public class ProdutoBean implements Serializable {
 		resetBindings();
 	}
 	
-	public void cancelarEdicao(){
+	public void cancelarAlteracaoProduto(){
 		resetBindings();
 	}
 
