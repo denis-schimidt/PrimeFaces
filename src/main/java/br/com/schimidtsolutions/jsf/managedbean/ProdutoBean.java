@@ -4,11 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.Transactional;
-
-import org.omnifaces.cdi.ViewScoped;
 
 import br.com.schimidtsolutions.jsf.binding.ProdutoBinding;
 import br.com.schimidtsolutions.jsf.dao.DAO;
@@ -43,8 +42,8 @@ public class ProdutoBean implements Serializable {
 
 	@Transactional
 	@Logged
-	public void excluirProduto( ProdutoBinding produtoAExcluir ) {
-		dao.apagar( produtoAExcluir.toEntity() );
+	public void excluirProduto( ProdutoBinding produto ) {
+		dao.apagar( produto.toEntity() );
 
 		resetBindings();
 	}
@@ -66,10 +65,10 @@ public class ProdutoBean implements Serializable {
 		return produtoBinding;
 	}
 
-	public void setProdutoASerAlterado(ProdutoBinding produtoASerAlterado) {
-		this.produtoBinding = produtoASerAlterado;
+	public void exibirProdutoAlteracao(ProdutoBinding produtoAAlterar) {
+		this.produtoBinding = produtoAAlterar;
 	}
-
+	
 	private void atualizarProdutosDoBancoDeDados() {
 
 		List<Produto> produtos = dao.listarTudo();

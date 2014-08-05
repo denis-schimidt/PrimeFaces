@@ -11,12 +11,14 @@
 </h:head>
 
 <h:body>
+	<h:outputScript name="jsf.js" library="javax.faces" target="head"/>
+
 	<h2>
 		<h:outputText rendered="#{empty produtoBean.produto.id}" value="Novo Produto" />
 		<h:outputText rendered="#{not empty produtoBean.produto.id}" value="Editar Produto" />
 	</h2>
 
-	<h:form>
+	<h:form id="formCadastroProduto">
 		<h:panelGrid columns="2">
 		
 			<h:outputLabel value="Nome:" for="campoNome" />
@@ -28,14 +30,19 @@
 			<h:outputLabel value="Preço:" for="campoPreco" />
 			<h:inputText id="campoPreco" value="#{produtoBean.produto.preco}"/>
 			
-			<h:commandButton id="botaoGravar" value="Gravar" action="#{produtoBean.salvarProduto}" />
-			<h:commandButton id="botaoCancelar" value="Cancelar" action="#{produtoBean.cancelarAlteracaoProduto}" rendered="#{not empty produtoBean.produto.id}"/>
+			<h:commandButton id="botaoGravar" value="Gravar" action="#{produtoBean.salvarProduto}">
+				<f:ajax execute="@form" render="@form formListagemProdutos" />
+			</h:commandButton>
+			
+			<h:commandButton id="botaoCancelar" value="Cancelar" rendered="#{not empty produtoBean.produto.id}" >
+				<f:ajax render="@form" listener="#{produtoBean.cancelarAlteracaoProduto}" />
+			</h:commandButton>
 		</h:panelGrid>
 	</h:form>
 	
 	<br/>
 	
-	<h:form>
+	<h:form id="formListagemProdutos">
 		<h:dataTable value="#{produtoBean.produtos}" var="produto" rendered="#{not empty produtoBean.produtos}">
 			<h:column>
 				<f:facet name="header">Nome</f:facet>
@@ -54,9 +61,13 @@
 			
 			<h:column>
 				<f:facet name="header">Ações</f:facet>
-				<h:commandLink value="Remover" action="#{produtoBean.excluirProduto(produto)}" style="margin:0px 10px 0px 0px" />
-				<h:commandLink value="Alterar">
-					<f:setPropertyActionListener value="#{produto}" target="#{produtoBean.produtoASerAlterado}" />
+				
+				<h:commandLink value="Remover" action="#{produtoBean.excluirProduto(produto)}" style="margin:0px 10px 0px 0px">
+					<f:ajax render="@form" />
+				</h:commandLink>
+				
+				<h:commandLink value="Alterar" action="#{produtoBean.exibirProdutoAlteracao(produto)}">
+					<f:ajax render="formCadastroProduto" />
 				</h:commandLink>
 			</h:column>
 		</h:dataTable>
