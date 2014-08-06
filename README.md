@@ -1,4 +1,5 @@
 PrimeFaces
 ==========
 
-Projeto com JSF, CDI, JPA e Transaçao JTA (ORACLE)
+Projeto com JSF, CDI, JPA, Wildfly com Transaçao JTA (ORACLE)
+
