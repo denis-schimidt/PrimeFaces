@@ -23,7 +23,7 @@ public class Produto {
 	@Column(name="NOME", insertable=true, length=50, nullable=false, updatable=true )
 	private String nome;
 	
-	@Column(name="DESCRICAO", insertable=true, length=150, nullable=false, updatable=true )
+	@Column(name="DESCRICAO", insertable=true, length=600, nullable=false, updatable=true )
 	private String descricao;
 	
 	@Column(name="PRECO", insertable=true, nullable=false, updatable=true, precision=10, scale=2)

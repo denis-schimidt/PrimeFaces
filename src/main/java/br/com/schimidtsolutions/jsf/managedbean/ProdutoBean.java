@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -18,13 +19,15 @@ import br.com.schimidtsolutions.jsf.log.Logged;
 @ViewScoped
 public class ProdutoBean implements Serializable {
 	private static final long serialVersionUID = -3828914192996921905L;
-
+	
 	@Inject
 	private DAO<Produto> dao;
 	
 	@Inject
 	private ProdutoBinding produtoBinding;
 	private List<ProdutoBinding> produtosBinding;
+	
+	private List<SelectItem> listaPrecos;
 	
 	@Transactional
 	@Logged
@@ -42,7 +45,7 @@ public class ProdutoBean implements Serializable {
 
 	@Transactional
 	@Logged
-	public void excluirProduto( ProdutoBinding produto ) {
+	public void excluirProduto( final ProdutoBinding produto ) {
 		dao.apagar( produto.toEntity() );
 
 		resetBindings();
@@ -55,7 +58,7 @@ public class ProdutoBean implements Serializable {
 	public List<ProdutoBinding> getProdutos() {
 
 		if (produtosBinding == null) {
-			atualizarProdutosDoBancoDeDados();
+			atualizarListaProdutosDoBancoDeDados();
 		}
 
 		return produtosBinding;
@@ -65,23 +68,27 @@ public class ProdutoBean implements Serializable {
 		return produtoBinding;
 	}
 
-	public void exibirProdutoAlteracao(ProdutoBinding produtoAAlterar) {
-		this.produtoBinding = produtoAAlterar;
+	public void exibirProdutoAlteracao(final ProdutoBinding produtoAAlterar) {
+		produtoBinding = produtoAAlterar;
 	}
 	
-	private void atualizarProdutosDoBancoDeDados() {
+	public List<SelectItem> getListaPrecos(){
+		return listaPrecos;
+	}
+	
+	private void atualizarListaProdutosDoBancoDeDados() {
 
-		List<Produto> produtos = dao.listarTudo();
+		final List<Produto> produtos = dao.listarTudo();
 
 		produtosBinding = new ArrayList<ProdutoBinding>( produtos.size() );
-
-		for (Produto produto : produtos) {
+		
+		for (final Produto produto : produtos) {
 			produtosBinding.add(new ProdutoBinding().fromEntity(produto));
 		}
-	}
+	} 
 
 	private void resetBindings() {
 		produtoBinding = new ProdutoBinding();
-		atualizarProdutosDoBancoDeDados();
+		atualizarListaProdutosDoBancoDeDados();
 	}
 }

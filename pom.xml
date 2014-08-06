@@ -10,9 +10,21 @@
 	<name>jsf</name>
 
 	<properties>
-		<endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+
+	<repositories>
+		<repository>
+			<id>Primefaces</id>
+			<url>http://repository.primefaces.org/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
 
 	<dependencies>
 		<dependency>
@@ -22,11 +34,20 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- <dependency>
-			<groupId>org.omnifaces</groupId>
-			<artifactId>omnifaces</artifactId>
-			<version>1.8.1</version>
-		</dependency> -->
+		<!-- <dependency> <groupId>org.omnifaces</groupId> <artifactId>omnifaces</artifactId> 
+			<version>1.8.1</version> </dependency> -->
+			
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+			<version>5.0</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.primefaces.themes</groupId>
+			<artifactId>bootstrap</artifactId>
+			<version>1.0.8</version>
+		</dependency>
 
 		<dependency>
 			<groupId>br.com.caelum.stella</groupId>
