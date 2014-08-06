@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -26,8 +25,6 @@ public class ProdutoBean implements Serializable {
 	@Inject
 	private ProdutoBinding produtoBinding;
 	private List<ProdutoBinding> produtosBinding;
-	
-	private List<SelectItem> listaPrecos;
 	
 	@Transactional
 	@Logged
@@ -70,10 +67,6 @@ public class ProdutoBean implements Serializable {
 
 	public void exibirProdutoAlteracao(final ProdutoBinding produtoAAlterar) {
 		produtoBinding = produtoAAlterar;
-	}
-	
-	public List<SelectItem> getListaPrecos(){
-		return listaPrecos;
 	}
 	
 	private void atualizarListaProdutosDoBancoDeDados() {
