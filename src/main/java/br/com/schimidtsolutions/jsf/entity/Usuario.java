@@ -29,18 +29,10 @@ public class Usuario implements IUsuario {
 
 	Usuario() {}
 	
-	public Usuario(final Integer id) {
-		this.id = id;
-	}
-
-	public Usuario(final String login, final String senha) {
-		this.login = login;
-		this.senha = senha;
-	}
-	
-	public Usuario(final Integer id, final String login, final String senha) {
-		this( login, senha );
-		this.id = id;
+	public Usuario( final Builder builder ) {
+		login = builder.login;
+		senha = builder.senha;
+		id = builder.id;
 	}
 
 	@Override
@@ -91,5 +83,39 @@ public class Usuario implements IUsuario {
 	@Override
 	public String getSenha() {
 		return senha;
+	}
+	
+	public static class Builder{
+		private Integer id;
+		private String login;
+		private String senha;
+		
+		public Integer getId() {
+			return id;
+		}
+		
+		public void setId(final Integer id) {
+			this.id = id;
+		}
+		
+		public String getLogin() {
+			return login;
+		}
+		
+		public void setLogin(final String login) {
+			this.login = login;
+		}
+		
+		public String getSenha() {
+			return senha;
+		}
+		
+		public void setSenha(final String senha) {
+			this.senha = senha;
+		}
+		
+		public Usuario create(){
+			return new Usuario( this );
+		}
 	}
 }

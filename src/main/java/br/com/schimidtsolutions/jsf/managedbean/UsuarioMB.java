@@ -1,11 +1,9 @@
-/*package br.com.schimidtsolutions.jsf.managedbean;
+package br.com.schimidtsolutions.jsf.managedbean;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import br.com.schimidtsolutions.jsf.binding.IUsuario;
-import br.com.schimidtsolutions.jsf.binding.UsuarioBinding;
 import br.com.schimidtsolutions.jsf.dao.DAO;
 import br.com.schimidtsolutions.jsf.entity.Usuario;
 
@@ -16,15 +14,15 @@ public class UsuarioMB {
 	@Inject
 	private DAO<Usuario> dao;
 	
-	private UsuarioBinding usuarioBinding;
+	private final Usuario.Builder usuarioEmEdicao = new Usuario.Builder();
 	
 	public Boolean isUsuarioValido(){
-		final IUsuario usuario = dao.pesquisarPorCamposIguaisPreenchidos( usuarioBinding.toEntity() );
+		final Usuario usuario = dao.pesquisarPorCamposIguaisPreenchidos( usuarioEmEdicao.create() );
 		
-		return usuario != null;
+		return Boolean.valueOf( usuario != null );
 	}
 	
-	public UsuarioBinding getUsuario() {
-		return usuarioBinding;
+	public Usuario.Builder getUsuario() {
+		return usuarioEmEdicao;
 	}
-}*/
+}
