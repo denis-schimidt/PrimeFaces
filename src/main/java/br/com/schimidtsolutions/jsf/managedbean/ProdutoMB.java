@@ -43,8 +43,8 @@ public class ProdutoMB implements Serializable {
 
 	@Transactional
 	@Logged
-	public void excluirProduto( final Produto produtoAAlterar ) {
-		dao.apagar( produtoAAlterar );
+	public void excluirProduto( final Produto produto ) {
+		dao.apagar( produto );
 
 		resetBindings();
 	}
@@ -66,8 +66,8 @@ public class ProdutoMB implements Serializable {
 		return produtoEmEdicao;
 	}
 
-	public void exibirProdutoAlteracao(final Produto produtoAAlterar) {
-		produtoEmEdicao = new Produto.Builder( produtoAAlterar );
+	public void exibirProdutoAlteracao(final Produto produto) {
+		produtoEmEdicao = new Produto.Builder( produto );
 	}
 	
 	private void atualizarListaProdutosDoBancoDeDados() {
