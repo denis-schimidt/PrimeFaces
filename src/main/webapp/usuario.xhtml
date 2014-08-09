@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+	<title>Sistema de Notas Fiscais</title>
+	<h:outputScript name="jsf.js" library="javax.faces" />
+	<h:outputStylesheet library="css" name="local.css" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+</h:head>
+
+<h:body>
+	<h:panelGroup layout="block">
+		<p:panelGrid columns="2">
+			<h:outputLabel value="Login" for="campoUsuario" />
+			<p:inputText id="campoUsuario" value="#{usuarioMB.usuario.login}" />
+			<h:outputLabel value="Senha" for="campoSenha" />
+			<p:inputText id="campoSenha" value="#{usuarioMB.usuario.senha}" />
+		</p:panelGrid>
+	</h:panelGroup>
+</h:body>
+
+</html>

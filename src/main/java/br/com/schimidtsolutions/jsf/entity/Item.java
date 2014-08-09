@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import br.com.schimidtsolutions.jsf.binding.IProduto;
+
 @Entity
 @Table(schema="development", name="ITEM")
 public class Item {
@@ -36,11 +38,11 @@ public class Item {
 
 	Item() {}
 	
-	public Item(Integer id) {
+	public Item(final Integer id) {
 		this.id = id;
 	}
 
-	public Item(NotaFiscal notaFiscal, Produto produto, Integer quantidade, BigDecimal valorUnitario) {
+	public Item(final NotaFiscal notaFiscal, final Produto produto, final Integer quantidade, final BigDecimal valorUnitario) {
 		this.notaFiscal = notaFiscal;
 		this.produto = produto;
 		this.quantidade = quantidade;
@@ -57,37 +59,46 @@ public class Item {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + (id == null ? 0 : id.hashCode());
 		result = prime * result
-				+ ((notaFiscal == null) ? 0 : notaFiscal.hashCode());
-		result = prime * result + ((produto == null) ? 0 : produto.hashCode());
+				+ (notaFiscal == null ? 0 : notaFiscal.hashCode());
+		result = prime * result + (produto == null ? 0 : produto.hashCode());
 		return result;
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
+	public boolean equals(final Object obj) {
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
-		Item other = (Item) obj;
+		}
+		final Item other = (Item) obj;
 		if (id == null) {
-			if (other.id != null)
+			if (other.id != null) {
 				return false;
-		} else if (!id.equals(other.id))
+			}
+		} else if (!id.equals(other.id)) {
 			return false;
+		}
 		if (notaFiscal == null) {
-			if (other.notaFiscal != null)
+			if (other.notaFiscal != null) {
 				return false;
-		} else if (!notaFiscal.equals(other.notaFiscal))
+			}
+		} else if (!notaFiscal.equals(other.notaFiscal)) {
 			return false;
+		}
 		if (produto == null) {
-			if (other.produto != null)
+			if (other.produto != null) {
 				return false;
-		} else if (!produto.equals(other.produto))
+			}
+		} else if (!produto.equals(other.produto)) {
 			return false;
+		}
 		return true;
 	}
 
@@ -99,7 +110,7 @@ public class Item {
 		return notaFiscal;
 	}
 
-	public Produto getProduto() {
+	public IProduto getProduto() {
 		return produto;
 	}
 
