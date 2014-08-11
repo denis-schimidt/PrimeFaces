@@ -10,11 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import br.com.schimidtsolutions.jsf.binding.IProduto;
-
 @Entity
 @Table(schema="development", name="PRODUTO")
-public class Produto implements IProduto {
+public class Produto {
 	
 	@Id
 	@SequenceGenerator( schema="development", sequenceName="PRODUTO_SEQ", initialValue=1, allocationSize=1, name="ProdutoGenerator")
@@ -76,22 +74,18 @@ public class Produto implements IProduto {
 		return true;
 	}
 
-	@Override
 	public Integer getId() {
 		return id;
 	}
 
-	@Override
 	public String getNome() {
 		return nome;
 	}
 
-	@Override
 	public String getDescricao() {
 		return descricao;
 	}
 
-	@Override
 	public BigDecimal getPreco() {
 		return preco;
 	}

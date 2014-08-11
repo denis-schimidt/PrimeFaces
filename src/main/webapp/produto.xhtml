@@ -51,8 +51,8 @@
 	<div class="duplaLinhaEmBranco"/>
 	
 	<h:form id="formListagemProdutos">
-		<p:dataTable value="#{produtoMB.produtos}" var="produto" rendered="#{not empty produtoMB.produtos}" paginatorAlwaysVisible="false"  paginator="true" rows="10">
-			<p:column sortBy="#{produto.nome}" headerText="Nome" filterMatchMode="contains" filterBy="#{produto.nome}">
+		<p:dataTable value="#{produtoMB.produtos}" var="produto" rendered="#{not empty produtoMB.produtos}" paginatorAlwaysVisible="false"  paginator="true" rows="2">
+			<p:column headerText="Nome" sortBy="#{produto.nome}" filterMatchMode="contains" filterBy="#{produto.nome}">
 				<h:outputText value="#{produto.nome}" />
 			</p:column>
 			
@@ -60,7 +60,7 @@
 				<h:outputText value="#{produto.descricao}" />
 			</p:column>
 			
-			<p:column sortBy="#{produto.preco}" headerText="Preço" styleClass="textoADireita" filterMatchMode="contains" filterBy="#{produto.preco}">
+			<p:column headerText="Preço" sortBy="#{produto.preco}" styleClass="textoADireita" filterMatchMode="contains" filterBy="#{produto.preco}">
 					
 				<h:outputText value="#{produto.preco}">
 					<f:convertNumber type="currency" minFractionDigits="2" maxFractionDigits="2"/>

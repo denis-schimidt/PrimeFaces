@@ -9,11 +9,9 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import br.com.schimidtsolutions.jsf.binding.IUsuario;
-
 @Entity
 @Table(schema="development", name="USUARIO", uniqueConstraints=@UniqueConstraint(columnNames={"login"}) )
-public class Usuario implements IUsuario {
+public class Usuario{
 		
 	@Id
 	@SequenceGenerator( schema="development", sequenceName="USUARIO_SEQ", initialValue=1, allocationSize=1, name="UsuarioGenerator")
@@ -70,17 +68,14 @@ public class Usuario implements IUsuario {
 		return true;
 	}
 
-	@Override
 	public Integer getId() {
 		return id;
 	}
 
-	@Override
 	public String getLogin() {
 		return login;
 	}
 
-	@Override
 	public String getSenha() {
 		return senha;
 	}

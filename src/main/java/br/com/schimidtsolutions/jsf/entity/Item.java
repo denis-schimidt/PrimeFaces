@@ -12,8 +12,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import br.com.schimidtsolutions.jsf.binding.IProduto;
-
 @Entity
 @Table(schema="development", name="ITEM")
 public class Item {
@@ -110,7 +108,7 @@ public class Item {
 		return notaFiscal;
 	}
 
-	public IProduto getProduto() {
+	public Produto getProduto() {
 		return produto;
 	}
 

@@ -9,7 +9,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.Transactional;
 
-import br.com.schimidtsolutions.jsf.binding.IProduto;
 import br.com.schimidtsolutions.jsf.dao.DAO;
 import br.com.schimidtsolutions.jsf.entity.Produto;
 import br.com.schimidtsolutions.jsf.log.Logged;
@@ -24,7 +23,7 @@ public class ProdutoMB implements Serializable {
 	
 	private Produto.Builder produtoEmEdicao = new Produto.Builder();
 
-	private List<IProduto> listaProdutos;
+	private List<Produto.Builder> listaProdutos;
 	
 	@Transactional
 	@Logged
@@ -43,8 +42,8 @@ public class ProdutoMB implements Serializable {
 
 	@Transactional
 	@Logged
-	public void excluirProduto( final Produto produto ) {
-		dao.apagar( produto );
+	public void excluirProduto( final Produto.Builder produto ) {
+		dao.apagar( produto.create() );
 
 		resetBindings();
 	}
@@ -53,7 +52,7 @@ public class ProdutoMB implements Serializable {
 		resetBindings();
 	}
 
-	public List<IProduto> getProdutos() {
+	public List<Produto.Builder> getProdutos() {
 
 		if (listaProdutos == null) {
 			atualizarListaProdutosDoBancoDeDados();
@@ -66,12 +65,17 @@ public class ProdutoMB implements Serializable {
 		return produtoEmEdicao;
 	}
 
-	public void exibirProdutoAlteracao(final Produto produto) {
-		produtoEmEdicao = new Produto.Builder( produto );
+	public void exibirProdutoAlteracao(final Produto.Builder produto) {
+		produtoEmEdicao = produto;
 	}
 	
 	private void atualizarListaProdutosDoBancoDeDados() {
-		listaProdutos = new ArrayList<IProduto>( dao.listarTudo() );
+		final List<Produto> produtos = dao.listarTudo();
+		listaProdutos = new ArrayList<>( produtos.size() );
+		
+		for (final Produto produto : produtos) {
+			listaProdutos.add( new Produto.Builder(produto) );
+		}
 	} 
 
 	private void resetBindings() {

@@ -22,7 +22,7 @@ public final class RequestAttributeLogFilter implements Filter {
 
 	@Override
 	public void destroy() {
-		log.debug( "Destruindo RequestAttributeLogFilter...");
+		log.info( "Destruindo RequestAttributeLogFilter...");
 	}
 
 	@Override
@@ -33,7 +33,7 @@ public final class RequestAttributeLogFilter implements Filter {
 		for( final String key : httpServletRequest.getParameterMap().keySet() ){
 			
 			for( final String value : httpServletRequest.getParameterMap().get(key) ){
-				log.debug( String.format( "Parametro %s -> %s", key, value ) );
+				log.info( String.format( "Parametro %s -> %s", key, value ) );
 			}
 		}
 		
@@ -42,6 +42,6 @@ public final class RequestAttributeLogFilter implements Filter {
 
 	@Override
 	public void init(final FilterConfig fConfig) throws ServletException {
-		log.debug( "Iniciando o RequestAttributeLogFilter...");
+		log.info( "Iniciando o RequestAttributeLogFilter...");
 	}
 }
