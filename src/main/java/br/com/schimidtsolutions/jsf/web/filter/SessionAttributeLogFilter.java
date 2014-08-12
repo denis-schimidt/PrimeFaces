@@ -13,13 +13,12 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 
-@WebFilter(urlPatterns = { "/*" }, description = "Parâmetros da Sessão")
+//@WebFilter(urlPatterns = { "/*" }, description = "Parâmetros da Sessão")
 public class SessionAttributeLogFilter implements Filter {
 
 	@Inject
@@ -41,7 +40,7 @@ public class SessionAttributeLogFilter implements Filter {
 			final Object attribute = session.getAttribute(name);
 
 			if (attribute instanceof HashMap) {
-				log.info("------ IDS DA ARVORE -------");
+				log.debug("------ IDS DA ARVORE -------");
 
 				@SuppressWarnings("unchecked")
 				final HashMap<String, Object> originalViews = (HashMap<String, Object>) attribute;
@@ -51,23 +50,23 @@ public class SessionAttributeLogFilter implements Filter {
 				int i = 0;
 				
 				for (final String key : keySet) {
-					log.info( String.format("%d ID: %s %n" , ++i, key) ); // Bug Log4J2
+					log.debug( String.format("%d ID: %s %n" , ++i, key) ); // Bug Log4J2
 				}
 
-				log.info("------ FIM IDS -------");
+				log.debug("------ FIM IDS -------");
 			}
 			
-			log.info("OUTROS ATTRIBUTOS DA SESSAO: " + name);
+			log.debug("OUTROS ATTRIBUTOS DA SESSAO: " + name);
 		}
 	}
 
 	@Override
 	public void destroy() {
-		log.info( "Destruindo SessionAttributeLogFilter..." );
+		log.debug( "Destruindo SessionAttributeLogFilter..." );
 	}
 
 	@Override
 	public void init(final FilterConfig arg0) throws ServletException {
-		log.info( "Iniciando SessionAttributeLogFilter..." );
+		log.debug( "Iniciando SessionAttributeLogFilter..." );
 	}
 }

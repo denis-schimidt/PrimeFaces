@@ -28,6 +28,8 @@ public class ProdutoMB implements Serializable {
 	
 	private List<ProdutoBinding> listaProdutos;
 	
+	private List<ProdutoBinding> listaProdutosFiltrado;
+	
 	@Transactional
 	@Logged
 	public void salvarProduto() {
@@ -72,13 +74,13 @@ public class ProdutoMB implements Serializable {
 		produtoEditavel = produto;
 	}
 	
-/*	public void atualizarDataTable(final DataTable dataTable) {
-		final Map<String, Object> filters = dataTable.getFilters();
-		
-		if( filters != null && !filters.isEmpty() ){
-			
-		}
-	}*/
+	public List<ProdutoBinding> getListaProdutosFiltrado() {
+		return listaProdutosFiltrado;
+	}
+	
+	public void setListaProdutosFiltrado( final List<ProdutoBinding> listaProdutosFiltrado) {
+		this.listaProdutosFiltrado = listaProdutosFiltrado;
+	}
 	
 	private void atualizarListaProdutosDoBancoDeDados() {
 		final List<Produto> produtos = dao.listarTudo();

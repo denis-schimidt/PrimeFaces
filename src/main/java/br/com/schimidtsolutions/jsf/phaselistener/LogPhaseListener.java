@@ -16,17 +16,17 @@ public class LogPhaseListener implements PhaseListener {
 
 	@PostConstruct
 	public void init(){
-		log.info( "Iniciando LogPhaseListener..." );
+		log.debug( "Iniciando LogPhaseListener..." );
 	}
 	
 	@Override
 	public void afterPhase(final PhaseEvent event) {
-		log.info( "Depois da Fase: " + event.getPhaseId() );
+		log.debug( "Depois da Fase: " + event.getPhaseId() );
 	}
 
 	@Override
 	public void beforePhase(final PhaseEvent event) {
-		log.info( "Antes da Fase: " + event.getPhaseId() );
+		log.debug( "Antes da Fase: " + event.getPhaseId() );
 	}
 
 	@Override
@@ -36,6 +36,6 @@ public class LogPhaseListener implements PhaseListener {
 	
 	@PreDestroy
 	public void destroy(){
-		log.info( "Destruindo LogPhaseListener..." );
+		log.debug( "Destruindo LogPhaseListener..." );
 	}
 }

@@ -51,7 +51,8 @@
 	<div class="duplaLinhaEmBranco"/>
 	
 	<h:form id="formListagemProdutos">
-		<p:dataTable value="#{produtoMB.produtos}" var="produto" sortMode="multiple" rendered="#{not empty produtoMB.produtos}" paginatorAlwaysVisible="false"  paginator="true" rows="2">
+		<p:dataTable value="#{produtoMB.produtos}" var="produto" sortMode="multiple" filteredValue="#{produtoMB.listaProdutosFiltrado}" 
+				rendered="#{not empty produtoMB.produtos}" paginatorAlwaysVisible="false"  paginator="true" rows="5">
 		
 			<p:column headerText="Nome" sortBy="#{produto.nome}" filterMatchMode="contains" filterBy="#{produto.nome}">
 				<h:outputText value="#{produto.nome}" />
