@@ -12,29 +12,32 @@ import javax.transaction.Transactional;
 import br.com.schimidtsolutions.jsf.dao.DAO;
 import br.com.schimidtsolutions.jsf.entity.Produto;
 import br.com.schimidtsolutions.jsf.log.Logged;
+import br.com.schimidtsolutions.jsf.managedbean.binding.ProdutoBindingCopiavel;
+import br.com.schimidtsolutions.jsf.managedbean.interfaces.ProdutoBinding;
 
 @Named
 @ViewScoped
 public class ProdutoMB implements Serializable {
-	private static final long serialVersionUID = -3828914192996921905L;
-	
+	private static final long serialVersionUID = -6530799356937047703L;
+
 	@Inject
 	private DAO<Produto> dao;
 	
-	private Produto.Builder produtoEmEdicao = new Produto.Builder();
-
-	private List<Produto.Builder> listaProdutos;
+	@Inject
+	private ProdutoBinding produtoEditavel;
+	
+	private List<ProdutoBinding> listaProdutos;
 	
 	@Transactional
 	@Logged
 	public void salvarProduto() {
-		final Produto produto = produtoEmEdicao.create();
+		final ProdutoBindingCopiavel produtoEmEdicao = (ProdutoBindingCopiavel) produtoEditavel;
 		
-		if( produto.getId() == null ){
-			dao.adicionar( produto );
+		if( produtoEmEdicao.getId() == null ){
+			dao.adicionar( produtoEmEdicao.paraEntidade() );
 			
 		}else{
-			dao.atualizar( produto );
+			dao.atualizar( produtoEmEdicao.paraEntidade() );
 		}
 
 		resetBindings();
@@ -42,8 +45,8 @@ public class ProdutoMB implements Serializable {
 
 	@Transactional
 	@Logged
-	public void excluirProduto( final Produto.Builder produto ) {
-		dao.apagar( produto.create() );
+	public void excluirProduto( final ProdutoBindingCopiavel produtoBinding ) {
+		dao.apagar( produtoBinding.paraEntidade() );
 
 		resetBindings();
 	}
@@ -52,7 +55,7 @@ public class ProdutoMB implements Serializable {
 		resetBindings();
 	}
 
-	public List<Produto.Builder> getProdutos() {
+	public List<ProdutoBinding> getProdutos() {
 
 		if (listaProdutos == null) {
 			atualizarListaProdutosDoBancoDeDados();
@@ -61,25 +64,36 @@ public class ProdutoMB implements Serializable {
 		return listaProdutos;
 	}
 	
-	public Produto.Builder getProduto() {
-		return produtoEmEdicao;
+	public ProdutoBinding getProduto() {
+		return produtoEditavel;
 	}
 
-	public void exibirProdutoAlteracao(final Produto.Builder produto) {
-		produtoEmEdicao = produto;
+	public void exibirProdutoAlteracao(final ProdutoBinding produto) {
+		produtoEditavel = produto;
 	}
+	
+/*	public void atualizarDataTable(final DataTable dataTable) {
+		final Map<String, Object> filters = dataTable.getFilters();
+		
+		if( filters != null && !filters.isEmpty() ){
+			
+		}
+	}*/
 	
 	private void atualizarListaProdutosDoBancoDeDados() {
 		final List<Produto> produtos = dao.listarTudo();
 		listaProdutos = new ArrayList<>( produtos.size() );
 		
 		for (final Produto produto : produtos) {
-			listaProdutos.add( new Produto.Builder(produto) );
+			final ProdutoBindingCopiavel produtoBinding = new ProdutoBindingCopiavel();
+			produtoBinding.copiarDaEntidade( produto );
+			
+			listaProdutos.add( produtoBinding );
 		}
 	} 
 
 	private void resetBindings() {
-		produtoEmEdicao = new Produto.Builder();
+		produtoEditavel = new ProdutoBindingCopiavel();
 		atualizarListaProdutosDoBancoDeDados();
 	}
 }

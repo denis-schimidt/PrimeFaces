@@ -1,4 +1,4 @@
-package br.com.schimidtsolutions.jsf.log;
+package br.com.schimidtsolutions.jsf.producer;
 
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
@@ -6,10 +6,10 @@ import javax.enterprise.inject.spi.InjectionPoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class LogProducer {
-	
+public class ResourceProducer {
+
 	@Produces
-    Logger getLogger(InjectionPoint ip) {                           
+    Logger newLogger(final InjectionPoint ip) {                           
         return LoggerFactory.getLogger( ip.getMember().getDeclaringClass() );
     }
 }

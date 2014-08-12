@@ -105,20 +105,28 @@ public class Produto {
 			preco = produto.preco;
 		}
 		
-		public void setId(final Integer id) {
+		public Builder comId(final Integer id) {
 			this.id = id;
+			
+			return this;
 		}
 
-		public void setNome(final String nome) {
+		public Builder nome(final String nome) {
 			this.nome = nome;
+			
+			return this;
 		}
 
-		public void setDescricao(final String descricao) {
+		public Builder descritoComo(final String descricao) {
 			this.descricao = descricao;
+			
+			return this;
 		}
 
-		public void setPreco(final BigDecimal preco) {
+		public Builder preco(final BigDecimal preco) {
 			this.preco = preco;
+			
+			return this;
 		}
 
 		public Integer getId() {
