@@ -5,6 +5,7 @@ import br.com.schimidtsolutions.jsf.interfaces.BindingSimplesCopiavel;
 import br.com.schimidtsolutions.jsf.managedbean.interfaces.UsuarioBinding;
 
 public class UsuarioBindingCopiavel implements BindingSimplesCopiavel<Usuario>, UsuarioBinding {
+	private static final long serialVersionUID = 316932677756750576L;
 	private Integer id;
 	private String login;
 	private String senha;

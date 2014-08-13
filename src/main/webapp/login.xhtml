@@ -35,16 +35,16 @@
 			<h:panelGroup layout="block">
 				<h:panelGrid columns="2" styleClass="col-md-2">
 					<h:outputLabel value="Login" for="campoUsuario" />
-					<p:inputText id="campoUsuario" value="#{usuarioMB.usuario.login}"/>
+					<p:inputText id="campoUsuario" value="#{loginBean.usuario.login}"/>
 					<h:outputLabel value="Senha" for="campoSenha" />
-					<p:password id="campoSenha" value="#{usuarioMB.usuario.senha}"/>
+					<p:password id="campoSenha" value="#{loginBean.usuario.senha}"/>
 				</h:panelGrid>
 			</h:panelGroup>
 			
 			<div class="linhaEmBranco"/>
 				
 			<h:panelGroup layout="block">
-				<p:commandButton id="botaoOK" styleClass="btn" process="@form" value="OK" action="#{usuarioMB.isUsuarioValido}" 
+				<p:commandButton id="botaoOK" styleClass="btn" process="@form" value="OK" action="#{loginBean.logar()}" 
 					update="@form" icon="ui-icon-check" />
 			</h:panelGroup>
 				

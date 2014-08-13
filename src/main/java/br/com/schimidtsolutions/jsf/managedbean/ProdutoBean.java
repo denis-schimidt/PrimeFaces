@@ -17,7 +17,7 @@ import br.com.schimidtsolutions.jsf.managedbean.interfaces.ProdutoBinding;
 
 @Named
 @ViewScoped
-public class ProdutoMB implements Serializable {
+public class ProdutoBean implements Serializable {
 	private static final long serialVersionUID = -6530799356937047703L;
 
 	@Inject

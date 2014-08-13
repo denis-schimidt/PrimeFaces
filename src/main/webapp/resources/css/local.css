@@ -24,6 +24,11 @@
 	text-align: center;
 }
 
+#divLogin{
+	width: 100%;
+	text-align: right;
+}
+
 .tituloOperacaoTela{
 	font-size: 30px;
 	font-style: italic;
