@@ -26,25 +26,29 @@ public class LoginBean implements Serializable {
 	private DAO<Usuario> dao;
 	
 	@Inject
-	private UsuarioBinding usuarioEmEdicao;
+	private UsuarioBinding usuario;
 	
 	public String logar(){
-		final UsuarioBindingCopiavel usuarioInformado = (UsuarioBindingCopiavel) usuarioEmEdicao;
+		final UsuarioBindingCopiavel usuarioInformado = (UsuarioBindingCopiavel) usuario;
 		
 		final List<Usuario> usuarios = dao.pesquisarPorCamposIguaisPreenchidos( usuarioInformado.paraEntidade() );
 		
 		if( usuarios != null && !usuarios.isEmpty() ){
 			log.info( "Usuário {} logado com sucesso",  usuarioInformado.getLogin() );
-			return "produto";
+			return "produto?faces-redirect=true";
 			
 		}else{
 			log.info( "Tentativa de login inválido para o usuário {}",  usuarioInformado.getLogin() );
-			usuarioEmEdicao = new UsuarioBindingCopiavel();
+			usuario = new UsuarioBindingCopiavel();
 			return "usuario";
 		}
 	}
 	
 	public UsuarioBinding getUsuario() {
-		return usuarioEmEdicao;
+		return usuario;
+	}
+
+	public boolean isLogado() {
+		return getUsuario() != null;
 	}
 }
