@@ -22,7 +22,7 @@ public class Usuario{
 	@Column(name="LOGIN", insertable=true, length=50, nullable=false, updatable=true )
 	private String login;
 	
-	@Column(name="SENHA", insertable=true, length=50, nullable=false, updatable=true )
+	@Column(name="SENHA", insertable=true, length=12, nullable=false, updatable=true )
 	private String senha;
 
 	Usuario() {}
@@ -85,28 +85,22 @@ public class Usuario{
 		private String login;
 		private String senha;
 		
-		public Integer getId() {
-			return id;
-		}
-		
-		public void setId(final Integer id) {
+		public Builder comId(final Integer id) {
 			this.id = id;
+			
+			return this;
 		}
 		
-		public String getLogin() {
-			return login;
-		}
-		
-		public void setLogin(final String login) {
+		public Builder login(final String login) {
 			this.login = login;
+			
+			return this;
 		}
 		
-		public String getSenha() {
-			return senha;
-		}
-		
-		public void setSenha(final String senha) {
+		public Builder senha(final String senha) {
 			this.senha = senha;
+			
+			return this;
 		}
 		
 		public Usuario create(){

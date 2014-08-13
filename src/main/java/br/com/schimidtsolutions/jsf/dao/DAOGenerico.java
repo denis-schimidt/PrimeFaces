@@ -1,6 +1,7 @@
 package br.com.schimidtsolutions.jsf.dao;
 
-import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -13,6 +14,8 @@ import javax.persistence.criteria.Root;
 import javax.validation.constraints.NotNull;
 
 import org.slf4j.Logger;
+
+import br.com.schimidtsolutions.jsf.util.MetodoObjetoUtil;
 
 class DAOGenerico<T> implements DAO<T> {
 	private static final long serialVersionUID = -4243971431843540736L;
@@ -89,40 +92,38 @@ class DAOGenerico<T> implements DAO<T> {
 	}
 
 	@Override
-	public T pesquisarPorCamposIguaisPreenchidos(final T entidade) {
+	public List<T> pesquisarPorCamposIguaisPreenchidos(final T entidade) {
 		final CriteriaBuilder builder = em.getCriteriaBuilder();
 		final CriteriaQuery<T> query = builder.createQuery( classeEntidade );
 		final Root<T> from = query.from( classeEntidade );
 		
 		final Predicate predicate = gerarPredicateDinamicoCamposPreenchidos(builder, from, entidade );
 		
-		final TypedQuery<T> typedQuery = em.createQuery( query.select( from ).where( predicate ) );
+		final TypedQuery<T> typedQuery = em.createQuery( query.select( from ).where( predicate ) );	
 		
-		return typedQuery.getSingleResult();
+		return typedQuery.getResultList();
 	}
 
-	private Predicate gerarPredicateDinamicoCamposPreenchidos(final CriteriaBuilder builder, final Root<T> from, final T entidade ) {
-		Predicate predicate = builder.and();
-		@SuppressWarnings("unchecked")
-		final Class<T> entidadeConvertida = (Class<T>) entidade;
+	private Predicate gerarPredicateDinamicoCamposPreenchidos( final CriteriaBuilder builder, final Root<T> from, final T entidade ) {
 		
-		for( final Field campo : entidadeConvertida.getDeclaredFields() ){
-			
-			if( campo.isAccessible() ){
-				
-				try {
-					final Object valorCampo = campo.get(campo);
+		Predicate predicate = builder.and();
+		
+		for( final Method method : entidade.getClass().getDeclaredMethods() ){
 					
+			try {
+				if( MetodoObjetoUtil.isMetodoGetter( method ) ){
+					final Object valorCampo = method.invoke( entidade, (Object[]) null);
+				
 					if( valorCampo != null ){
-						final String nomeCampo = campo.getName();
+						final String nomeCampo = MetodoObjetoUtil.obterNomeCampoPeloMetodoAcessorio( method );						
 						
 						predicate = builder.and( predicate, 
 								builder.equal( from.get( nomeCampo ), valorCampo ) );
 					}
-					
-				} catch (final IllegalAccessException e) {
-					log.warn( "Erro no método DAOGenerico<T>.gerarPredicateDinamicoCamposPreenchidos", e );
 				}
+				
+			} catch (final IllegalArgumentException | InvocationTargetException | IllegalAccessException e) {
+				log.warn( "Erro no método DAOGenerico<T>.gerarPredicateDinamicoCamposPreenchidos", e );
 			}
 		}
 		

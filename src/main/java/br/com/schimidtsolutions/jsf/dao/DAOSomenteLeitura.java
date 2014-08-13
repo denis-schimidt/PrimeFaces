@@ -11,5 +11,5 @@ public interface DAOSomenteLeitura<T> extends Serializable {
 
 	public abstract List<T> listarComPaginacao(int paginaInicial, int tamanhoPagina);
 	
-	public T pesquisarPorCamposIguaisPreenchidos( T entidade );
+	public List<T> pesquisarPorCamposIguaisPreenchidos(final T entidade);
 }

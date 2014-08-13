@@ -9,6 +9,19 @@
 	<h:outputScript name="jsf.js" library="javax.faces" />
 	<h:outputStylesheet library="css" name="local.css" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	
+	<style type="text/css">
+		input[type="text"]{
+			width: 100%;
+			size: 60px;
+		}
+		
+		input[type="password"] {
+			size: 25px;
+		}
+
+	</style>
+	
 </h:head>
 
 <h:body>
@@ -22,9 +35,9 @@
 			<h:panelGroup layout="block">
 				<h:panelGrid columns="2" styleClass="col-md-2">
 					<h:outputLabel value="Login" for="campoUsuario" />
-					<p:inputText id="campoUsuario" value="#{usuarioMB.usuario.login}" styleClass="campoUsuario"/>
+					<p:inputText id="campoUsuario" value="#{usuarioMB.usuario.login}"/>
 					<h:outputLabel value="Senha" for="campoSenha" />
-					<p:password id="campoSenha" value="#{usuarioMB.usuario.senha}" styleClass="campoUsuario" />
+					<p:password id="campoSenha" value="#{usuarioMB.usuario.senha}"/>
 				</h:panelGrid>
 			</h:panelGroup>
 			
@@ -32,7 +45,7 @@
 				
 			<h:panelGroup layout="block">
 				<p:commandButton id="botaoOK" styleClass="btn" process="@form" value="OK" action="#{usuarioMB.isUsuarioValido}" 
-					update="@form" icon="ui-icon-disk" />
+					update="@form" icon="ui-icon-check" />
 			</h:panelGroup>
 				
 		</p:fieldset>
