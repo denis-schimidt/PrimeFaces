@@ -10,7 +10,27 @@ input[type="password"] {
 	size: 60px;
 }
 
-@media ( max-width : 600px) {
+.textoPadraoInput{
+	text-align: right;
+	text-shadow: lime;
+	font-size: 12px;
+	size: 100%;
+}
+
+.ui-fieldset{
+	font-family: "Verdana";
+    height: 170px;
+    left: 100%;
+    margin: auto;
+    top: 50%;
+    width: 300px;
+}
+
+#divBotaoOk{
+	text-align: center;
+}
+
+/* @media ( max-width : 600px) {
 	.centraliza-bloco {
 		margin-left: 5%;
 		margin-right: 5%;
@@ -50,8 +70,7 @@ input[type="password"] {
 		margin-left: 35%;
 		margin-right: 35%;
 	}
-	
-	.tituloOperacaoTela{
+	.tituloOperacaoTela {
 		font-size: 28px;
 	}
-}
+} */

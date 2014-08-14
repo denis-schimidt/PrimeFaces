@@ -24,9 +24,28 @@
 	text-align: center;
 }
 
-#divLogin{
+#cabecalho{
+	padding:0px;
+	*position: relative;
+	display: block;
+	left: auto;
+	text-align: center;
+}
+
+#rodape {
+	background-color: #cecece;
+	text-align: center;
+	border: solid 1px Gray;
+	margin-bottom:3px;
+	font-size: 8pt;
+	font-family: Verdana;
+	font-weight: bold;
 	width: 100%;
-	text-align: right;
+	color: Black;
+	position: fixed;
+	bottom: 0px;
+	left: 0px;
+	text-align: center;
 }
 
 .tituloOperacaoTela{
@@ -35,6 +54,7 @@
  	font-weight: bold;	
  	text-align: center;
  	width: 100%;
+ 	color: white; text-shadow: black 0.1em 0.1em 0.2em
 }
 
 * {
