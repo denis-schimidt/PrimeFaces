@@ -14,7 +14,7 @@
 
 <h:body>
 	<div id="divLogin">
-		<p:outputLabel value="Logado como: #{loginBean.usuario.login}" />
+		<p:outputLabel value="Logado como: #{loginBean.usuario.login}" /> | <h:outputLink value="#{loginBean.logOut()}">Deslogar</h:outputLink>
 	</div>
 
 	<h:form id="formCadastroProduto">

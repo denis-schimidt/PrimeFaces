@@ -10,6 +10,12 @@ public class UsuarioBindingCopiavel implements BindingSimplesCopiavel<Usuario>, 
 	private String login;
 	private String senha;
 	
+	public UsuarioBindingCopiavel() {}
+	
+	public UsuarioBindingCopiavel( final Usuario usuario ){
+		copiarDaEntidade(usuario);
+	}
+	
 	@Override
 	public Integer getId() {
 		return id;

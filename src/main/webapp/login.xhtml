@@ -8,29 +8,17 @@
 	<title>Sistema de Notas Fiscais</title>
 	<h:outputScript name="jsf.js" library="javax.faces" />
 	<h:outputStylesheet library="css" name="local.css" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	
-	<style type="text/css">
-		input[type="text"]{
-			width: 100%;
-			size: 60px;
-		}
-		
-		input[type="password"] {
-			size: 25px;
-		}
-
-	</style>
-	
+	<h:outputStylesheet library="css" name="login.css" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />	
 </h:head>
 
 <h:body>
-	<h:form id="formUsuario">
-		<h:outputLabel styleClass="tituloOperacaoTela" value="Sistema de Notas Fiscais > Login" />
+	<h:form id="formUsuario" styleClass="centraliza-bloco">
+		<h:outputLabel styleClass="tituloOperacaoTela" value="Sistema de Notas Fiscais" />
 
-		<div class="linhaEmBranco"/>
+		<div class="duplaLinhaEmBranco"/>
 
-		<p:fieldset legend="Dados do Usuário">
+		<p:fieldset legend="Login do Usuário">
 
 			<h:panelGroup layout="block">
 				<h:panelGrid columns="2" styleClass="col-md-2">
@@ -44,8 +32,8 @@
 			<div class="linhaEmBranco"/>
 				
 			<h:panelGroup layout="block">
-				<p:commandButton id="botaoOK" styleClass="btn" process="@form" value="OK" action="#{loginBean.logar()}" 
-					update="@form" icon="ui-icon-check" />
+				<p:commandButton id="botaoOK" styleClass="btn" process="@form" value="OK" action="#{loginBean.logIn()}" 
+							update="@form" icon="ui-icon-check" />	
 			</h:panelGroup>
 				
 		</p:fieldset>

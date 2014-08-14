@@ -28,20 +28,49 @@ public class LoginBean implements Serializable {
 	@Inject
 	private UsuarioBinding usuario;
 	
-	public String logar(){
+	public String logIn(){
 		final UsuarioBindingCopiavel usuarioInformado = (UsuarioBindingCopiavel) usuario;
 		
-		final List<Usuario> usuarios = dao.pesquisarPorCamposIguaisPreenchidos( usuarioInformado.paraEntidade() );
+		final List<Usuario> usuariosPesquisados = dao.pesquisarPorCamposIguaisPreenchidos( usuarioInformado.paraEntidade() );
 		
-		if( usuarios != null && !usuarios.isEmpty() ){
-			log.info( "Usuário {} logado com sucesso",  usuarioInformado.getLogin() );
-			return "produto?faces-redirect=true";
+		try{
+			validarUsuario(usuarioInformado, usuariosPesquisados);
 			
-		}else{
-			log.info( "Tentativa de login inválido para o usuário {}",  usuarioInformado.getLogin() );
-			usuario = new UsuarioBindingCopiavel();
-			return "usuario";
+		}catch( final IllegalAccessException exception ){
+			resetUsuario();
+			log.error( exception.getMessage() );
+			return "usuario?faces-redirect=true";
 		}
+		
+		return efetuarLoginSessao(usuariosPesquisados);
+	}
+
+	private String efetuarLoginSessao(final List<Usuario> usuariosPesquisados) {
+		usuario = new UsuarioBindingCopiavel( usuariosPesquisados.get( 0 ) );
+			
+		return "produto?faces-redirect=true";
+	}
+
+	private void validarUsuario(final UsuarioBindingCopiavel usuarioInformado, final List<Usuario> usuarios) throws IllegalAccessException {
+		
+		if( usuarios == null || usuarios.isEmpty() ){
+			final String mensagemErro = String.format( "Tentativa de login inválido (%s) para o usuário",  usuarioInformado.getLogin() );
+			throw new IllegalAccessException( mensagemErro );
+			
+		}else if( usuarios.size() > 1 ){
+			final String mensagemErro = String.format( "Mais de um usuário com mesmo login (%s) recuperado da base de dados",  usuarioInformado.getLogin() );
+			throw new IllegalAccessException( mensagemErro );
+		}
+	}
+	
+	public String logOut(){
+		resetUsuario();
+		
+		return "login.xhtml";
+	}
+
+	private void resetUsuario() {
+		usuario = new UsuarioBindingCopiavel();
 	}
 	
 	public UsuarioBinding getUsuario() {
@@ -49,6 +78,6 @@ public class LoginBean implements Serializable {
 	}
 
 	public boolean isLogado() {
-		return getUsuario() != null;
+		return usuario.getId() !=null;
 	}
 }
