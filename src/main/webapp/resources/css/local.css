@@ -54,7 +54,8 @@
  	font-weight: bold;	
  	text-align: center;
  	width: 100%;
- 	color: white; text-shadow: black 0.1em 0.1em 0.2em;
+ 	color: white; 
+ 	text-shadow: 2px 1px 5px rgba(150, 150, 150, 1);
  	margin-bottom: 8px;
 }
 
