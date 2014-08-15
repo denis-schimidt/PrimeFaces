@@ -1,0 +1,24 @@
+@CHARSET "UTF-8";
+
+.colunaNome{
+	width: 25%;
+}
+
+.colunaDescricao{
+	width: 40%;
+}
+
+.colunaPreco{
+	text-align: right;
+	width: 15%;
+}
+
+.colunaAlterar{
+	text-align: center;
+	width: 10%;
+}
+
+.colunaExcluir{
+	text-align: center;
+	width: 10%;
+}

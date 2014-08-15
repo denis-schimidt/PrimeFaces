@@ -9,6 +9,7 @@ import javax.faces.event.PhaseListener;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 
 import br.com.schimidtsolutions.jsf.managedbean.LoginBean;
@@ -31,7 +32,7 @@ public class SegurancaListener implements PhaseListener {
 		final LoginBean loginBean = obterLoginBean(facesContext);
 		
 		if( !loginBean.isLogado() ){
-			logarTentativaDePularTelaLogin( facesContext );
+			logarTentativaDePularTelaLogin( facesContext, loginBean );
 			redirecionarUsuarioParaTelaLogin(facesContext);
 		}
 	}
@@ -42,11 +43,13 @@ public class SegurancaListener implements PhaseListener {
 		facesContext.renderResponse();
 	}
 	
-	private void logarTentativaDePularTelaLogin( final FacesContext facesContext ){
+	private void logarTentativaDePularTelaLogin( final FacesContext facesContext, final LoginBean loginBean ){
 		final HttpServletRequest request = (HttpServletRequest) facesContext
 				.getExternalContext().getRequest();
 		
-		log.warn( "Tentativa de pular tela de login pelo IP: {}", request.getRemoteAddr() );
+		if( StringUtils.isBlank( loginBean.getUsuario().getLogin() ) || StringUtils.isBlank( loginBean.getUsuario().getSenha() ) ){
+			log.warn( "Tentativa de pular tela de login pelo IP: {}", request.getRemoteAddr() );
+		}
 	}
 
 	private LoginBean obterLoginBean(final FacesContext facesContext) {

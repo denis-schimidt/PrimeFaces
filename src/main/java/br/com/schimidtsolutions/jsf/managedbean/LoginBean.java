@@ -7,6 +7,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 
 import br.com.schimidtsolutions.jsf.dao.DAO;
@@ -17,7 +18,7 @@ import br.com.schimidtsolutions.jsf.managedbean.interfaces.UsuarioBinding;
 @Named
 @SessionScoped
 public class LoginBean implements Serializable {
-	private static final long serialVersionUID = 6082721444325328318L;
+	private static final long serialVersionUID = -5459225359063936355L;
 
 	@Inject
 	private Logger log;
@@ -39,7 +40,7 @@ public class LoginBean implements Serializable {
 		}catch( final IllegalAccessException exception ){
 			resetUsuario();
 			log.error( exception.getMessage() );
-			return "usuario?faces-redirect=true";
+			return "login?faces-redirect=true";
 		}
 		
 		return efetuarLoginSessao(usuariosPesquisados);
@@ -53,12 +54,16 @@ public class LoginBean implements Serializable {
 
 	private void validarUsuario(final UsuarioBindingCopiavel usuarioInformado, final List<Usuario> usuarios) throws IllegalAccessException {
 		
-		if( usuarios == null || usuarios.isEmpty() ){
-			final String mensagemErro = String.format( "Tentativa de login inválido (%s) para o usuário",  usuarioInformado.getLogin() );
+		if( StringUtils.isEmpty( usuarioInformado.getLogin() ) || StringUtils.isEmpty( usuarioInformado.getSenha() ) ){
+			final String mensagemErro = String.format( "Tentativa de login inválido (%s) para o usuário.",  usuarioInformado.getLogin() );
+			throw new IllegalAccessException( mensagemErro );
+			
+		}else if( usuarios == null || usuarios.isEmpty() ){
+			final String mensagemErro = String.format( "O usuário (%s) não está cadastrado no sistema.",  usuarioInformado.getLogin() );
 			throw new IllegalAccessException( mensagemErro );
 			
 		}else if( usuarios.size() > 1 ){
-			final String mensagemErro = String.format( "Mais de um usuário com mesmo login (%s) recuperado da base de dados",  usuarioInformado.getLogin() );
+			final String mensagemErro = String.format( "Mais de um usuário com mesmo login (%s) recuperado da base de dados.",  usuarioInformado.getLogin() );
 			throw new IllegalAccessException( mensagemErro );
 		}
 	}
@@ -66,7 +71,7 @@ public class LoginBean implements Serializable {
 	public String logOut(){
 		resetUsuario();
 		
-		return "login.xhtml";
+		return "login?faces-redirect=true";
 	}
 
 	private void resetUsuario() {

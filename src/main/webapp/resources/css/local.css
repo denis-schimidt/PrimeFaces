@@ -48,13 +48,14 @@
 	text-align: center;
 }
 
-.tituloOperacaoTela{
+.tituloTela{
 	font-size: 30px;
 	font-style: italic;
  	font-weight: bold;	
  	text-align: center;
  	width: 100%;
- 	color: white; text-shadow: black 0.1em 0.1em 0.2em
+ 	color: white; text-shadow: black 0.1em 0.1em 0.2em;
+ 	margin-bottom: 8px;
 }
 
 * {
@@ -64,7 +65,7 @@
 }
 
 body {
-	padding: 20px 15%;
+	padding: 0px 15%;
 }
 
 form header {

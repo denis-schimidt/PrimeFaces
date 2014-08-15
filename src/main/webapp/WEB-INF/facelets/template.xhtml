@@ -1,0 +1,44 @@
+<!DOCTYPE project>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+	<title>Sistema de Notas Fiscais</title>
+	<h:outputScript name="jsf.js" library="javax.faces" />
+	<h:outputStylesheet library="css" name="local.css" />
+	<h:outputStylesheet library="css" name="template.css" />
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1" />	
+</h:head>
+
+<h:body>
+	<div id="cabecalho">
+		<h:graphicImage height="100px" width="100%" value="/resources/images/cabecalho_empresa.png" />
+		
+		<h:form id="logoutForm">
+			<div id="divPanelLogado">
+				<h:panelGroup rendered="#{loginBean.logado}"> 
+					<h:outputText value="Logado como #{loginBean.usuario.login}" /> |
+					<p:commandLink action="#{loginBean.logOut()}" ajax="false" title="Clique aqui para deslogar do sistema.">
+						<h:outputText value="Deslogar"/> 
+					</p:commandLink>
+				</h:panelGroup>
+			</div>
+		</h:form>		
+		
+		<div id="divTituloTela" class="tituloTela">
+			<h:outputLabel value="Sistema de Notas Fiscais" />
+		</div>
+	</div>
+
+	<ui:insert name="corpo" />
+		
+	<div id="rodape">
+		 Copyright &#169; 2015. Todos os direitos reservados a Schimidt Solutions
+	</div>
+</h:body>
+
+</html>
