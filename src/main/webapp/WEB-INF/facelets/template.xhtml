@@ -6,7 +6,11 @@
 	xmlns:h="http://java.sun.com/jsf/html">
 
 <h:head>
-	<title>Sistema de Notas Fiscais</title>
+	<title>
+		<ui:insert name="titlePagina">
+			Sistema de Notas Fiscais
+		</ui:insert>
+	</title>
 	<h:outputScript name="jsf.js" library="javax.faces" />
 	<h:outputStylesheet library="css" name="local.css" />
 	<h:outputStylesheet library="css" name="template.css" />

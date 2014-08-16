@@ -1,13 +1,44 @@
 @CHARSET "UTF-8";
 
-input[type="text"] {
-	width: 100%;
-	size: 60px;
+@media ( max-width: 400px){
+
+	body form fieldset {	
+		margin: auto;
+		width: auto;
+		text-align: left;
+		height: auto;
+	}
+	
+	input[type="text"], input[type="email"], input[type="url"], input[type="password"] {
+	   	width: 100%;
+	}
 }
 
-input[type="password"] {
-	width: 100%;
-	size: 60px;
+.ui-fieldset-legend{
+	text-align: left!important;	
+	width: auto!important;
+}
+
+@media ( min-width: 401px) {
+	
+	body form fieldset {	
+		width: 300px;
+		text-align: right;
+		height: 170px;
+	}
+	
+	
+	input[type="text"], input[type="email"], input[type="url"], input[type="password"] {
+	   	width: 80%;
+	}
+}
+
+#divInputsLogin{
+	margin-top: 10px;
+}
+
+label {
+    margin-right: 5px;
 }
 
 .tituloTela{
@@ -16,19 +47,15 @@ input[type="password"] {
 }
 
 .textoPadraoInput{
-	text-align: right;
-	text-shadow: lime;
 	font-size: 12px;
 	size: 100%;
 }
 
 .ui-fieldset{
 	font-family: "Verdana";
-    height: 170px;
     left: 100%;
     margin: auto;
     top: 50%;
-    width: 300px;
 }
 
 #divBotaoOk{

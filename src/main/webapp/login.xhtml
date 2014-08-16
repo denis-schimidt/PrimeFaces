@@ -3,9 +3,15 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:comp="http://java.sun.com/jsf/composite/component"
 	xmlns:h="http://java.sun.com/jsf/html">
 
 <ui:composition template="/WEB-INF/facelets/template.xhtml">
+
+	<ui:define name="titlePagina">
+		Sistema de Notas Fiscais - Login	
+	</ui:define>
+
 	<ui:define name="corpo">
 		<h:outputStylesheet library="css" name="login.css" target="head"/>
 	
@@ -13,16 +19,15 @@
 			<h:panelGroup layout="block">
 				<p:fieldset legend="Login do Usuário">
 		
-					<div id="divInputsLogin">
-						<h:panelGrid columns="2" styleClass="col-md-2 textoPadraoInput">
-							<h:outputLabel value="Login: " for="campoUsuario" />
-							<p:inputText id="campoUsuario" size="35" value="#{loginBean.usuario.login}"/>
-							<h:outputLabel value="Senha: " for="campoSenha" />
-							<p:password id="campoSenha" size="35" value="#{loginBean.usuario.senha}"/>
-						</h:panelGrid>
+					<div id="divInputsLogin" class="textoPadraoInput">
+						<h:panelGroup layout="block">
+							<comp:inputText id="campoUsuario" label="Login" value="#{loginBean.usuario.login}"/>
+						</h:panelGroup>
+						
+						<h:panelGroup layout="block">
+							<comp:password id="campoSenha" label="Senha" value="#{loginBean.usuario.senha}"/>
+						</h:panelGroup>
 					</div>
-					
-					<div class="linhaEmBranco"/>
 						
 					<div id="divBotaoOk">
 						<p:commandButton id="botaoOK" styleClass="btn" process="@form" value="OK" action="#{loginBean.logIn()}" 
