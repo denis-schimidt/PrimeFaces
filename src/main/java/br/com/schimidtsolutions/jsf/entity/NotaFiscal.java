@@ -1,6 +1,5 @@
 package br.com.schimidtsolutions.jsf.entity;
 
-import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -13,10 +12,11 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
+
+import org.hibernate.annotations.Type;
+import org.joda.time.LocalDate;
 
 import br.com.caelum.stella.bean.validation.CNPJ;
 
@@ -35,23 +35,21 @@ public class NotaFiscal {
 	@Column(name="CNPJ", length=14, insertable=true, nullable=false, updatable=true )
 	private String cnpj;
 	
-	@Temporal(TemporalType.DATE)
+	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
 	@Past(message="Data precisa ser menor ou igual que a data atual")
 	@Column(name="DATA", insertable=true, nullable=false, updatable=true )
-	private Calendar data;
+	private LocalDate data;
 
 	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH, CascadeType.REMOVE}, fetch=FetchType.LAZY, mappedBy="notaFiscal")
 	private List<Item> itens;
 	
 	NotaFiscal() {}
 	
-	public NotaFiscal(String cnpj, Calendar data) {
-		this.cnpj = cnpj;
-		this.data = data;
-	}
-	
-	public NotaFiscal(Integer id) {
-		this.id = id;
+	private NotaFiscal( final Builder builder ) {
+		cnpj = builder.cnpj;
+		data = builder.data;
+		id = builder.id;
+		itens = builder.itens;
 	}
 	
 	@Override
@@ -65,24 +63,29 @@ public class NotaFiscal {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + (id == null ? 0 : id.hashCode());
 		return result;
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
+	public boolean equals(final Object obj) {
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
-		NotaFiscal other = (NotaFiscal) obj;
+		}
+		final NotaFiscal other = (NotaFiscal) obj;
 		if (id == null) {
-			if (other.id != null)
+			if (other.id != null) {
 				return false;
-		} else if (!id.equals(other.id))
+			}
+		} else if (!id.equals(other.id)) {
 			return false;
+		}
 		return true;
 	}
 
@@ -94,11 +97,46 @@ public class NotaFiscal {
 		return cnpj;
 	}
 
-	public Calendar getData() {
+	public LocalDate getData() {
 		return data;
 	}
 	
 	public List<Item> getItens() {
 		return itens;
+	}
+	
+	public static class Builder{
+		private Integer id;
+		private String cnpj;
+		private LocalDate data;
+		private List<Item> itens;
+		
+		public Builder comId( final Integer id ){
+			this.id = id;
+			
+			return this;
+		}
+		
+		public Builder cnpj( final String cnpj ){
+			this.cnpj = cnpj;
+			
+			return this;
+		}
+		
+		public Builder naData( final LocalDate data ){
+			this.data = data;
+			
+			return this;
+		}
+		
+		public Builder tendoComoItens( final List<Item> itens ){
+			this.itens = itens;
+			
+			return this;
+		}
+		
+		public NotaFiscal create(){
+			return new NotaFiscal( this );
+		}
 	}
 }
