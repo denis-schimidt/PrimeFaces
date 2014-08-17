@@ -7,6 +7,7 @@ import java.util.LinkedHashMap;
 import java.util.Set;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -21,7 +22,7 @@ import org.slf4j.Logger;
 //@WebFilter(urlPatterns = { "/*" }, description = "Parâmetros da Sessão")
 public class SessionAttributeLogFilter implements Filter {
 
-	@Inject
+	@Inject @Singleton
 	private Logger log;
 	
 	@Override

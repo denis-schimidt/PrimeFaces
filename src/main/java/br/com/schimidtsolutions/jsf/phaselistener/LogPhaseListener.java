@@ -5,13 +5,14 @@ import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import org.slf4j.Logger;
 
 public class LogPhaseListener implements PhaseListener {
 	private static final long serialVersionUID = -2212446767366571892L;
 	
-	@Inject
+	@Inject @Singleton
 	private Logger log;
 
 	@PostConstruct

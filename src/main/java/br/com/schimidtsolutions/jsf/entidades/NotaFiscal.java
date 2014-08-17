@@ -1,5 +1,7 @@
-package br.com.schimidtsolutions.jsf.entity;
+package br.com.schimidtsolutions.jsf.entidades;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -41,9 +43,11 @@ public class NotaFiscal {
 	private LocalDate data;
 
 	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH, CascadeType.REMOVE}, fetch=FetchType.LAZY, mappedBy="notaFiscal")
-	private List<Item> itens;
+	private final List<Item> itens;
 	
-	NotaFiscal() {}
+	NotaFiscal() {
+		itens = new ArrayList<>();
+	}
 	
 	private NotaFiscal( final Builder builder ) {
 		cnpj = builder.cnpj;
@@ -55,7 +59,7 @@ public class NotaFiscal {
 	@Override
 	public String toString() {
 		final int maxLen = 10;
-		return String.format("NotaFiscalEntity [id=%s, cnpj=%s, data=%s, itens=%s]",
+		return String.format("NotaFiscal [id=%s, cnpj=%s, data=%s, itens=%s]",
 			id, cnpj, data, itens != null ? itens.subList(0, Math.min(itens.size(), maxLen)) : null);
 	}
 
@@ -67,6 +71,18 @@ public class NotaFiscal {
 		return result;
 	}
 
+	public void addItem( final Item item ){
+		itens.add( item );
+		item.setNotaFiscal( this );
+	}
+	
+	public void removeItem( final Item item ){
+		final int key = Collections.binarySearch( itens, item );
+		itens.remove(key);
+
+		item.setNotaFiscal(null);
+	}
+	
 	@Override
 	public boolean equals(final Object obj) {
 		if (this == obj) {

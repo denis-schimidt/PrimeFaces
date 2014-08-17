@@ -3,6 +3,7 @@ package br.com.schimidtsolutions.jsf.web.filter;
 import java.io.IOException;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -16,7 +17,7 @@ import org.slf4j.Logger;
 //@WebFilter(urlPatterns = {"/*"}, description = "Parâmetros do Request" )
 public final class RequestAttributeLogFilter implements Filter {
 	
-	@Inject
+	@Inject @Singleton
 	private Logger log;
 
 	@Override

@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -18,10 +19,10 @@ import org.slf4j.Logger;
 import br.com.schimidtsolutions.jsf.util.MetodoObjetoUtil;
 
 class DAOGenerico<T> implements DAO<T> {
-	private static final long serialVersionUID = -4243971431843540736L;
+	private static final long serialVersionUID = 6020966045581794498L;
 
-	@Inject
-	private Logger log;
+	@Inject @Singleton
+	private transient Logger log;
 	
 	@NotNull(message="A classe genérica do DAO não pode ser nula!")
 	private final Class<T> classeEntidade;
@@ -35,15 +36,15 @@ class DAOGenerico<T> implements DAO<T> {
 	}
 	
 	@Override
-	public T adicionar( final T entity ){
-		em.persist( entity );
+	public T adicionar( final T entidade ){
+		em.persist( entidade );
 		
-		return entity;
+		return entidade;
 	}
 	
 	@Override
-	public <ID> T pesquisarPorId( final ID identity ){
-		return em.find( classeEntidade, identity );
+	public <ID> T pesquisarPorId( final ID entidade ){
+		return em.find( classeEntidade, entidade );
 	}
 	
 	

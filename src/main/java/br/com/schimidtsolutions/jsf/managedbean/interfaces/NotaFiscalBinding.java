@@ -1,12 +1,11 @@
 package br.com.schimidtsolutions.jsf.managedbean.interfaces;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.joda.time.LocalDate;
 
-import br.com.schimidtsolutions.jsf.entity.Item;
-
-public interface NotaFiscalBinding {
+public interface NotaFiscalBinding extends Serializable {
 
 	public abstract void setId(Integer id);
 
@@ -14,7 +13,7 @@ public interface NotaFiscalBinding {
 
 	public abstract void setData(LocalDate data);
 
-	public abstract void setItens(List<Item> itens);
+	public abstract void setItens(List<ItemBinding> itens);
 
 	public abstract Integer getId();
 
@@ -22,6 +21,6 @@ public interface NotaFiscalBinding {
 
 	public abstract LocalDate getData();
 
-	public abstract List<Item> getItens();
+	public abstract List<ItemBinding> getItens();
 
 }

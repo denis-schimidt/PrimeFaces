@@ -13,6 +13,7 @@
 		<cc:attribute name="id" required="true"/>
 		<cc:attribute name="value" required="true"/>
 		<cc:attribute name="fieldRequired" default="true"/>
+		<cc:attribute name="patternDateTime" default="dd/MM/yyyy"/>
 		<cc:attribute name="showErrorMessage" default="true"/>
 	</cc:interface>
 
@@ -22,7 +23,7 @@
 		</h:panelGroup>
 		
 		<h:panelGroup id="panelValue#{cc.attrs.id}">
-			<p:inputText value="#{cc.attrs.value}" id="#{cc.attrs.id}" required="#{cc.attrs.fieldRequired}"/>
+			<p:inputText value="#{cc.attrs.value}" id="#{cc.attrs.id}" required="#{cc.attrs.fieldRequired}" converter="localDateConverter" converterMessage="Data Inválida"/>
 		</h:panelGroup>
 
 		<h:panelGroup id="panelMessage#{cc.attrs.id}" layout="block" rendered="#{cc.attrs.showErrorMessage}">

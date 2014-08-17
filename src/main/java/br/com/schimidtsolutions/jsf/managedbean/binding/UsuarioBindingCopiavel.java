@@ -1,10 +1,10 @@
 package br.com.schimidtsolutions.jsf.managedbean.binding;
 
-import br.com.schimidtsolutions.jsf.entity.Usuario;
-import br.com.schimidtsolutions.jsf.interfaces.BindingSimplesCopiavel;
+import br.com.schimidtsolutions.jsf.entidades.Usuario;
+import br.com.schimidtsolutions.jsf.interfaces.BindingCopiavel;
 import br.com.schimidtsolutions.jsf.managedbean.interfaces.UsuarioBinding;
 
-public class UsuarioBindingCopiavel implements BindingSimplesCopiavel<Usuario>, UsuarioBinding {
+public class UsuarioBindingCopiavel implements BindingCopiavel<Usuario>, UsuarioBinding {
 	private static final long serialVersionUID = 316932677756750576L;
 	private Integer id;
 	private String login;

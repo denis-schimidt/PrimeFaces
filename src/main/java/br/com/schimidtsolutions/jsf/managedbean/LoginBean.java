@@ -6,12 +6,13 @@ import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.inject.Singleton;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 
 import br.com.schimidtsolutions.jsf.dao.DAO;
-import br.com.schimidtsolutions.jsf.entity.Usuario;
+import br.com.schimidtsolutions.jsf.entidades.Usuario;
 import br.com.schimidtsolutions.jsf.managedbean.binding.UsuarioBindingCopiavel;
 import br.com.schimidtsolutions.jsf.managedbean.interfaces.UsuarioBinding;
 
@@ -20,11 +21,11 @@ import br.com.schimidtsolutions.jsf.managedbean.interfaces.UsuarioBinding;
 public class LoginBean implements Serializable {
 	private static final long serialVersionUID = -5459225359063936355L;
 
-	@Inject
-	private Logger log;
+	@Inject @Singleton
+	private transient Logger log;
 
 	@Inject
-	private DAO<Usuario> dao;
+	private transient DAO<Usuario> dao;
 	
 	@Inject
 	private UsuarioBinding usuario;

@@ -11,9 +11,9 @@ import javax.transaction.Transactional;
 
 import org.primefaces.component.datatable.DataTable;
 
-import br.com.schimidtsolutions.jsf.constant.LegendaTelaProduto;
+import br.com.schimidtsolutions.jsf.constantes.LegendaTelaProduto;
 import br.com.schimidtsolutions.jsf.dao.DAO;
-import br.com.schimidtsolutions.jsf.entity.Produto;
+import br.com.schimidtsolutions.jsf.entidades.Produto;
 import br.com.schimidtsolutions.jsf.log.Logged;
 import br.com.schimidtsolutions.jsf.managedbean.binding.ProdutoBindingCopiavel;
 import br.com.schimidtsolutions.jsf.managedbean.interfaces.ProdutoBinding;
@@ -24,9 +24,6 @@ public class ProdutoBean implements Serializable {
 	private static final long serialVersionUID = -6530799356937047703L;
 
 	@Inject
-	private DAO<Produto> dao;
-	
-	@Inject
 	private ProdutoBinding produtoEditavel;
 	
 	private List<ProdutoBinding> listaProdutos;
@@ -34,8 +31,11 @@ public class ProdutoBean implements Serializable {
 	private List<ProdutoBinding> listaProdutosFiltrado;
 	
 	private LegendaTelaProduto legendaTela = LegendaTelaProduto.CADASTRAR_PRODUTO;
+
+	@Inject
+	private transient DAO<Produto> dao;
 	
-	private DataTable dataTable; 
+	private transient DataTable dataTable; 
 	
 	@Transactional
 	@Logged
@@ -64,8 +64,8 @@ public class ProdutoBean implements Serializable {
 		resetBindings();
 	}
 
-	public List<ProdutoBinding> getProdutos() {
-
+	public List<ProdutoBinding> getProdutos() {	
+		
 		if (listaProdutos == null) {
 			atualizarListaProdutosDoBancoDeDados();
 		}
@@ -121,4 +121,10 @@ public class ProdutoBean implements Serializable {
 		listaProdutosFiltrado = listaProdutos;
 		dataTable.reset();    
 	}
+	
+/*	 @Logged
+	 private void readObject(final ObjectInputStream o) throws IOException, ClassNotFoundException {
+		 readObject(o);
+		 dao = new DAOFactory<Produto>().newInstanceDAO();
+	 }*/
 }

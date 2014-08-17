@@ -2,11 +2,11 @@ package br.com.schimidtsolutions.jsf.managedbean.binding;
 
 import java.math.BigDecimal;
 
-import br.com.schimidtsolutions.jsf.entity.Produto;
-import br.com.schimidtsolutions.jsf.interfaces.BindingSimplesCopiavel;
+import br.com.schimidtsolutions.jsf.entidades.Produto;
+import br.com.schimidtsolutions.jsf.interfaces.BindingCopiavel;
 import br.com.schimidtsolutions.jsf.managedbean.interfaces.ProdutoBinding;
 
-public class ProdutoBindingCopiavel implements ProdutoBinding, BindingSimplesCopiavel<Produto>{
+public class ProdutoBindingCopiavel implements ProdutoBinding, BindingCopiavel<Produto>{
 	private static final long serialVersionUID = -9132635464789704783L;
 	private Integer id;
 	private String nome;

@@ -1,6 +1,6 @@
 package br.com.schimidtsolutions.jsf.interfaces;
 
-public interface BindingSimplesCopiavel<Entidade> {
+public interface BindingCopiavel<Entidade> {
 
 	public Entidade paraEntidade();
 	

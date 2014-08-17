@@ -10,9 +10,9 @@
 			br.com.schimidtsolutions.jsf.phaselistener.LogPhaseListener
 		</phase-listener> -->
 		
-		<phase-listener>
+		<!-- <phase-listener>
 			br.com.schimidtsolutions.jsf.phaselistener.SegurancaListener
-		</phase-listener>
+		</phase-listener> -->
 		
 	</lifecycle>
 	

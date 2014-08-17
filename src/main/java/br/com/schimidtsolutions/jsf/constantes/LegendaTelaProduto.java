@@ -1,4 +1,4 @@
-package br.com.schimidtsolutions.jsf.constant;
+package br.com.schimidtsolutions.jsf.constantes;
 
 public enum LegendaTelaProduto {
 	CADASTRAR_PRODUTO("Cadastrar Produto"), EDITAR_PRODUTO("Editar Produto");
