@@ -1,26 +1,37 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	  xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:comp="http://java.sun.com/jsf/composite/component"
-      xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:comp="http://java.sun.com/jsf/composite/component"
+	xmlns:h="http://java.sun.com/jsf/html">
 
-	<ui:composition template="/WEB-INF/facelets/template.xhtml">
-		<ui:define name="titlePagina">
-			Sistema de Notas Fiscais - Nota Fiscal	
-		</ui:define>
-	
-		<ui:define name="corpo">
-			<h:form id="notaFiscalForm">
-				<p:fieldset legend="Dados da Nota">
-					<comp:inputText label="CNPJ" id="cnpj" value="#{notaFiscalBean.notaFiscal.cnpj}" />	
-					<comp:inputTextData label="Data" id="data" value="#{notaFiscalBean.notaFiscal.data}"/>
+<ui:composition template="/WEB-INF/facelets/template.xhtml">
+	<ui:define name="titlePagina">
+		Sistema de Notas Fiscais - Nota Fiscal	
+	</ui:define>
+
+	<ui:define name="corpo">
+		<f:view contentType="text/html">
+			<h:outputStylesheet library="css" name="notafiscal.css" target="head" />
+
+			<h:messages showDetail="true" />
+			<h:form id="notaFiscalForm" prependId="false">
+
+				<div>
+					<span style="width: 50%; margin: 0, auto"> 
+						<h:outputLabel value="CNPJ" for="cnpj" visible="true" /> 
+						<h:inputText value="#{notaFiscalBean.notaFiscal.cnpj}" id="cnpj" required="true" />
+					</span> 
 					
-					<p:commandButton value="Salvar" action="#{notaFiscalBean.salvar()}" ajax="true" icon="ui-icon-check" 
-							id="botaoSalvar" styleClass="btn" process="@form" update="@form"/>
-				</p:fieldset>
+					<span style="text-align: right;"> 
+						<h:outputLabel value="Data" for="data" /> 
+						<h:inputText value="#{notaFiscalBean.notaFiscal.data}" id="data"
+							required="true" converter="localDateConverter" converterMessage="Data Inválida" />
+					</span>
+				</div>
 			</h:form>
-		</ui:define>
-	</ui:composition>
+		</f:view>
+	</ui:define>
+</ui:composition>
 </html>

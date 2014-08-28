@@ -26,10 +26,10 @@ public class Item implements Comparable<Item> {
 	@OrderBy
 	private Integer id;
 	
-	@ManyToOne(optional=false, cascade=CascadeType.ALL)
+	@ManyToOne
 	private NotaFiscal notaFiscal;
 	
-	@ManyToOne(optional=false, cascade=CascadeType.PERSIST)
+	@ManyToOne(cascade=CascadeType.PERSIST )
 	private Produto produto;
 	
 	@Column(name="QUANTIDADE", insertable=true, nullable=false, updatable=true )

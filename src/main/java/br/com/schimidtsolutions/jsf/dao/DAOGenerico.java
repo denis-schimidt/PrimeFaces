@@ -43,10 +43,9 @@ class DAOGenerico<T> implements DAO<T> {
 	}
 	
 	@Override
-	public <ID> T pesquisarPorId( final ID entidade ){
-		return em.find( classeEntidade, entidade );
+	public <ID> T pesquisarPorId( final ID id ){
+		return em.find( classeEntidade, id );
 	}
-	
 	
 	@Override
 	public List<T> listarComPaginacao( final int paginaInicial, final int tamanhoPagina ){
@@ -78,8 +77,8 @@ class DAOGenerico<T> implements DAO<T> {
 	}
 	
 	@Override
-	public void atualizar( final T entity ){
-		em.merge( entity );
+	public T atualizar( final T entidade ){
+		return em.merge( entidade );
 	}
 
 	@Override

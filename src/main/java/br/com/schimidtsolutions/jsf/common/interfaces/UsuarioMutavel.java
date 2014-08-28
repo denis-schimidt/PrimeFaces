@@ -1,8 +1,9 @@
-package br.com.schimidtsolutions.jsf.managedbean.interfaces;
+package br.com.schimidtsolutions.jsf.common.interfaces;
 
 import java.io.Serializable;
 
-public interface UsuarioBinding extends Serializable {
+
+public interface UsuarioMutavel extends Serializable {
 
 	public abstract Integer getId();
 

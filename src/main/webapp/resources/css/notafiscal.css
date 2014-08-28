@@ -1,0 +1,21 @@
+@CHARSET "UTF-8";
+
+.botaoSalvar{
+	padding: 5px;
+	text-shadow: black;
+	font-weight: bold;
+}
+
+.layout{
+	width: auto;
+	height: auto;
+}
+
+input[type="text"], input[type="email"], input[type="url"], input[type="password"] {
+    width: auto;
+}
+
+.espaco{
+	 margin-left: 1%;
+     margin-top: 1%;
+}

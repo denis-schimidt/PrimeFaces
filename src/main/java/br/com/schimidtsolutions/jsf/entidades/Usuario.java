@@ -27,7 +27,7 @@ public class Usuario{
 
 	Usuario() {}
 	
-	public Usuario( final Builder builder ) {
+	private Usuario( final Builder builder ) {
 		login = builder.login;
 		senha = builder.senha;
 		id = builder.id;

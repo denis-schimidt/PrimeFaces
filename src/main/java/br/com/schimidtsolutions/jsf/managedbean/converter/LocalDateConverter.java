@@ -8,7 +8,7 @@ import javax.faces.convert.FacesConverter;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 
-@FacesConverter(forClass=LocalDate.class, value = "localDateConverter")
+@FacesConverter(value="localDateConverter")
 public class LocalDateConverter implements Converter {
 	private static final String PADRAO_DATA = "dd/MM/yyyy";
 	

@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface DAOSomenteLeitura<T> extends Serializable {
 
-	public <ID> T pesquisarPorId( ID identity );
+	public <ID> T pesquisarPorId( ID id );
 
 	public abstract List<T> listarTudo();
 

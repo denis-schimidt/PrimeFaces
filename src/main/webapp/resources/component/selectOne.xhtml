@@ -1,0 +1,39 @@
+<!DOCTYPE project>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:cc="http://java.sun.com/jsf/composite"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<body>
+	<cc:interface>
+		<cc:attribute name="label" required="true"/>
+		<cc:attribute name="id" required="true"/>
+		<cc:attribute name="valueSelected" required="true"/>
+		<cc:attribute name="options" required="true"/>
+		<cc:attribute name="var" required="true" />
+		<cc:attribute name="optionLabel" required="true" />
+		<cc:attribute name="optionValue" required="true"/>
+		<cc:attribute name="required" default="true"/>
+		<cc:attribute name="showErrorMessage" default="true"/>
+	</cc:interface>
+	
+	<cc:implementation>
+		<h:panelGroup id="label#{cc.attrs.id}"> 
+			<h:outputLabel for="#{cc.attrs.id}:" value="#{cc.attrs.label}" />
+		</h:panelGroup>	
+		
+		<h:panelGroup id="value#{cc.attrs.id}">	
+			<h:selectOneMenu id="#{cc.attrs.id}" required="#{cc.attrs.required}" value="#{cc.attrs.valueSelected}" >
+				<f:selectItems value="#{cc.attrs.options}" var="#{cc.attrs.optionVar}" 
+						itemLabel="#{cc.attrs.optionLabel}" itemValue="#{cc.attrs.optionValue}" />
+			</h:selectOneMenu>
+		</h:panelGroup>
+		
+		<h:panelGroup id="message#{cc.attrs.id}" layout="block" rendered="#{cc.attrs.showErrorMessage}">
+			<h:message for="#{cc.attrs.id}"/>
+			<h:panelGroup layout="block" styleClass="linhaEmBranco"/>
+		</h:panelGroup>
+	</cc:implementation>
+</body>
+</html>

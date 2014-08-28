@@ -6,14 +6,20 @@
     version="2.0">
 	
 	<lifecycle>
-		<!-- <phase-listener>
+		<phase-listener>
 			br.com.schimidtsolutions.jsf.phaselistener.LogPhaseListener
-		</phase-listener> -->
+		</phase-listener>
 		
 		<!-- <phase-listener>
 			br.com.schimidtsolutions.jsf.phaselistener.SegurancaListener
 		</phase-listener> -->
 		
 	</lifecycle>
+	
+	<factory>
+		<exception-handler-factory> 
+		 	org.primefaces.extensions.component.ajaxerrorhandler.AjaxExceptionHandlerFactory
+		</exception-handler-factory>
+	</factory>
 	
 </faces-config>

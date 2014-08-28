@@ -1,9 +1,9 @@
-package br.com.schimidtsolutions.jsf.managedbean.interfaces;
+package br.com.schimidtsolutions.jsf.common.interfaces;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-public interface ProdutoBinding extends Serializable {
+public interface ProdutoMutavel extends Serializable {
 
 	public abstract Integer getId();
 

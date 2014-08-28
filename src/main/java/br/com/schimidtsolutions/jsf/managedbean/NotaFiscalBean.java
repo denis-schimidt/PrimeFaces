@@ -6,45 +6,71 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import br.com.schimidtsolutions.jsf.dao.DAO;
-import br.com.schimidtsolutions.jsf.entidades.NotaFiscal;
+import br.com.schimidtsolutions.jsf.common.interfaces.ItemMutavel;
+import br.com.schimidtsolutions.jsf.common.interfaces.NotaFiscalMutavel;
+import br.com.schimidtsolutions.jsf.common.interfaces.ProdutoMutavel;
+import br.com.schimidtsolutions.jsf.ejb.NotaFiscalServiceLocal;
 import br.com.schimidtsolutions.jsf.log.Logged;
-import br.com.schimidtsolutions.jsf.managedbean.binding.ItemBindingCopiavel;
-import br.com.schimidtsolutions.jsf.managedbean.binding.NotaFiscalBindingCopiavel;
-import br.com.schimidtsolutions.jsf.managedbean.interfaces.ItemBinding;
-import br.com.schimidtsolutions.jsf.managedbean.interfaces.NotaFiscalBinding;
+import br.com.schimidtsolutions.jsf.managedbean.annotation.Binding;
+import br.com.schimidtsolutions.jsf.managedbean.binding.ItemBinding;
+import br.com.schimidtsolutions.jsf.managedbean.binding.NotaFiscalBinding;
+import br.com.schimidtsolutions.jsf.managedbean.binding.ProdutoBinding;
 
 @Named
 @ViewScoped
 public class NotaFiscalBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
-	private ItemBinding item;
+	@Inject @Binding
+	private ItemMutavel itemMutavel;
 	
+	@Inject @Binding
+	private NotaFiscalMutavel notaFiscalMutavel;
+
 	@Inject
-	private NotaFiscalBinding notaFiscal;
+	private NotaFiscalServiceLocal notaFiscalService;
 	
-	@Inject
-	private DAO<NotaFiscal> daoNotaFiscal;
+	private ProdutoMutavel produtoBinding;
 	
 	@Logged
-	public void salvar(){
-		final NotaFiscalBindingCopiavel notaCopiavel = (NotaFiscalBindingCopiavel) notaFiscal;
-		//daoNotaFiscal.adicionar( notaCopiavel.paraEntidade() );	
+	public void salvarNotaFiscal(){
+		notaFiscalService.cadastrarNotaFiscal( notaFiscalMutavel );
 		
-		resetBindings();
+		notaFiscalMutavel = new NotaFiscalBinding();
 	}
 	
-	public NotaFiscalBinding getNotaFiscal() {
-		return notaFiscal;
+	public void incluirItemNotaFiscal(){		
+		
+		if( produtoBinding != null ){
+			itemMutavel.setProduto( produtoBinding );
+			notaFiscalMutavel.getItens().add( itemMutavel );
+		}
+		
+		itemMutavel = new ItemBinding();
+		produtoBinding = new ProdutoBinding();
+	}
+	
+	public NotaFiscalMutavel getNotaFiscal() {
+		return notaFiscalMutavel;
 	}
 
-	public void setNotaFiscal( final NotaFiscalBinding notaFiscal) {
-		this.notaFiscal = notaFiscal;
+	public void setNotaFiscal( final NotaFiscalMutavel notaFiscal ) {
+		notaFiscalMutavel = notaFiscal;
 	}
 	
-	private void resetBindings(){
-		item = new ItemBindingCopiavel();
-		notaFiscal = new NotaFiscalBindingCopiavel();
+	public ItemMutavel getItem() {
+		return itemMutavel;
+	}
+
+	public void setItem(final ItemMutavel item) {
+		itemMutavel = item;
+	}
+
+	public ProdutoMutavel getProdutoBinding() {
+		return produtoBinding;
+	}
+
+	public void setProdutoBinding(final ProdutoMutavel produtoBinding) {
+		this.produtoBinding = produtoBinding;
 	}
 }

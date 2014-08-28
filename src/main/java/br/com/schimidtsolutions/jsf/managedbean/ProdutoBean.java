@@ -11,42 +11,42 @@ import javax.transaction.Transactional;
 
 import org.primefaces.component.datatable.DataTable;
 
+import br.com.schimidtsolutions.jsf.common.interfaces.ProdutoMutavel;
 import br.com.schimidtsolutions.jsf.constantes.LegendaTelaProduto;
 import br.com.schimidtsolutions.jsf.dao.DAO;
 import br.com.schimidtsolutions.jsf.entidades.Produto;
 import br.com.schimidtsolutions.jsf.log.Logged;
-import br.com.schimidtsolutions.jsf.managedbean.binding.ProdutoBindingCopiavel;
-import br.com.schimidtsolutions.jsf.managedbean.interfaces.ProdutoBinding;
+import br.com.schimidtsolutions.jsf.managedbean.annotation.Binding;
+import br.com.schimidtsolutions.jsf.managedbean.binding.ProdutoBinding;
 
 @Named
 @ViewScoped
 public class ProdutoBean implements Serializable {
 	private static final long serialVersionUID = -6530799356937047703L;
 
-	@Inject
+	@Inject @Binding
 	private ProdutoBinding produtoEditavel;
 	
-	private List<ProdutoBinding> listaProdutos;
+	private List<ProdutoMutavel> listaProdutos;
 	
-	private List<ProdutoBinding> listaProdutosFiltrado;
+	private List<ProdutoMutavel> listaProdutosFiltrado;
 	
 	private LegendaTelaProduto legendaTela = LegendaTelaProduto.CADASTRAR_PRODUTO;
 
 	@Inject
-	private transient DAO<Produto> dao;
+	private DAO<Produto> dao;
 	
-	private transient DataTable dataTable; 
+	private DataTable dataTable; 
 	
 	@Transactional
 	@Logged
 	public void salvarProduto() {
-		final ProdutoBindingCopiavel produtoEmEdicao = (ProdutoBindingCopiavel) produtoEditavel;
 		
-		if( produtoEmEdicao.getId() == null ){
-			dao.adicionar( produtoEmEdicao.paraEntidade() );
+		if( produtoEditavel.getId() == null ){
+			dao.adicionar( produtoEditavel.toEntity() );
 			
 		}else{
-			dao.atualizar( produtoEmEdicao.paraEntidade() );
+			dao.atualizar( produtoEditavel.toEntity() );
 		}
 
 		resetBindings();
@@ -54,8 +54,8 @@ public class ProdutoBean implements Serializable {
 
 	@Transactional
 	@Logged
-	public void excluirProduto( final ProdutoBindingCopiavel produtoBinding ) {
-		dao.apagar( produtoBinding.paraEntidade() );
+	public void excluirProduto( final ProdutoBinding produtoBinding ) {
+		dao.apagar( produtoBinding.toEntity() );
 
 		resetBindings();
 	}
@@ -64,7 +64,7 @@ public class ProdutoBean implements Serializable {
 		resetBindings();
 	}
 
-	public List<ProdutoBinding> getProdutos() {	
+	public List<ProdutoMutavel> getProdutos() {	
 		
 		if (listaProdutos == null) {
 			atualizarListaProdutosDoBancoDeDados();
@@ -73,20 +73,20 @@ public class ProdutoBean implements Serializable {
 		return listaProdutos;
 	}
 	
-	public ProdutoBinding getProduto() {
+	public ProdutoMutavel getProduto() {
 		return produtoEditavel;
 	}
 
-	public void exibirProdutoAlteracao(final ProdutoBinding produto) {
-		produtoEditavel = produto;
+	public void exibirProdutoAlteracao(final ProdutoMutavel produto) {
+		produtoEditavel = (ProdutoBinding) produto;
 		legendaTela = LegendaTelaProduto.EDITAR_PRODUTO;
 	}
 	
-	public List<ProdutoBinding> getListaProdutosFiltrado() {
+	public List<ProdutoMutavel> getListaProdutosFiltrado() {
 		return listaProdutosFiltrado;
 	}
 	
-	public void setListaProdutosFiltrado( final List<ProdutoBinding> listaProdutosFiltrado) {
+	public void setListaProdutosFiltrado( final List<ProdutoMutavel> listaProdutosFiltrado) {
 		this.listaProdutosFiltrado = listaProdutosFiltrado;
 	}
 	
@@ -107,24 +107,17 @@ public class ProdutoBean implements Serializable {
 		listaProdutos = new ArrayList<>( produtos.size() );
 		
 		for (final Produto produto : produtos) {
-			final ProdutoBindingCopiavel produtoBinding = new ProdutoBindingCopiavel();
-			produtoBinding.copiarDaEntidade( produto );
+			final ProdutoMutavel produtoBinding = new ProdutoBinding( produto );
 			
 			listaProdutos.add( produtoBinding );
 		}
 	} 
 
 	private void resetBindings() {
-		produtoEditavel = new ProdutoBindingCopiavel();
+		produtoEditavel = new ProdutoBinding();
 		atualizarListaProdutosDoBancoDeDados();
 		legendaTela = LegendaTelaProduto.CADASTRAR_PRODUTO;
 		listaProdutosFiltrado = listaProdutos;
 		dataTable.reset();    
 	}
-	
-/*	 @Logged
-	 private void readObject(final ObjectInputStream o) throws IOException, ClassNotFoundException {
-		 readObject(o);
-		 dao = new DAOFactory<Produto>().newInstanceDAO();
-	 }*/
 }

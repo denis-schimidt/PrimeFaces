@@ -1,6 +1,9 @@
 package br.com.schimidtsolutions.jsf.phaselistener;
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.faces.application.FacesMessage;
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
@@ -17,17 +20,23 @@ public class LogPhaseListener implements PhaseListener {
 
 	@PostConstruct
 	public void init(){
-		log.debug( "Iniciando LogPhaseListener..." );
+		log.info( "Iniciando LogPhaseListener..." );
 	}
 	
 	@Override
 	public void afterPhase(final PhaseEvent event) {
-		log.debug( "Depois da Fase: " + event.getPhaseId() );
+		log.info( "Depois da Fase: " + event.getPhaseId() );
+		
+		final List<FacesMessage> messageList = event.getFacesContext().getMessageList();
+
+		for( final FacesMessage facesMessage : messageList ){
+			log.error( facesMessage.getDetail() );
+		}
 	}
 
 	@Override
 	public void beforePhase(final PhaseEvent event) {
-		log.debug( "Antes da Fase: " + event.getPhaseId() );
+		log.info( "Antes da Fase: " + event.getPhaseId() );
 	}
 
 	@Override
@@ -37,6 +46,6 @@ public class LogPhaseListener implements PhaseListener {
 	
 	@PreDestroy
 	public void destroy(){
-		log.debug( "Destruindo LogPhaseListener..." );
+		log.info( "Destruindo LogPhaseListener..." );
 	}
 }

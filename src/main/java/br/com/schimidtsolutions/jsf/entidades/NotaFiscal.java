@@ -15,7 +15,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
 
 import org.hibernate.annotations.Type;
 import org.joda.time.LocalDate;
@@ -24,7 +23,7 @@ import br.com.caelum.stella.bean.validation.CNPJ;
 
 @Entity
 @Table(schema="development", name="NOTA_FISCAL")
-public class NotaFiscal {
+public class NotaFiscal{
 
 	@Id
 	@SequenceGenerator( schema="development", sequenceName="NOTA_FISCAL_SEQ", initialValue=1, allocationSize=1, name="NotaFiscalGenerator")
@@ -34,11 +33,11 @@ public class NotaFiscal {
 	
 	@CNPJ
 	@NotNull(message="O CNPJ não pode ser nulo")
-	@Column(name="CNPJ", length=14, insertable=true, nullable=false, updatable=true )
+	@Column(name="CNPJ", length=18, insertable=true, nullable=false, updatable=true )
 	private String cnpj;
 	
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
-	@Past(message="Data precisa ser menor ou igual que a data atual")
+	@br.com.schimidtsolutions.jsf.entidades.validation.Past(message="Data precisa ser menor ou igual que a data atual")
 	@Column(name="DATA", insertable=true, nullable=false, updatable=true )
 	private LocalDate data;
 
@@ -53,7 +52,13 @@ public class NotaFiscal {
 		cnpj = builder.cnpj;
 		data = builder.data;
 		id = builder.id;
-		itens = builder.itens;
+		
+		if( builder.itens != null ){
+			itens = builder.itens;
+			
+		}else{
+			itens = new ArrayList<>();
+		}
 	}
 	
 	@Override

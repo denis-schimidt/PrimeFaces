@@ -11,10 +11,11 @@ import javax.inject.Singleton;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 
+import br.com.schimidtsolutions.jsf.common.interfaces.UsuarioMutavel;
 import br.com.schimidtsolutions.jsf.dao.DAO;
 import br.com.schimidtsolutions.jsf.entidades.Usuario;
-import br.com.schimidtsolutions.jsf.managedbean.binding.UsuarioBindingCopiavel;
-import br.com.schimidtsolutions.jsf.managedbean.interfaces.UsuarioBinding;
+import br.com.schimidtsolutions.jsf.managedbean.annotation.Binding;
+import br.com.schimidtsolutions.jsf.managedbean.binding.UsuarioBinding;
 
 @Named
 @SessionScoped
@@ -25,18 +26,18 @@ public class LoginBean implements Serializable {
 	private transient Logger log;
 
 	@Inject
-	private transient DAO<Usuario> dao;
+	private DAO<Usuario> dao;
 	
-	@Inject
-	private UsuarioBinding usuario;
+	@Inject @Binding
+	private UsuarioMutavel usuarioSessao;
 	
 	public String logIn(){
-		final UsuarioBindingCopiavel usuarioInformado = (UsuarioBindingCopiavel) usuario;
+		final UsuarioBinding usuarioBinding = (UsuarioBinding) usuarioSessao; 
 		
-		final List<Usuario> usuariosPesquisados = dao.pesquisarPorCamposIguaisPreenchidos( usuarioInformado.paraEntidade() );
+		final List<Usuario> usuariosPesquisados = dao.pesquisarPorCamposIguaisPreenchidos( usuarioBinding.toEntity() );
 		
 		try{
-			validarUsuario(usuarioInformado, usuariosPesquisados);
+			validarUsuario( usuarioBinding, usuariosPesquisados );
 			
 		}catch( final IllegalAccessException exception ){
 			resetUsuario();
@@ -44,16 +45,16 @@ public class LoginBean implements Serializable {
 			return "login?faces-redirect=true";
 		}
 		
-		return efetuarLoginSessao(usuariosPesquisados);
+		return efetuarLoginSessao( usuariosPesquisados.get( 0 ) );
 	}
 
-	private String efetuarLoginSessao(final List<Usuario> usuariosPesquisados) {
-		usuario = new UsuarioBindingCopiavel( usuariosPesquisados.get( 0 ) );
+	private String efetuarLoginSessao(final Usuario usuario) {
+		usuarioSessao = new UsuarioBinding( usuario );
 			
 		return "produto?faces-redirect=true";
 	}
 
-	private void validarUsuario(final UsuarioBindingCopiavel usuarioInformado, final List<Usuario> usuarios) throws IllegalAccessException {
+	private void validarUsuario(final UsuarioMutavel usuarioInformado, final List<Usuario> usuarios) throws IllegalAccessException {
 		
 		if( StringUtils.isEmpty( usuarioInformado.getLogin() ) || StringUtils.isEmpty( usuarioInformado.getSenha() ) ){
 			final String mensagemErro = String.format( "Tentativa de login inválido (%s) para o usuário.",  usuarioInformado.getLogin() );
@@ -76,14 +77,14 @@ public class LoginBean implements Serializable {
 	}
 
 	private void resetUsuario() {
-		usuario = new UsuarioBindingCopiavel();
+		usuarioSessao = new UsuarioBinding();
 	}
 	
-	public UsuarioBinding getUsuario() {
-		return usuario;
+	public UsuarioMutavel getUsuario() {
+		return usuarioSessao;
 	}
 
 	public boolean isLogado() {
-		return usuario.getId() !=null;
+		return usuarioSessao.getId() !=null;
 	}
 }

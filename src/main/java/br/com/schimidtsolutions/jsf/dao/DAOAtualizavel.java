@@ -5,5 +5,5 @@ import java.io.Serializable;
 
 public interface DAOAtualizavel<T> extends Serializable {
 
-	public void atualizar( T entity );
+	public T atualizar( T entidade );
 }
