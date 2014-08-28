@@ -42,7 +42,7 @@ public class NotaFiscal{
 	private LocalDate data;
 
 	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH, CascadeType.REMOVE}, fetch=FetchType.LAZY, mappedBy="notaFiscal")
-	private final List<Item> itens;
+	private List<Item> itens;
 	
 	NotaFiscal() {
 		itens = new ArrayList<>();
