@@ -54,7 +54,7 @@
  	font-weight: bold;	
  	text-align: center;
  	width: 100%;
- 	color: white; 
+ 	color: rgb(10,10,70); 
  	text-shadow: 2px 1px 5px rgba(150, 150, 150, 1);
  	margin-bottom: 8px;
 }

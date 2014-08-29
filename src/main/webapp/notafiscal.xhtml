@@ -12,26 +12,78 @@
 	</ui:define>
 
 	<ui:define name="corpo">
-		<f:view contentType="text/html">
 			<h:outputStylesheet library="css" name="notafiscal.css" target="head" />
 
-			<h:messages showDetail="true" />
 			<h:form id="notaFiscalForm" prependId="false">
 
-				<div>
-					<span style="width: 50%; margin: 0, auto"> 
-						<h:outputLabel value="CNPJ" for="cnpj" visible="true" /> 
-						<h:inputText value="#{notaFiscalBean.notaFiscal.cnpj}" id="cnpj" required="true" />
-					</span> 
+				<p:fieldset id="fstDadosCliente" legend="Dados da Nota">
+					<div class="campoForm">
+						<p:outputLabel value="CNPJ" for="cnpj" visible="true" />
+						<p:inputText value="#{notaFiscalBean.notaFiscal.cnpj}" id="cnpj"
+								required="true" />
+					</div>	
+							
+					<div class="campoForm">
+						<p:outputLabel value="Data" for="data"/>
+						<p:inputText value="#{notaFiscalBean.notaFiscal.data}" id="data"
+								required="true" converter="localDateConverter" converterMessage="Data Inválida" />
+					</div>
+				</p:fieldset>
+				
+				<p:fieldset id="fstDadosItem" legend="Dados do Produto">
+				
+					<div class="campoForm">
+						<p:outputLabel value="Produto">
+							<span class="ui-outputlabel-rfi">*</span>
+						</p:outputLabel>
+						<p:selectOneMenu value="#{notaFiscalBean.produtoBinding}" required="true" converter="produtoConverter">
+							<f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
+							<f:selectItems value="#{produtoBean.produtos}" var="produto" itemValue="#{produto}" itemLabel="#{produto.nome}" />
+						</p:selectOneMenu>
+					</div>		
 					
-					<span style="text-align: right;"> 
-						<h:outputLabel value="Data" for="data" /> 
-						<h:inputText value="#{notaFiscalBean.notaFiscal.data}" id="data"
-							required="true" converter="localDateConverter" converterMessage="Data Inválida" />
-					</span>
-				</div>
+					<div class="campoForm">
+						<p:outputLabel value="Quantidade" for="quantidade" visible="true" />
+						<p:inputText value="#{notaFiscalBean.item.quantidade}" id="quantidade" required="true" />	
+					</div>	
+					
+					<p:commandButton type="submit" partialSubmit="true" value="Adicionar Item" actionListener="#{notaFiscalBean.incluirItemNotaFiscal()}" ajax="true" 
+							icon="ui-icon-check" id="botaoIncluirItem" styleClass="btn" process="fstDadosItem" update="@form" />
+				</p:fieldset>	
+				
+				<h:panelGroup id="pnlItensNota" layout="block" rendered="#{notaFiscalBean.notaFiscal.itens.size() > 0}">
+				
+					<h3>Itens da Nota Fiscal</h3>
+					
+					<p:dataTable value="#{notaFiscalBean.notaFiscal.itens}" var="itemNota">
+					
+						<p:column headerText="Produto">
+							<h:outputText value="#{itemNota.produto.descricao}" />
+						</p:column>
+					
+						<p:column headerText="Valor Unitário">
+							<h:outputText value="#{itemNota.valorUnitario}">
+								<f:convertNumber currencyCode="BRL" minFractionDigits="2"/>
+							</h:outputText>
+						</p:column>
+						
+						<p:column headerText="Quantidade">
+							<h:outputText value="#{itemNota.quantidade}" />
+						</p:column>
+						
+						<p:column headerText="Total">
+							<h:outputText value="#{itemNota.valorTotal}">
+								<f:convertNumber currencyCode="BRL" minFractionDigits="2"/>
+							</h:outputText>
+						</p:column>
+					</p:dataTable>
+				</h:panelGroup>				
+				
+				<h:commandButton value="Salvar" styleClass="botaoSalvar ui-button-text-icon-left" 
+					actionListener="#{notaFiscalBean.salvarNotaFiscal()}">
+							<f:ajax execute="fstDadosItem" render="fstDadosItem" />
+				</h:commandButton>
 			</h:form>
-		</f:view>
 	</ui:define>
 </ui:composition>
 </html>

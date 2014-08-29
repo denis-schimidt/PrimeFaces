@@ -30,7 +30,7 @@ public class NotaFiscalBean implements Serializable{
 	@Inject
 	private NotaFiscalServiceLocal notaFiscalService;
 	
-	private ProdutoMutavel produtoBinding;
+	private ProdutoMutavel produtoMutavel;
 	
 	@Logged
 	public void salvarNotaFiscal(){
@@ -41,13 +41,14 @@ public class NotaFiscalBean implements Serializable{
 	
 	public void incluirItemNotaFiscal(){		
 		
-		if( produtoBinding != null ){
-			itemMutavel.setProduto( produtoBinding );
+		if( produtoMutavel != null ){
+			itemMutavel.setProduto( produtoMutavel );
+			itemMutavel.setValorUnitario( produtoMutavel.getPreco() );
 			notaFiscalMutavel.getItens().add( itemMutavel );
 		}
 		
 		itemMutavel = new ItemBinding();
-		produtoBinding = new ProdutoBinding();
+		produtoMutavel = new ProdutoBinding();
 	}
 	
 	public NotaFiscalMutavel getNotaFiscal() {
@@ -67,10 +68,10 @@ public class NotaFiscalBean implements Serializable{
 	}
 
 	public ProdutoMutavel getProdutoBinding() {
-		return produtoBinding;
+		return produtoMutavel;
 	}
 
 	public void setProdutoBinding(final ProdutoMutavel produtoBinding) {
-		this.produtoBinding = produtoBinding;
+		this.produtoMutavel = produtoBinding;
 	}
 }

@@ -16,6 +16,8 @@ public interface ItemMutavel extends Serializable {
 	public abstract void setValorUnitario(final BigDecimal valorUnitario);
 
 	public abstract BigDecimal getValorUnitario();
+	
+	public abstract BigDecimal getValorTotal();
 
 	public abstract void setProduto(final ProdutoMutavel produtoMutavel);
 

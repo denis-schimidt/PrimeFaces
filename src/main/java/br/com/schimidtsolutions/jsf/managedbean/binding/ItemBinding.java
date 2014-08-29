@@ -117,4 +117,9 @@ public class ItemBinding implements ItemMutavel, CopiavelPara<Item> {
 	void setNotaFiscal(final NotaFiscal notaFiscal) {
 		this.notaFiscal = notaFiscal;
 	}
+
+	@Override
+	public BigDecimal getValorTotal() {
+		return itemMutavel.getValorTotal();
+	}
 }

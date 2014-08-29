@@ -20,7 +20,7 @@ public interface NotaFiscalMutavel extends Serializable {
 	public abstract String getCnpj();
 
 	public abstract LocalDate getData();
-
+	
 	public abstract List<ItemMutavel> getItens();
 
 }

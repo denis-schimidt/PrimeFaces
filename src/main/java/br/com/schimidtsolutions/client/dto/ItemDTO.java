@@ -1,6 +1,7 @@
 package br.com.schimidtsolutions.client.dto;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import br.com.schimidtsolutions.jsf.common.interfaces.ItemMutavel;
 import br.com.schimidtsolutions.jsf.common.interfaces.ProdutoMutavel;
@@ -88,5 +89,12 @@ public class ItemDTO implements ItemMutavel {
 	@Override
 	public ProdutoMutavel getProduto() {
 		return produtoMutavel;
+	}
+
+	@Override
+	public BigDecimal getValorTotal() {
+		return BigDecimal.valueOf( quantidade )
+				.multiply( valorUnitario )
+					.setScale( 2, RoundingMode.HALF_UP);
 	}
 }
