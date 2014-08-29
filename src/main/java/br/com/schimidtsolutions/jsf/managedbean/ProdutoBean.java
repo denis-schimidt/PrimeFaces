@@ -11,7 +11,7 @@ import javax.transaction.Transactional;
 
 import org.primefaces.component.datatable.DataTable;
 
-import br.com.schimidtsolutions.jsf.common.interfaces.ProdutoMutavel;
+import br.com.schimidtsolutions.jsf.client.interfaces.ProdutoMutavel;
 import br.com.schimidtsolutions.jsf.constantes.LegendaTelaProduto;
 import br.com.schimidtsolutions.jsf.dao.DAO;
 import br.com.schimidtsolutions.jsf.entidades.Produto;

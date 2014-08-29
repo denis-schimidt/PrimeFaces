@@ -24,7 +24,7 @@ public class Item implements Comparable<Item> {
 	@GeneratedValue(generator="ItemGenerator", strategy=GenerationType.SEQUENCE)
 	@Column(name="ID", insertable=true, nullable=false, updatable=false )
 	@OrderBy
-	private Integer id;
+	private Long id;
 	
 	@ManyToOne
 	private NotaFiscal notaFiscal;
@@ -106,7 +106,7 @@ public class Item implements Comparable<Item> {
 		return true;
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -127,13 +127,13 @@ public class Item implements Comparable<Item> {
 	}
 	
 	public static class Builder{
-		private Integer id;
+		private Long id;
 		private NotaFiscal notaFiscal;
 		private Produto produto;
 		private Integer quantidade;
 		private BigDecimal valorUnitario;
 		
-		public Builder comId(final Integer id) {
+		public Builder comId(final Long id) {
 			this.id = id;
 			
 			return this;

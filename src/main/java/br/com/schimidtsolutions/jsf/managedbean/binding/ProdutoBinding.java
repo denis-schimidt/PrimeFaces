@@ -2,8 +2,8 @@ package br.com.schimidtsolutions.jsf.managedbean.binding;
 
 import java.math.BigDecimal;
 
-import br.com.schimidtsolutions.client.dto.ProdutoDTO;
-import br.com.schimidtsolutions.jsf.common.interfaces.ProdutoMutavel;
+import br.com.schimidtsolutions.jsf.client.dto.ProdutoDTO;
+import br.com.schimidtsolutions.jsf.client.interfaces.ProdutoMutavel;
 import br.com.schimidtsolutions.jsf.entidades.Produto;
 import br.com.schimidtsolutions.jsf.interfaces.CopiavelPara;
 import br.com.schimidtsolutions.jsf.managedbean.annotation.Binding;

@@ -1,15 +1,15 @@
-package br.com.schimidtsolutions.jsf.common.interfaces;
+package br.com.schimidtsolutions.jsf.client.interfaces;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-public interface ItemMutavel extends Serializable {
+public interface ItemMutavel extends Serializable, Comparable<ItemMutavel> {
 
-	public abstract void setId(Integer id);
+	public abstract void setId(Long id);
 
 	public abstract void setQuantidade(Integer quantidade);
 
-	public abstract Integer getId();
+	public abstract Long getId();
 
 	public abstract Integer getQuantidade();
 

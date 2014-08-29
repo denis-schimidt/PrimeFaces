@@ -1,4 +1,4 @@
-package br.com.schimidtsolutions.jsf.common.interfaces;
+package br.com.schimidtsolutions.jsf.client.interfaces;
 
 import java.io.Serializable;
 import java.util.List;

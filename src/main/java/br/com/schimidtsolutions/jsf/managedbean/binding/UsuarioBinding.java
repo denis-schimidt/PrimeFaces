@@ -1,7 +1,7 @@
 package br.com.schimidtsolutions.jsf.managedbean.binding;
 
-import br.com.schimidtsolutions.client.dto.UsuarioDTO;
-import br.com.schimidtsolutions.jsf.common.interfaces.UsuarioMutavel;
+import br.com.schimidtsolutions.jsf.client.dto.UsuarioDTO;
+import br.com.schimidtsolutions.jsf.client.interfaces.UsuarioMutavel;
 import br.com.schimidtsolutions.jsf.entidades.Usuario;
 import br.com.schimidtsolutions.jsf.interfaces.CopiavelPara;
 import br.com.schimidtsolutions.jsf.managedbean.annotation.Binding;

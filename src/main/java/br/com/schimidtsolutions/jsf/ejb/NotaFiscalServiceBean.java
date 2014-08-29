@@ -13,9 +13,9 @@ import javax.inject.Singleton;
 
 import org.slf4j.Logger;
 
-import br.com.schimidtsolutions.jsf.common.interfaces.ItemMutavel;
-import br.com.schimidtsolutions.jsf.common.interfaces.NotaFiscalMutavel;
-import br.com.schimidtsolutions.jsf.common.interfaces.NotaFiscalServiceRemote;
+import br.com.schimidtsolutions.jsf.client.interfaces.ItemMutavel;
+import br.com.schimidtsolutions.jsf.client.interfaces.NotaFiscalMutavel;
+import br.com.schimidtsolutions.jsf.client.interfaces.NotaFiscalServiceRemote;
 import br.com.schimidtsolutions.jsf.dao.DAO;
 import br.com.schimidtsolutions.jsf.ejb.factory.NotaFiscalFactory;
 import br.com.schimidtsolutions.jsf.entidades.NotaFiscal;
@@ -24,8 +24,8 @@ import br.com.schimidtsolutions.jsf.managedbean.binding.NotaFiscalBinding;
 
 @Stateless
 @Remote( NotaFiscalServiceRemote.class )
-@Local( NotaFiscalServiceLocal.class )
-public class NotaFiscalServiceBean implements NotaFiscalServiceLocal, NotaFiscalServiceRemote {
+@Local( NotaFiscalService.class )
+public class NotaFiscalServiceBean implements NotaFiscalService, NotaFiscalServiceRemote {
 	
 	@Inject
 	private DAO<NotaFiscal> daoNotaFiscal;

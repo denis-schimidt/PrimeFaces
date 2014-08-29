@@ -22,10 +22,48 @@ legend{
 	font-weight: bold;
 }
 
+#tblItensNota{
+	float: left;
+	width: 97%;
+}
+
+table{
+	margin-left: 15px;
+}
+
+.colunaProduto{
+	width: 50%;
+}
+
+.colunaValorUnitario{
+	text-align: right;
+	width: 10%;
+}
+
+.colunaValorTotal{
+	text-align: right;
+	width: 12%;
+}
+
+.colunaQuantidade{
+	text-align: right;
+	width: 10%;
+}
+
+.colunaAlterar{
+	text-align: center;
+	width: 9%;
+}
+
+.colunaExcluir{
+	text-align: center;
+	width: 9%;
+}
+
 h3{
 	font-size: 1em;
 	font-family: verdana;
-	margin: 15px;
+	margin: 15px 15px 5px;
 	color: rgb( 10,10,70);
 	border-bottom-width: 1px;
 	border-bottom-color: rgb( 10,10,70);

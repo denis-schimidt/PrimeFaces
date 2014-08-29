@@ -2,8 +2,8 @@ package br.com.schimidtsolutions.jsf.ejb.factory;
 
 import java.util.Map;
 
-import br.com.schimidtsolutions.jsf.common.interfaces.ItemMutavel;
-import br.com.schimidtsolutions.jsf.common.interfaces.NotaFiscalMutavel;
+import br.com.schimidtsolutions.jsf.client.interfaces.ItemMutavel;
+import br.com.schimidtsolutions.jsf.client.interfaces.NotaFiscalMutavel;
 import br.com.schimidtsolutions.jsf.entidades.Item;
 import br.com.schimidtsolutions.jsf.entidades.NotaFiscal;
 import br.com.schimidtsolutions.jsf.entidades.Produto;

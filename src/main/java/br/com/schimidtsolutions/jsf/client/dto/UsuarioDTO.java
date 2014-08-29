@@ -1,6 +1,6 @@
-package br.com.schimidtsolutions.client.dto;
+package br.com.schimidtsolutions.jsf.client.dto;
 
-import br.com.schimidtsolutions.jsf.common.interfaces.UsuarioMutavel;
+import br.com.schimidtsolutions.jsf.client.interfaces.UsuarioMutavel;
 
 public class UsuarioDTO implements UsuarioMutavel {
 	private static final long serialVersionUID = 316932677756750576L;

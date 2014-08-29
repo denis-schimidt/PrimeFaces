@@ -1,8 +1,8 @@
 package br.com.schimidtsolutions.jsf.ejb;
 
-import br.com.schimidtsolutions.jsf.common.interfaces.NotaFiscalMutavel;
+import br.com.schimidtsolutions.jsf.client.interfaces.NotaFiscalMutavel;
 
-public interface NotaFiscalServiceLocal {
+public interface NotaFiscalService {
 
 	public abstract void cadastrarNotaFiscal(NotaFiscalMutavel notaFiscalMutavel);
 }

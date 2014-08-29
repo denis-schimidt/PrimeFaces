@@ -1,4 +1,4 @@
-package br.com.schimidtsolutions.client.dto;
+package br.com.schimidtsolutions.jsf.client.dto;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,8 +6,8 @@ import java.util.List;
 
 import org.joda.time.LocalDate;
 
-import br.com.schimidtsolutions.jsf.common.interfaces.ItemMutavel;
-import br.com.schimidtsolutions.jsf.common.interfaces.NotaFiscalMutavel;
+import br.com.schimidtsolutions.jsf.client.interfaces.ItemMutavel;
+import br.com.schimidtsolutions.jsf.client.interfaces.NotaFiscalMutavel;
 
 public class NotaFiscalDTO implements NotaFiscalMutavel {
 	private static final long serialVersionUID = 2194520704899746373L;

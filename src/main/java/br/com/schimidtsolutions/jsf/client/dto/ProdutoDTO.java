@@ -1,8 +1,8 @@
-package br.com.schimidtsolutions.client.dto;
+package br.com.schimidtsolutions.jsf.client.dto;
 
 import java.math.BigDecimal;
 
-import br.com.schimidtsolutions.jsf.common.interfaces.ProdutoMutavel;
+import br.com.schimidtsolutions.jsf.client.interfaces.ProdutoMutavel;
 
 public class ProdutoDTO implements ProdutoMutavel{
 	private static final long serialVersionUID = -9132635464789704783L;

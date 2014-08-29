@@ -8,7 +8,7 @@ import javax.inject.Inject;
 
 import org.apache.commons.lang.StringUtils;
 
-import br.com.schimidtsolutions.jsf.common.interfaces.ProdutoMutavel;
+import br.com.schimidtsolutions.jsf.client.interfaces.ProdutoMutavel;
 import br.com.schimidtsolutions.jsf.dao.DAOSomenteLeitura;
 import br.com.schimidtsolutions.jsf.entidades.Produto;
 import br.com.schimidtsolutions.jsf.managedbean.binding.ProdutoBinding;

@@ -5,9 +5,9 @@ import java.util.List;
 
 import org.joda.time.LocalDate;
 
-import br.com.schimidtsolutions.client.dto.NotaFiscalDTO;
-import br.com.schimidtsolutions.jsf.common.interfaces.ItemMutavel;
-import br.com.schimidtsolutions.jsf.common.interfaces.NotaFiscalMutavel;
+import br.com.schimidtsolutions.jsf.client.dto.NotaFiscalDTO;
+import br.com.schimidtsolutions.jsf.client.interfaces.ItemMutavel;
+import br.com.schimidtsolutions.jsf.client.interfaces.NotaFiscalMutavel;
 import br.com.schimidtsolutions.jsf.entidades.Item;
 import br.com.schimidtsolutions.jsf.entidades.NotaFiscal;
 import br.com.schimidtsolutions.jsf.interfaces.CopiavelPara;
@@ -78,6 +78,11 @@ public class NotaFiscalBinding implements NotaFiscalMutavel, CopiavelPara<NotaFi
 	@Override
 	public List<ItemMutavel> getItens() {
 		return notaFiscalMutavel.getItens();
+	}
+
+	@Override
+	public String toString() {
+		return String.format("NotaFiscalBinding [notaFiscalMutavel=%s]",notaFiscalMutavel);
 	}
 
 	@Override

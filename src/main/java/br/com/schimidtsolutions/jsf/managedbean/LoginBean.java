@@ -11,7 +11,7 @@ import javax.inject.Singleton;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 
-import br.com.schimidtsolutions.jsf.common.interfaces.UsuarioMutavel;
+import br.com.schimidtsolutions.jsf.client.interfaces.UsuarioMutavel;
 import br.com.schimidtsolutions.jsf.dao.DAO;
 import br.com.schimidtsolutions.jsf.entidades.Usuario;
 import br.com.schimidtsolutions.jsf.managedbean.annotation.Binding;

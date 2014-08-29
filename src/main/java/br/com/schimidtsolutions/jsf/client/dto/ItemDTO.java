@@ -1,14 +1,15 @@
-package br.com.schimidtsolutions.client.dto;
+package br.com.schimidtsolutions.jsf.client.dto;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-import br.com.schimidtsolutions.jsf.common.interfaces.ItemMutavel;
-import br.com.schimidtsolutions.jsf.common.interfaces.ProdutoMutavel;
+import br.com.schimidtsolutions.jsf.client.interfaces.ItemMutavel;
+import br.com.schimidtsolutions.jsf.client.interfaces.ProdutoMutavel;
+import br.com.schimidtsolutions.jsf.constantes.ComparacaoObjetos;
 
 public class ItemDTO implements ItemMutavel {
 	private static final long serialVersionUID = -6675679396380650885L;
-	private Integer id;
+	private Long id;
 	private ProdutoMutavel produtoMutavel;
 	private Integer quantidade;
 	private BigDecimal valorUnitario;
@@ -52,7 +53,7 @@ public class ItemDTO implements ItemMutavel {
 
 
 	@Override
-	public void setId(final Integer id) {
+	public void setId(final Long id) {
 		this.id = id;
 	}
 
@@ -62,7 +63,7 @@ public class ItemDTO implements ItemMutavel {
 	}
 
 	@Override
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -96,5 +97,28 @@ public class ItemDTO implements ItemMutavel {
 		return BigDecimal.valueOf( quantidade )
 				.multiply( valorUnitario )
 					.setScale( 2, RoundingMode.HALF_UP);
+	}
+
+	@Override
+	public int compareTo(ItemMutavel outroItem) {
+		final boolean idOutroItemNaoENulo = outroItem != null && outroItem.getId() != null;
+		final boolean idDesteItemNaoENulo = outroItem.getId() != null;
+		
+		if( idDesteItemNaoENulo ){
+			
+			if( idOutroItemNaoENulo ){
+				return getId().intValue() - outroItem.getId().intValue();
+			}
+			
+			return ComparacaoObjetos.MENOR.getValor();
+			
+		}else{
+			
+			if( idOutroItemNaoENulo ){
+				return ComparacaoObjetos.MAIOR.getValor();
+			}
+			
+			return ComparacaoObjetos.IGUAL.getValor();
+		}	
 	}
 }

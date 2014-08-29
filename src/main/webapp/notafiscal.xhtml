@@ -30,13 +30,13 @@
 					</div>
 				</p:fieldset>
 				
-				<p:fieldset id="fstDadosItem" legend="Dados do Produto">
+				<p:fieldset id="fstDadosItem" legend="Dados do Item">
 				
 					<div class="campoForm">
 						<p:outputLabel value="Produto">
 							<span class="ui-outputlabel-rfi">*</span>
 						</p:outputLabel>
-						<p:selectOneMenu value="#{notaFiscalBean.produtoBinding}" required="true" converter="produtoConverter">
+						<p:selectOneMenu value="#{notaFiscalBean.produto}" required="true" converter="produtoConverter">
 							<f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
 							<f:selectItems value="#{produtoBean.produtos}" var="produto" itemValue="#{produto}" itemLabel="#{produto.nome}" />
 						</p:selectOneMenu>
@@ -48,40 +48,56 @@
 					</div>	
 					
 					<p:commandButton type="submit" partialSubmit="true" value="Adicionar Item" actionListener="#{notaFiscalBean.incluirItemNotaFiscal()}" ajax="true" 
-							icon="ui-icon-check" id="botaoIncluirItem" styleClass="btn" process="fstDadosItem" update="@form" />
+							icon="ui-icon-check" id="botaoIncluirItem" styleClass="btn" process="fstDadosItem" update="fstDadosItem,pnlItensNota" />
 				</p:fieldset>	
 				
-				<h:panelGroup id="pnlItensNota" layout="block" rendered="#{notaFiscalBean.notaFiscal.itens.size() > 0}">
-				
-					<h3>Itens da Nota Fiscal</h3>
+				<p:outputPanel autoUpdate="true">
+					<h:panelGroup id="pnlItensNota" layout="block" rendered="#{notaFiscalBean.notaFiscal.itens.size()>0}">
 					
-					<p:dataTable value="#{notaFiscalBean.notaFiscal.itens}" var="itemNota">
-					
-						<p:column headerText="Produto">
-							<h:outputText value="#{itemNota.produto.descricao}" />
-						</p:column>
-					
-						<p:column headerText="Valor Unitário">
-							<h:outputText value="#{itemNota.valorUnitario}">
-								<f:convertNumber currencyCode="BRL" minFractionDigits="2"/>
-							</h:outputText>
-						</p:column>
+						<h3>Itens da Nota Fiscal</h3>
 						
-						<p:column headerText="Quantidade">
-							<h:outputText value="#{itemNota.quantidade}" />
-						</p:column>
+						<p:dataTable id="tblItensNota" value="#{notaFiscalBean.notaFiscal.itens}" var="itemNota">
 						
-						<p:column headerText="Total">
-							<h:outputText value="#{itemNota.valorTotal}">
-								<f:convertNumber currencyCode="BRL" minFractionDigits="2"/>
-							</h:outputText>
-						</p:column>
-					</p:dataTable>
-				</h:panelGroup>				
+							<p:column headerText="Produto" styleClass="colunaProduto">
+								<h:outputText value="#{itemNota.produto.descricao}" />
+							</p:column>
+						
+							<p:column headerText="Valor Unit." styleClass="colunaValorUnitario">
+								<h:outputText value="#{itemNota.valorUnitario}">
+									<f:convertNumber type="currency" currencyCode="BRL" minFractionDigits="2" maxFractionDigits="2"/>
+								</h:outputText>
+							</p:column>
+							
+							<p:column headerText="Quantidade" styleClass="colunaQuantidade">
+								<h:outputText value="#{itemNota.quantidade}" />
+							</p:column>
+							
+							<p:column headerText="Valor Total" styleClass="colunaValorTotal">
+								<h:outputText value="#{itemNota.valorTotal}">
+									<f:convertNumber type="currency" currencyCode="BRL" minFractionDigits="2" maxFractionDigits="2"/>
+								</h:outputText>
+							</p:column>
+							
+							<p:column headerText="Alterar" styleClass="colunaAlterar">	
+								<p:commandLink update=":notaFiscalForm:pnlItensNota" actionListener="#{notaFiscalBean.selecionarItem(itemNota)}" ajax="true">
+									<p:graphicImage value="/resources/images/alterar.jpg" width="20px" height="20px" alt="Alterar"/>
+								</p:commandLink>
+							</p:column>
+							
+							<p:column headerText="Excluir" styleClass="colunaExcluir">
+								<p:commandLink update=":notaFiscalForm:pnlItensNota" actionListener="#{notaFiscalBean.excluirItem(itemNota)}" ajax="true">
+									<p:graphicImage value="/resources/images/excluir.jpg" width="20px" height="20px" alt="Excluir" />
+								</p:commandLink>
+							</p:column>	
+							
+						</p:dataTable>
+					</h:panelGroup>
+							
+				</p:outputPanel>		
 				
 				<h:commandButton value="Salvar" styleClass="botaoSalvar ui-button-text-icon-left" 
 					actionListener="#{notaFiscalBean.salvarNotaFiscal()}">
-							<f:ajax execute="fstDadosItem" render="fstDadosItem" />
+							<f:ajax execute="fstDadosCliente" render="fstDadosCliente" />
 				</h:commandButton>
 			</h:form>
 	</ui:define>
