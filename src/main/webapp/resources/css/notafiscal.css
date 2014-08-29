@@ -22,6 +22,10 @@ legend{
 	font-weight: bold;
 }
 
+#botaoSalvarItem{
+	margin-right: 10px;
+}
+
 #tblItensNota{
 	float: left;
 	width: 97%;

@@ -77,15 +77,15 @@ public class NotaFiscalBean implements Serializable{
 	}
 
 	private void atualizarItemNaLista() {
-		int posicaoItemAExcluir = localizarPosicaoNaListaItem();
+		int posicaoItemAExcluir = localizarPosicaoNaListaItem( item );
 		
 		if( posicaoItemAExcluir > chaveNaoEncontrada ){
 			notaFiscal.getItens().set( posicaoItemAExcluir, item );
 		}
 	}
 
-	private int localizarPosicaoNaListaItem() {
-		return Collections.binarySearch( notaFiscal.getItens(), item );
+	private int localizarPosicaoNaListaItem( ItemMutavel itenProcurado ) {
+		return Collections.binarySearch( notaFiscal.getItens(), itenProcurado );
 	}
 	
 	public void cancelarAlteracaoItem(){
@@ -120,7 +120,7 @@ public class NotaFiscalBean implements Serializable{
 	}
 	
 	public void excluirItem( ItemMutavelTemporario item ){
-		int posicaoItemAExcluir = localizarPosicaoNaListaItem();
+		int posicaoItemAExcluir = localizarPosicaoNaListaItem( item );
 		
 		if( posicaoItemAExcluir > chaveNaoEncontrada ){
 			notaFiscal.getItens().remove( posicaoItemAExcluir );
