@@ -13,10 +13,12 @@ import br.com.schimidtsolutions.jsf.client.interfaces.ItemMutavel;
 import br.com.schimidtsolutions.jsf.client.interfaces.ItemMutavelTemporario;
 import br.com.schimidtsolutions.jsf.client.interfaces.NotaFiscalMutavel;
 import br.com.schimidtsolutions.jsf.client.interfaces.ProdutoMutavel;
+import br.com.schimidtsolutions.jsf.constantes.StatusItemNotaFiscal;
 import br.com.schimidtsolutions.jsf.ejb.NotaFiscalService;
 import br.com.schimidtsolutions.jsf.log.Logged;
 import br.com.schimidtsolutions.jsf.managedbean.annotation.Binding;
 import br.com.schimidtsolutions.jsf.managedbean.binding.ItemBinding;
+import br.com.schimidtsolutions.jsf.managedbean.binding.NotaFiscalBinding;
 import br.com.schimidtsolutions.jsf.managedbean.binding.ProdutoBinding;
 
 @Named
@@ -25,10 +27,10 @@ public class NotaFiscalBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Inject @Binding
-	private ItemMutavel itemMutavel; 
+	private ItemMutavel item; 
 	
 	@Inject @Binding
-	private NotaFiscalMutavel notaFiscalMutavel;
+	private NotaFiscalMutavel notaFiscal;
 
 	@Inject
 	private NotaFiscalService notaFiscalService;
@@ -39,71 +41,111 @@ public class NotaFiscalBean implements Serializable{
 	@Inject @Default
 	private int chaveNaoEncontrada;
 	
-	private ProdutoMutavel produtoMutavel;
+	@Inject
+	private StatusItemNotaFiscal statusItem;
+
+	private ProdutoMutavel produto;
 	
 	@Logged
 	public void salvarNotaFiscal(){
-		notaFiscalService.cadastrarNotaFiscal( notaFiscalMutavel );
+		notaFiscalService.cadastrarNotaFiscal( notaFiscal );
 		
-		resetarBindings();
+		resetarBindingsPagina();
 	}
 	
-	public void incluirItemNotaFiscal(){		
+	public void salvarItemNotaFiscal(){		
 		
-		if( produtoMutavel != null ){
-			setarNovoIdTemporario();
-			relacionarItemComProduto();
+		if( statusItem == StatusItemNotaFiscal.ALTERACAO ){
+			atualizarItemNaLista();
 			
-			notaFiscalMutavel.getItens().add( itemMutavel );
+		}else{
+			inserirItemNaLista();
 		}
 		
-		resetarBindings();
+		resetarBindingsTemporarios();
 	}
 
-	private void resetarBindings() {
-		itemMutavel = new ItemBinding();
-		produtoMutavel = new ProdutoBinding();
+	private void inserirItemNaLista() {
+		setarNovoIdTemporario();
+		relacionarItemComProduto();
+		
+		notaFiscal.getItens().add( item );
+	}
+	
+	public StatusItemNotaFiscal getStatusItem() {
+		return statusItem;
+	}
+
+	private void atualizarItemNaLista() {
+		int posicaoItemAExcluir = localizarPosicaoNaListaItem();
+		
+		if( posicaoItemAExcluir > chaveNaoEncontrada ){
+			notaFiscal.getItens().set( posicaoItemAExcluir, item );
+		}
+	}
+
+	private int localizarPosicaoNaListaItem() {
+		return Collections.binarySearch( notaFiscal.getItens(), item );
+	}
+	
+	public void cancelarAlteracaoItem(){
+		resetarBindingsTemporarios();
+	}
+	
+	private void resetarBindingsPagina(){
+		this.notaFiscal = new NotaFiscalBinding();
+		resetarBindingsTemporarios();
+	}
+	
+	private void resetarBindingsTemporarios() {
+		item = new ItemBinding();
+		produto = new ProdutoBinding();
+		statusItem = StatusItemNotaFiscal.INCLUSAO;
 	}
 
 	private void relacionarItemComProduto() {
-		itemMutavel.setProduto( produtoMutavel );
-		itemMutavel.setValorUnitario( produtoMutavel.getPreco() );
+		item.setProduto( produto );
+		item.setValorUnitario( produto.getPreco() );
 	}
 
 	private void setarNovoIdTemporario() {
-		ItemBinding itemBinding = (ItemBinding) itemMutavel;
+		ItemBinding itemBinding = (ItemBinding) item;
 		itemBinding.setIdTemporario( geradorIdTemporario.getAndIncrement() );
 	}
 	
 	public void selecionarItem( ItemMutavelTemporario item ){
-		this.itemMutavel = item;
+		this.item = item;
+		this.produto = item.getProduto();
+		statusItem = StatusItemNotaFiscal.ALTERACAO;
 	}
 	
 	public void excluirItem( ItemMutavelTemporario item ){
-		int posicaoItemAExcluir = Collections.binarySearch( notaFiscalMutavel.getItens(), item );
+		int posicaoItemAExcluir = localizarPosicaoNaListaItem();
 		
-		if( posicaoItemAExcluir > -1 ){
-			notaFiscalMutavel.getItens().remove( posicaoItemAExcluir );
+		if( posicaoItemAExcluir > chaveNaoEncontrada ){
+			notaFiscal.getItens().remove( posicaoItemAExcluir );
 		}
+		
+		resetarBindingsTemporarios();
 	}
 	
 	public NotaFiscalMutavel getNotaFiscal() {
-		return notaFiscalMutavel;
+		return notaFiscal;
 	}
 
 	public void setNotaFiscal( final NotaFiscalMutavel notaFiscal ) {
-		notaFiscalMutavel = notaFiscal;
+		this.notaFiscal = notaFiscal;
 	}
 	
 	public ItemMutavel getItem() {
-		return itemMutavel;
+		return item;
 	}
-
+	
 	public ProdutoMutavel getProduto() {
-		return produtoMutavel;
+		return produto;
 	}
 
 	public void setProduto(final ProdutoMutavel produtoBinding) {
-		this.produtoMutavel = produtoBinding;
+		this.produto = produtoBinding;
 	}
 }

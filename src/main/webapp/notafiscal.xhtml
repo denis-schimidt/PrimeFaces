@@ -30,7 +30,7 @@
 					</div>
 				</p:fieldset>
 				
-				<p:fieldset id="fstDadosItem" legend="Dados do Item">
+				<p:fieldset id="fstDadosItem" legend="#{notaFiscalBean.statusItem.legendaTelaItem}">
 				
 					<div class="campoForm">
 						<p:outputLabel value="Produto">
@@ -47,8 +47,13 @@
 						<p:inputText value="#{notaFiscalBean.item.quantidade}" id="quantidade" required="true" />	
 					</div>	
 					
-					<p:commandButton type="submit" partialSubmit="true" value="Adicionar Item" actionListener="#{notaFiscalBean.incluirItemNotaFiscal()}" ajax="true" 
-							icon="ui-icon-check" id="botaoIncluirItem" styleClass="btn" process="fstDadosItem" update="fstDadosItem,pnlItensNota" />
+					<p:commandButton type="submit" partialSubmit="true" value="#{notaFiscalBean.statusItem.labelBotaoItem}" 
+						actionListener="#{notaFiscalBean.salvarItemNotaFiscal()}" ajax="true" 
+							icon="ui-icon-check" id="botaoSalvarItem" styleClass="btn" process="fstDadosItem" update="fstDadosItem pnlItensNota" />
+							
+					<p:commandButton partialSubmit="true" value="Cancelar" actionListener="#{notaFiscalBean.cancelarAlteracaoItem()}" ajax="true" 
+							rendered="#{notaFiscalBean.statusItem.edicao}" icon="ui-icon-arrowrefresh-1-w" id="botaoAlterarItem" styleClass="btn" 
+								process="fstDadosItem" update="fstDadosItem pnlItensNota" />
 				</p:fieldset>	
 				
 				<p:outputPanel autoUpdate="true">
@@ -79,13 +84,15 @@
 							</p:column>
 							
 							<p:column headerText="Alterar" styleClass="colunaAlterar">	
-								<p:commandLink update=":notaFiscalForm:pnlItensNota" actionListener="#{notaFiscalBean.selecionarItem(itemNota)}" ajax="true">
+								<p:commandLink update=":notaFiscalForm:pnlItensNota :notaFiscalForm:fstDadosItem" process=":notaFiscalForm:pnlItensNota" partialSubmit="true" 
+											actionListener="#{notaFiscalBean.selecionarItem(itemNota)}" ajax="true">
 									<p:graphicImage value="/resources/images/alterar.jpg" width="20px" height="20px" alt="Alterar"/>
 								</p:commandLink>
 							</p:column>
 							
 							<p:column headerText="Excluir" styleClass="colunaExcluir">
-								<p:commandLink update=":notaFiscalForm:pnlItensNota" actionListener="#{notaFiscalBean.excluirItem(itemNota)}" ajax="true">
+								<p:commandLink update=":notaFiscalForm:pnlItensNota :notaFiscalForm:fstDadosItem" process=":notaFiscalForm:pnlItensNota" partialSubmit="true" 
+										actionListener="#{notaFiscalBean.excluirItem(itemNota)}" ajax="true">
 									<p:graphicImage value="/resources/images/excluir.jpg" width="20px" height="20px" alt="Excluir" />
 								</p:commandLink>
 							</p:column>	

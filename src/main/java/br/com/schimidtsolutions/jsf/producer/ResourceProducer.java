@@ -8,6 +8,8 @@ import javax.enterprise.inject.spi.InjectionPoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import br.com.schimidtsolutions.jsf.constantes.StatusItemNotaFiscal;
+
 public class ResourceProducer {
 
 	@Produces
@@ -23,5 +25,10 @@ public class ResourceProducer {
 	@Produces
 	AtomicInteger newGeradorId(){
 		return new AtomicInteger( 0 );
+	}
+	
+	@Produces
+	StatusItemNotaFiscal getStatusInicial(){
+		return StatusItemNotaFiscal.INCLUSAO;
 	}
 }
