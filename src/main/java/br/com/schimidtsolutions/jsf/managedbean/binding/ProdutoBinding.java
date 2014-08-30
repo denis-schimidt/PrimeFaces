@@ -4,9 +4,9 @@ import java.math.BigDecimal;
 
 import br.com.schimidtsolutions.jsf.client.dto.ProdutoDTO;
 import br.com.schimidtsolutions.jsf.client.interfaces.ProdutoMutavel;
-import br.com.schimidtsolutions.jsf.entidades.Produto;
 import br.com.schimidtsolutions.jsf.interfaces.CopiavelPara;
 import br.com.schimidtsolutions.jsf.managedbean.annotation.Binding;
+import br.com.schimidtsolutions.jsf.modelo.Produto;
 
 @Binding
 public class ProdutoBinding implements ProdutoMutavel, CopiavelPara<Produto> {

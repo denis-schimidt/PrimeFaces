@@ -14,10 +14,10 @@ import org.primefaces.component.datatable.DataTable;
 import br.com.schimidtsolutions.jsf.client.interfaces.ProdutoMutavel;
 import br.com.schimidtsolutions.jsf.constantes.LegendaTelaProduto;
 import br.com.schimidtsolutions.jsf.dao.DAO;
-import br.com.schimidtsolutions.jsf.entidades.Produto;
 import br.com.schimidtsolutions.jsf.log.Logged;
 import br.com.schimidtsolutions.jsf.managedbean.annotation.Binding;
 import br.com.schimidtsolutions.jsf.managedbean.binding.ProdutoBinding;
+import br.com.schimidtsolutions.jsf.modelo.Produto;
 
 @Named
 @ViewScoped

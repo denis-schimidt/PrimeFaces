@@ -1,4 +1,4 @@
-package br.com.schimidtsolutions.jsf.entidades;
+package br.com.schimidtsolutions.jsf.modelo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

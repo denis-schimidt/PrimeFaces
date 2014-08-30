@@ -4,11 +4,11 @@ import java.io.Serializable;
 import java.util.Collections;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import javax.enterprise.inject.Default;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import br.com.schimidtsolutions.jsf.annotation.qualifier.ChaveInexistente;
 import br.com.schimidtsolutions.jsf.client.interfaces.ItemMutavel;
 import br.com.schimidtsolutions.jsf.client.interfaces.ItemMutavelTemporario;
 import br.com.schimidtsolutions.jsf.client.interfaces.NotaFiscalMutavel;
@@ -38,7 +38,7 @@ public class NotaFiscalBean implements Serializable{
 	@Inject
 	private AtomicInteger geradorIdTemporario;
 	 
-	@Inject @Default
+	@Inject @ChaveInexistente
 	private int chaveNaoEncontrada;
 	
 	@Inject

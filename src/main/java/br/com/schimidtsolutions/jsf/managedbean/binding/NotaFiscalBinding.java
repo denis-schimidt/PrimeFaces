@@ -8,10 +8,10 @@ import org.joda.time.LocalDate;
 import br.com.schimidtsolutions.jsf.client.dto.NotaFiscalDTO;
 import br.com.schimidtsolutions.jsf.client.interfaces.ItemMutavel;
 import br.com.schimidtsolutions.jsf.client.interfaces.NotaFiscalMutavel;
-import br.com.schimidtsolutions.jsf.entidades.Item;
-import br.com.schimidtsolutions.jsf.entidades.NotaFiscal;
 import br.com.schimidtsolutions.jsf.interfaces.CopiavelPara;
 import br.com.schimidtsolutions.jsf.managedbean.annotation.Binding;
+import br.com.schimidtsolutions.jsf.modelo.Item;
+import br.com.schimidtsolutions.jsf.modelo.NotaFiscal;
 
 @Binding
 public class NotaFiscalBinding implements NotaFiscalMutavel, CopiavelPara<NotaFiscal> {
@@ -22,18 +22,24 @@ public class NotaFiscalBinding implements NotaFiscalMutavel, CopiavelPara<NotaFi
 		notaFiscalMutavel = new NotaFiscalDTO();
 	}
 
-	public NotaFiscalBinding(final NotaFiscal notaFiscal) {
+	public NotaFiscalBinding( final NotaFiscal notaFiscal, boolean comItems ) {
 		this();
 		
-		notaFiscalMutavel.setCnpj(getCnpj());
-		notaFiscalMutavel.setData(getData());
-		notaFiscalMutavel.setId(getId());
+		notaFiscalMutavel.setCnpj( notaFiscal.getCnpj() );
+		notaFiscalMutavel.setData( notaFiscal.getData() );
+		notaFiscalMutavel.setId( notaFiscal.getId() );
 		
-		notaFiscalMutavel.setItens( new ArrayList<>() );
-		
-		for (final Item item : notaFiscal.getItens() ) {
-			notaFiscalMutavel.getItens().add( new ItemBinding(item) );
-		} 
+		if( comItems ){
+			notaFiscalMutavel.setItens( new ArrayList<>() );
+			
+			for (final Item item : notaFiscal.getItens() ) {
+				notaFiscalMutavel.getItens().add( new ItemBinding(item) );
+			} 
+		}
+	}
+	
+	public NotaFiscalBinding( final NotaFiscal notaFiscal ) {
+		this( notaFiscal, true );
 	}
 	
 	public NotaFiscalBinding(final NotaFiscalMutavel notaFiscalMutavel) {

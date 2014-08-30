@@ -1,4 +1,4 @@
-package br.com.schimidtsolutions.jsf.entidades;
+package br.com.schimidtsolutions.jsf.modelo;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,7 +37,7 @@ public class NotaFiscal{
 	private String cnpj;
 	
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
-	@br.com.schimidtsolutions.jsf.entidades.validation.Past(message="Data precisa ser menor ou igual que a data atual")
+	@br.com.schimidtsolutions.jsf.validation.Past(message="Data precisa ser menor ou igual que a data atual")
 	@Column(name="DATA", insertable=true, nullable=false, updatable=true )
 	private LocalDate data;
 

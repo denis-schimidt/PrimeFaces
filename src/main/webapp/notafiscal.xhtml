@@ -19,14 +19,16 @@
 			<p:fieldset id="fstDadosCliente" legend="Dados da Nota">
 				<div class="campoForm">
 					<p:outputLabel value="CNPJ" for="cnpj" visible="true" />
-					<p:inputText value="#{notaFiscalBean.notaFiscal.cnpj}" id="cnpj"
-							required="true" />
+					
+					<p:inputMask mask="99.999.999/9999-99" value="#{notaFiscalBean.notaFiscal.cnpj}" id="cnpj" required="true" />
 				</div>	
 						
 				<div class="campoForm">
 					<p:outputLabel value="Data" for="data"/>
-					<p:inputText value="#{notaFiscalBean.notaFiscal.data}" id="data"
+					
+					<p:calendar pattern="dd/MM/yyyy" value="#{notaFiscalBean.notaFiscal.data}" id="data"
 							required="true" converter="localDateConverter" converterMessage="Data Inválida" />
+							
 				</div>
 			</p:fieldset>
 			

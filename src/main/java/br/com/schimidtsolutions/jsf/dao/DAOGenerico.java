@@ -10,19 +10,23 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.jpa.criteria.OrderImpl;
 import org.slf4j.Logger;
 
+import br.com.schimidtsolutions.jsf.dao.helper.Paginacao;
 import br.com.schimidtsolutions.jsf.util.MetodoObjetoUtil;
 
 class DAOGenerico<T> implements DAO<T> {
 	private static final long serialVersionUID = 6020966045581794498L;
 
 	@Inject @Singleton
-	private transient Logger log;
+	private Logger log;
 	
 	@NotNull(message="A classe genérica do DAO não pode ser nula!")
 	private final Class<T> classeEntidade;
@@ -48,16 +52,83 @@ class DAOGenerico<T> implements DAO<T> {
 	}
 	
 	@Override
-	public List<T> listarComPaginacao( final int paginaInicial, final int tamanhoPagina ){
+	public Long contar(){
+		final CriteriaBuilder builder = em.getCriteriaBuilder();
+		final CriteriaQuery<Long> query = builder.createQuery( Long.class );
 		
-		final TypedQuery<T> query = gerarTypedQuerySemWhere();
+		query.select( builder.countDistinct( query.from( classeEntidade ) ) );
 		
-		query.setFirstResult( paginaInicial );
-		query.setMaxResults( tamanhoPagina );
-		
-		return query.getResultList();
+		return em.createQuery( query ).getSingleResult();
 	}
 	
+	public List<T> listarComPaginacaoOrdenacaoEFiltros( Paginacao paginacao ){
+		return criarTypedQueryParaPaginacao(paginacao).getResultList();
+	}
+
+	private TypedQuery<T> criarTypedQueryParaPaginacao( Paginacao paginacao ) {
+		final CriteriaBuilder builder = em.getCriteriaBuilder();
+		final CriteriaQuery<T> query = builder.createQuery( classeEntidade );
+		
+		final Root<T> tabela = query.from( classeEntidade );
+		
+		final Order ordem = criarOrdemPaginacao( paginacao, tabela );
+		final Predicate where = criarPredicatePaginacao( paginacao, builder, tabela );
+		
+		return criarTypedQueryPorParametros( query, tabela, ordem, where, paginacao );
+	}
+
+	private TypedQuery<T> criarTypedQueryPorParametros(final CriteriaQuery<T> query, final Root<T> tabela, Order ordem, Predicate where, Paginacao paginacao) {
+		
+		CriteriaQuery<T> queryPaginacao = query.select( tabela );
+		
+		if( where != null ){
+			queryPaginacao = queryPaginacao.where( where );
+		}
+		
+		if( ordem != null ){
+			queryPaginacao = queryPaginacao.orderBy( ordem );
+		}
+		
+		return em.createQuery( queryPaginacao )
+				.setFirstResult( paginacao.getPaginaInicial() )
+				.setMaxResults( paginacao.getTamanhoPagina() );		
+	}
+
+	private Predicate criarPredicatePaginacao( Paginacao paginacao, final CriteriaBuilder builder, final Root<T> tabela ) {
+		Predicate where = null;
+		
+		if( paginacao.getFiltros() != null && !paginacao.getFiltros().isEmpty() ){
+			where = builder.and();
+			
+			for( String nomeCampoTabela : paginacao.getFiltros().keySet() ){
+				Expression<String> campoTabela = tabela.get( nomeCampoTabela );
+				Object valorProcurado = paginacao.getFiltros().get( nomeCampoTabela );
+				
+				if( campoTabela.getJavaType().equals( String.class ) ){
+					where = builder.and( where, 
+						builder.like( 
+							builder.lower( campoTabela ), 
+								String.format("%%%s%%", ((String) valorProcurado).toLowerCase() ) ) );
+						
+				}else{
+					where = builder.and( where, builder.equal( campoTabela, valorProcurado ) );
+				}
+			}
+		}
+		
+		return where;
+	}
+
+	private Order criarOrdemPaginacao(Paginacao paginacao, final Root<T> tabela) {
+		
+		if( paginacao.getOrdenacao() != null && paginacao.getOrdenacao().getMetodoOrdenacao() != null ){
+			return new OrderImpl( tabela.get( paginacao.getOrdenacao().getCampoOrdenado() ), 
+					paginacao.getOrdenacao().getMetodoOrdenacao().isAscendente() );
+		}
+		
+		return null;
+	}
+		
 	@Override
 	public List<T> listarTudo(){
 		final TypedQuery<T> typedQuery = gerarTypedQuerySemWhere();

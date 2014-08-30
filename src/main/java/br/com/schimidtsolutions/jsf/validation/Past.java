@@ -1,4 +1,4 @@
-package br.com.schimidtsolutions.jsf.entidades.validation;
+package br.com.schimidtsolutions.jsf.validation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

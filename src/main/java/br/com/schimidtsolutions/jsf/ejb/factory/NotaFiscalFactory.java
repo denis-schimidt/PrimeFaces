@@ -4,10 +4,10 @@ import java.util.Map;
 
 import br.com.schimidtsolutions.jsf.client.interfaces.ItemMutavel;
 import br.com.schimidtsolutions.jsf.client.interfaces.NotaFiscalMutavel;
-import br.com.schimidtsolutions.jsf.entidades.Item;
-import br.com.schimidtsolutions.jsf.entidades.NotaFiscal;
-import br.com.schimidtsolutions.jsf.entidades.Produto;
 import br.com.schimidtsolutions.jsf.managedbean.binding.NotaFiscalBinding;
+import br.com.schimidtsolutions.jsf.modelo.Item;
+import br.com.schimidtsolutions.jsf.modelo.NotaFiscal;
+import br.com.schimidtsolutions.jsf.modelo.Produto;
 
 public class NotaFiscalFactory {
 

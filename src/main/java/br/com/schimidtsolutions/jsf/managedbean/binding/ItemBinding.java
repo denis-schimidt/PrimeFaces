@@ -7,11 +7,11 @@ import br.com.schimidtsolutions.jsf.client.interfaces.ItemMutavel;
 import br.com.schimidtsolutions.jsf.client.interfaces.ItemMutavelTemporario;
 import br.com.schimidtsolutions.jsf.client.interfaces.ProdutoMutavel;
 import br.com.schimidtsolutions.jsf.constantes.ComparacaoObjetos;
-import br.com.schimidtsolutions.jsf.entidades.Item;
-import br.com.schimidtsolutions.jsf.entidades.NotaFiscal;
-import br.com.schimidtsolutions.jsf.entidades.Produto;
 import br.com.schimidtsolutions.jsf.interfaces.CopiavelPara;
 import br.com.schimidtsolutions.jsf.managedbean.annotation.Binding;
+import br.com.schimidtsolutions.jsf.modelo.Item;
+import br.com.schimidtsolutions.jsf.modelo.NotaFiscal;
+import br.com.schimidtsolutions.jsf.modelo.Produto;
 
 @Binding
 public class ItemBinding implements ItemMutavelTemporario, CopiavelPara<Item> {

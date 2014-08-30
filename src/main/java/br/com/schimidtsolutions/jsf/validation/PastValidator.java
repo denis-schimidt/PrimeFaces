@@ -1,4 +1,4 @@
-package br.com.schimidtsolutions.jsf.entidades.validation;
+package br.com.schimidtsolutions.jsf.validation;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
