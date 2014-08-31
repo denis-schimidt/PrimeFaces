@@ -2,6 +2,7 @@ package br.com.schimidtsolutions.jsf.managedbean;
 
 import java.io.Serializable;
 
+import javax.enterprise.context.RequestScoped;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -16,7 +17,7 @@ import br.com.schimidtsolutions.jsf.modelo.NotaFiscal;
 public class ListaNotaFiscalBean implements Serializable {
 	private static final long serialVersionUID = 3707925457925673117L;
 
-	@Inject @NotaFiscalDataModel
+	@Inject @NotaFiscalDataModel @RequestScoped
 	private LazyDataModel<NotaFiscal> dataModel;
 	
 	public LazyDataModel<NotaFiscal> getDataModel() {

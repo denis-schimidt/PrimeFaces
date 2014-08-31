@@ -3,6 +3,7 @@ package br.com.schimidtsolutions.jsf.dao;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -52,7 +53,25 @@ class DAOGenerico<T> implements DAO<T> {
 	}
 	
 	@Override
-	public Long contar(){
+	public Long contarComFiltro( Map<String, Object> filtros ){
+		final CriteriaBuilder builder = em.getCriteriaBuilder();
+		CriteriaQuery<Long> query = builder.createQuery( Long.class );
+		
+		final Root<T> tabela = query.from( classeEntidade );
+		
+		final Predicate where = criarPredicatePaginacao( filtros, builder, tabela );
+		
+		query = query.select( builder.count( tabela ) );
+		
+		if( where != null ){
+			query = query.where( where );
+		}
+		
+		return em.createQuery( query ).getSingleResult();
+	}
+	
+	@Override
+	public Long contarTudo(){
 		final CriteriaBuilder builder = em.getCriteriaBuilder();
 		final CriteriaQuery<Long> query = builder.createQuery( Long.class );
 		
@@ -72,7 +91,7 @@ class DAOGenerico<T> implements DAO<T> {
 		final Root<T> tabela = query.from( classeEntidade );
 		
 		final Order ordem = criarOrdemPaginacao( paginacao, tabela );
-		final Predicate where = criarPredicatePaginacao( paginacao, builder, tabela );
+		final Predicate where = criarPredicatePaginacao( paginacao.getFiltros(), builder, tabela );
 		
 		return criarTypedQueryPorParametros( query, tabela, ordem, where, paginacao );
 	}
@@ -94,15 +113,15 @@ class DAOGenerico<T> implements DAO<T> {
 				.setMaxResults( paginacao.getTamanhoPagina() );		
 	}
 
-	private Predicate criarPredicatePaginacao( Paginacao paginacao, final CriteriaBuilder builder, final Root<T> tabela ) {
+	private Predicate criarPredicatePaginacao( Map<String,Object> filtros, final CriteriaBuilder builder, final Root<T> tabela ) {
 		Predicate where = null;
 		
-		if( paginacao.getFiltros() != null && !paginacao.getFiltros().isEmpty() ){
+		if( filtros != null && !filtros.isEmpty() ){
 			where = builder.and();
 			
-			for( String nomeCampoTabela : paginacao.getFiltros().keySet() ){
+			for( String nomeCampoTabela : filtros.keySet() ){
 				Expression<String> campoTabela = tabela.get( nomeCampoTabela );
-				Object valorProcurado = paginacao.getFiltros().get( nomeCampoTabela );
+				Object valorProcurado = filtros.get( nomeCampoTabela );
 				
 				if( campoTabela.getJavaType().equals( String.class ) ){
 					where = builder.and( where, 

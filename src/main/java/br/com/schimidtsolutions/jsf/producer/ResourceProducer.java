@@ -34,7 +34,7 @@ public class ResourceProducer {
 		return new AtomicInteger( 0 );
 	}
 	
-	@Produces
+	@Produces 
 	StatusItemNotaFiscal getStatusInicial(){
 		return StatusItemNotaFiscal.INCLUSAO;
 	}

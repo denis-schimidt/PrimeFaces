@@ -3,7 +3,6 @@ package br.com.schimidtsolutions.jsf.datamodel;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
 import javax.faces.convert.Converter;
 import javax.inject.Inject;
 
@@ -20,27 +19,26 @@ import br.com.schimidtsolutions.jsf.dao.helper.Ordenacao;
 import br.com.schimidtsolutions.jsf.dao.helper.Paginacao;
 import br.com.schimidtsolutions.jsf.modelo.NotaFiscal;
 
-@NotaFiscalDataModel
+@NotaFiscalDataModel 
 public class ListaNotaFiscalDataModel extends LazyDataModel<NotaFiscal> {
 	private static final long serialVersionUID = -8736259536338390027L;
 	
 	private static final String CAMPO_DATA = "data"; 
-
+	
 	@Inject
 	private DAO<NotaFiscal> dao;
 	
 	@Inject @LocalDateConverter
 	private Converter localDateConverter;
-	
-	@PostConstruct
-	@Inject 
+
+	@Inject
 	private void init( @PaginacaoInicial int tamanhoInicialPaginacao ){
-		setRowCount( dao.contar().intValue() );
+		setRowCount( dao.contarTudo().intValue() );
 		setPageSize( tamanhoInicialPaginacao );
 	}
 	
 	@Override
-	public List<NotaFiscal> load( final int first, final int pageSize, final String sortField, final SortOrder sortOrder, final Map<String, Object> filters) {
+	public List<NotaFiscal> load( final int first, final int pageSize, final String sortField, final SortOrder sortOrder, final Map<String, Object> filters ) {
 		
 		final Paginacao paginacao = new Paginacao(first, pageSize);
 		
@@ -49,11 +47,18 @@ public class ListaNotaFiscalDataModel extends LazyDataModel<NotaFiscal> {
 		}
 		
 		setarFiltros(filters, paginacao);
+		setRowCount( dao.contarComFiltro( paginacao.getFiltros() ).intValue() );
 		
 		return dao.listarComPaginacaoOrdenacaoEFiltros( paginacao );
 	}
 
 	private void setarFiltros(final Map<String, Object> filters, final Paginacao paginacao) {
+		ajustarFiltrosPesquisa(filters);
+		
+		paginacao.setFiltros(filters);
+	}
+
+	private void ajustarFiltrosPesquisa(final Map<String, Object> filters) {
 		
 		if( filters != null && filters.containsKey( CAMPO_DATA ) ){
 			
@@ -65,8 +70,6 @@ public class ListaNotaFiscalDataModel extends LazyDataModel<NotaFiscal> {
 				filters.remove( CAMPO_DATA );
 			}
 		}
-		
-		paginacao.setFiltros(filters);
 	}
 
 	private void setarOrdenacao(final String sortField, final SortOrder sortOrder, final Paginacao paginacao) {

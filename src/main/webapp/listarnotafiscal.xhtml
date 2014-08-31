@@ -15,14 +15,12 @@
 			<h:outputStylesheet library="css" name="listarnotafiscal.css" target="head" />
 		
 			<h:form>
-		
-				<h:panelGroup id="pnlNotasFiscais" layout="block">
-					
+				<p:outputPanel id="pnlNotasFiscais"> 						
 					<h3>Lista de Notas Fiscais</h3>
 			
-					<p:dataTable value="#{listaNotaFiscalBean.dataModel}" var="notaFiscal" lazy="true" 
-							paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-							paginatorAlwaysVisible="false" paginator="true" rows="5">
+					<p:dataTable value="#{listaNotaFiscalBean.dataModel}" var="notaFiscal" lazy="true" emptyMessage="Nenhum registro encontrado."  
+						paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"  
+                 			rowsPerPageTemplate="5,10,15" resizableColumns="true" paginatorAlwaysVisible="false" paginator="true" rows="5">
 					
 						<p:column headerText="CNPJ" sortBy="#{notaFiscal.cnpj}" filterMatchMode="contains" filterBy="#{notaFiscal.cnpj}">
 							<h:outputText value="#{notaFiscal.cnpj}" />
@@ -33,9 +31,9 @@
 						</p:column>
 						
 					</p:dataTable>
-		
-				</h:panelGroup>	
-	
+					
+					<p:poll interval="300" async="true" update="pnlNotasFiscais" />
+				</p:outputPanel>
 			</h:form>
 	
 		</ui:define>
