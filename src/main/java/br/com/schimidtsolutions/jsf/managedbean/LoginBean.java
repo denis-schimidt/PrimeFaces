@@ -3,10 +3,11 @@ package br.com.schimidtsolutions.jsf.managedbean;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.inject.Singleton;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -20,15 +21,15 @@ import br.com.schimidtsolutions.jsf.modelo.Usuario;
 @Named
 @SessionScoped
 public class LoginBean implements Serializable {
-	private static final long serialVersionUID = -5459225359063936355L;
+	private static final long serialVersionUID = 1756316931231616890L;
 
-	@Inject @Singleton
-	private transient Logger log;
+	@Inject @ApplicationScoped
+	private Logger log;
 
-	@Inject
+	@Inject @RequestScoped
 	private DAO<Usuario> dao;
 	
-	@Inject @Binding
+	@Inject @Binding @SessionScoped
 	private UsuarioMutavel usuarioSessao;
 	
 	public String logIn(){

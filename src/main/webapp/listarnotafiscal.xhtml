@@ -19,8 +19,8 @@
 					<h3>Lista de Notas Fiscais</h3>
 			
 					<p:dataTable value="#{listaNotaFiscalBean.dataModel}" var="notaFiscal" lazy="true" emptyMessage="Nenhum registro encontrado."  
-						paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"  
-                 			rowsPerPageTemplate="5,10,15" resizableColumns="true" paginatorAlwaysVisible="false" paginator="true" rows="5">
+						rowsPerPageTemplate="5,10,15,20,25,30,35" resizableColumns="true" paginatorAlwaysVisible="false" paginator="true" rows="5"
+							paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {CurrentPageReport} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
 					
 						<p:column headerText="CNPJ" sortBy="#{notaFiscal.cnpj}" filterMatchMode="contains" filterBy="#{notaFiscal.cnpj}">
 							<h:outputText value="#{notaFiscal.cnpj}" />
@@ -32,7 +32,7 @@
 						
 					</p:dataTable>
 					
-					<p:poll interval="300" async="true" update="pnlNotasFiscais" />
+					<p:poll interval="300" autoStart="true" update="pnlNotasFiscais" />
 				</p:outputPanel>
 			</h:form>
 	

@@ -22,3 +22,21 @@
 	text-align: center;
 	width: 10%;
 }
+
+#formCadastroProduto{
+	margin-top: 20px;
+	margin-bottom: 40px;
+}
+
+#divBotoes{
+	margin-top: 20px;
+}
+
+#botaoGravar{
+	margin-right: 10px;
+}
+
+table img{
+	width: 22px;
+	height: 22px;
+}

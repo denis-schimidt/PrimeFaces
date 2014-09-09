@@ -1,5 +1,6 @@
-insert into USUARIO( ID, LOGIN, SENHA )
+/*insert into USUARIO( ID, LOGIN, SENHA )
 values( ITEM_SEQ.NEXTVAL, 'admin', 'admin' ); 
+*/
 
 INSERT INTO PRODUTO( ID, DESCRICAO, NOME, PRECO)
 VALUES( PRODUTO_SEQ.nextval, 'ENTREGA RÁPIDA', 'Teste', 23.23 );

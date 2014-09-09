@@ -19,9 +19,9 @@ public class UsuarioBinding implements UsuarioMutavel, CopiavelPara<Usuario> {
 	public UsuarioBinding( final Usuario usuario ){
 		this();
 		
-		usuarioMutavel.setId(getId());
-		usuarioMutavel.setLogin(getLogin());
-		usuarioMutavel.setSenha(getSenha());
+		usuarioMutavel.setId( usuario.getId() );
+		usuarioMutavel.setLogin( usuario.getLogin() );
+		usuarioMutavel.setSenha( usuario.getSenha() );
 	}
 	
 	public UsuarioBinding( final UsuarioMutavel usuario ) {

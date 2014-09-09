@@ -15,28 +15,31 @@
 	<ui:define name="corpo">
 		<h:outputStylesheet library="css" name="login.css" target="head"/>
 	
-		<h:form id="formUsuario">
-			<h:panelGroup layout="block">
-				<p:fieldset legend="Login do Usuário">
+		<p:outputPanel layout="block" id="pnlForm">
+			<h:form id="formUsuario">
+				<h:panelGroup layout="block">
+					<p:fieldset legend="Login do Usuário">
+			
+						<div id="divInputsLogin" class="textoPadraoInput">
+							<h:panelGroup layout="block">
+								<comp:inputText id="campoUsuario" label="Login" value="#{loginBean.usuario.login}"/>
+							</h:panelGroup>
+							
+							<h:panelGroup layout="block">
+								<comp:inputTextPassword id="campoSenha" label="Senha" value="#{loginBean.usuario.senha}"/>
+							</h:panelGroup>
+						</div>
+							
+						<div id="divBotaoOk">
+							<p:commandButton id="botaoOK" styleClass="btn" process="@form" value="OK" action="#{loginBean.logIn()}" 
+										update="@form" icon="ui-icon-check" />	
+						</div>
+							
+					</p:fieldset>
+				</h:panelGroup>	
+			</h:form>
+		</p:outputPanel>
 		
-					<div id="divInputsLogin" class="textoPadraoInput">
-						<h:panelGroup layout="block">
-							<comp:inputText id="campoUsuario" label="Login" value="#{loginBean.usuario.login}"/>
-						</h:panelGroup>
-						
-						<h:panelGroup layout="block">
-							<comp:inputTextPassword id="campoSenha" label="Senha" value="#{loginBean.usuario.senha}"/>
-						</h:panelGroup>
-					</div>
-						
-					<div id="divBotaoOk">
-						<p:commandButton id="botaoOK" styleClass="btn" process="@form" value="OK" action="#{loginBean.logIn()}" 
-									update="@form" icon="ui-icon-check" />	
-					</div>
-						
-				</p:fieldset>
-			</h:panelGroup>	
-		</h:form>
 	</ui:define>
 </ui:composition>
 

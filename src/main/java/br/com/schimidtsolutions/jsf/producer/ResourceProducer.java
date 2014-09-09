@@ -10,12 +10,11 @@ import org.slf4j.LoggerFactory;
 
 import br.com.schimidtsolutions.jsf.annotation.qualifier.ChaveInexistente;
 import br.com.schimidtsolutions.jsf.annotation.qualifier.PaginacaoInicial;
-import br.com.schimidtsolutions.jsf.constantes.StatusItemNotaFiscal;
 
 public class ResourceProducer {
 
 	@Produces @ChaveInexistente
-	int getChaveNaoEncontrada(){
+	Integer getChaveNaoEncontrada(){
 		return -1;
 	}
 	
@@ -24,7 +23,7 @@ public class ResourceProducer {
 		return 5;
 	}
 	
-	@Produces
+	@Produces 
     Logger newLogger(final InjectionPoint ip) {                           
         return LoggerFactory.getLogger( ip.getMember().getDeclaringClass() );
     }
@@ -32,10 +31,5 @@ public class ResourceProducer {
 	@Produces
 	AtomicInteger newGeradorId(){
 		return new AtomicInteger( 0 );
-	}
-	
-	@Produces 
-	StatusItemNotaFiscal getStatusInicial(){
-		return StatusItemNotaFiscal.INCLUSAO;
 	}
 }

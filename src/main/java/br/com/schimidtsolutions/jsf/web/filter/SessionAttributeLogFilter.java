@@ -20,7 +20,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 
 //@WebFilter(urlPatterns = { "/*" }, description = "Parâmetros da Sessão")
-public class SessionAttributeLogFilter implements Filter {
+public class SessionAttributeLogFilter implements Filter { 
 
 	@Inject @Singleton
 	private Logger log;

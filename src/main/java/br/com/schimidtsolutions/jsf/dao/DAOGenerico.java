@@ -23,7 +23,7 @@ import org.slf4j.Logger;
 import br.com.schimidtsolutions.jsf.dao.helper.Paginacao;
 import br.com.schimidtsolutions.jsf.util.MetodoObjetoUtil;
 
-class DAOGenerico<T> implements DAO<T> {
+public class DAOGenerico<T> implements DAO<T> {
 	private static final long serialVersionUID = 6020966045581794498L;
 
 	@Inject @Singleton

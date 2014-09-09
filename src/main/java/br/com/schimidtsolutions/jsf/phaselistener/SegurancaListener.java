@@ -1,13 +1,13 @@
 package br.com.schimidtsolutions.jsf.phaselistener;
 
-import javax.el.ELException;
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.NavigationHandler;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 import javax.inject.Inject;
-import javax.inject.Singleton;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
@@ -19,8 +19,11 @@ public class SegurancaListener implements PhaseListener {
 	private static final long serialVersionUID = -1180055334626039453L;
 	private static final String LOGIN_PAGE = "/login.xhtml";
 	
-	@Inject @Singleton
+	@Inject @ApplicationScoped
 	private Logger log;
+	
+	@Inject @SessionScoped
+	private LoginBean loginBean;
 	
 	@Override
 	public void afterPhase(final PhaseEvent event) {
@@ -29,8 +32,6 @@ public class SegurancaListener implements PhaseListener {
 		if( LOGIN_PAGE.equals( facesContext.getViewRoot().getViewId() ) ){
 			return;
 		}
-		
-		final LoginBean loginBean = obterLoginBean(facesContext);
 		
 		if( !loginBean.isLogado() ){
 			logarTentativaDePularTelaLogin( facesContext, loginBean );
@@ -50,17 +51,6 @@ public class SegurancaListener implements PhaseListener {
 		
 		if( StringUtils.isBlank( loginBean.getUsuario().getLogin() ) || StringUtils.isBlank( loginBean.getUsuario().getSenha() ) ){
 			log.warn( "Tentativa de pular tela de login pelo IP: {}", request.getRemoteAddr() );
-		}
-	}
-
-	private LoginBean obterLoginBean(final FacesContext facesContext) {
-		
-		try{
-			return facesContext.getApplication()
-					.evaluateExpressionGet(facesContext, "#{loginBean}", LoginBean.class );
-			
-		}catch( final ELException exception ){
-			return new LoginBean();
 		}
 	}
 

@@ -3,6 +3,8 @@ package br.com.schimidtsolutions.jsf.datamodel;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.convert.Converter;
 import javax.inject.Inject;
 
@@ -19,7 +21,7 @@ import br.com.schimidtsolutions.jsf.dao.helper.Ordenacao;
 import br.com.schimidtsolutions.jsf.dao.helper.Paginacao;
 import br.com.schimidtsolutions.jsf.modelo.NotaFiscal;
 
-@NotaFiscalDataModel 
+@NotaFiscalDataModel  @RequestScoped
 public class ListaNotaFiscalDataModel extends LazyDataModel<NotaFiscal> {
 	private static final long serialVersionUID = -8736259536338390027L;
 	
@@ -31,8 +33,11 @@ public class ListaNotaFiscalDataModel extends LazyDataModel<NotaFiscal> {
 	@Inject @LocalDateConverter
 	private Converter localDateConverter;
 
-	@Inject
-	private void init( @PaginacaoInicial int tamanhoInicialPaginacao ){
+	@Inject @PaginacaoInicial 
+	private int tamanhoInicialPaginacao;
+	
+	@PostConstruct
+	private void init(){
 		setRowCount( dao.contarTudo().intValue() );
 		setPageSize( tamanhoInicialPaginacao );
 	}

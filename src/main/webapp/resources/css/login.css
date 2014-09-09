@@ -33,7 +33,15 @@
 	}
 }
 
-#divInputsLogin{
+.ui-widget-header .ui-inputfield, .ui-widget-content .ui-inputfield{
+	margin-bottom: 10px;
+}
+
+#pnlForm{
+	height: 85%;
+}
+
+.ui-fieldset-content{
 	margin-top: 10px;
 }
 
@@ -41,23 +49,16 @@ label {
     margin-right: 5px;
 }
 
-.tituloTela{
-	margin-top: 20px;
-	margin-bottom: 30px;
-}
-
-.textoPadraoInput{
-	font-size: 12px;
-	size: 100%;
-}
-
 .ui-fieldset{
 	font-family: "Verdana";
-    left: 100%;
-    margin: auto;
-    top: 50%;
+    left: 38%;
+    margin-top:auto;
+    margin-left:auto;
+    top: 35%;
+    position: absolute;
 }
 
 #divBotaoOk{
+	margin-top: 10px;
 	text-align: center;
 }

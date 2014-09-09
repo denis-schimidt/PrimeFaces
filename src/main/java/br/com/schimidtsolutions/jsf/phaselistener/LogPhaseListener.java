@@ -3,19 +3,19 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.enterprise.context.ApplicationScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import org.slf4j.Logger;
 
 public class LogPhaseListener implements PhaseListener {
 	private static final long serialVersionUID = -2212446767366571892L;
 	
-	@Inject @Singleton
+	@Inject @ApplicationScoped
 	private Logger log;
 
 	@PostConstruct

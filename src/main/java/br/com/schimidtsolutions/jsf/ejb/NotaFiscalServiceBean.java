@@ -8,8 +8,8 @@ import javax.ejb.Lock;
 import javax.ejb.LockType;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import org.slf4j.Logger;
 
@@ -25,7 +25,7 @@ import br.com.schimidtsolutions.jsf.modelo.Produto;
 @Stateless
 @Remote( NotaFiscalServiceRemote.class )
 @Local( NotaFiscalService.class )
-public class NotaFiscalServiceBean implements NotaFiscalService, NotaFiscalServiceRemote {
+public class NotaFiscalServiceBean implements NotaFiscalService{//, NotaFiscalServiceRemote {
 	
 	@Inject
 	private DAO<NotaFiscal> daoNotaFiscal;
@@ -33,9 +33,9 @@ public class NotaFiscalServiceBean implements NotaFiscalService, NotaFiscalServi
 	@Inject
 	private DAO<Produto> daoProduto;
 	
-	@Inject @Singleton
+	@Inject @ApplicationScoped
 	private Logger log;
-	
+
 	@Override
 	@Lock(LockType.WRITE)
 	public void cadastrarNotaFiscal( final NotaFiscalMutavel notaFiscalMutavel ){

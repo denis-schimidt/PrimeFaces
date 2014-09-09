@@ -88,14 +88,14 @@
 						<p:column headerText="Alterar" styleClass="colunaAlterar">	
 							<p:commandLink update=":notaFiscalForm:pnlItensNota :notaFiscalForm:fstDadosItem" process=":notaFiscalForm:pnlItensNota" partialSubmit="true" 
 										actionListener="#{notaFiscalBean.selecionarItem(itemNota)}" ajax="true">
-								<p:graphicImage value="/resources/images/alterar.jpg" width="20px" height="20px" alt="Alterar"/>
+								<p:graphicImage value="/resources/images/alterar.jpg" alt="Alterar"/>
 							</p:commandLink>
 						</p:column>
 						
 						<p:column headerText="Excluir" styleClass="colunaExcluir">
 							<p:commandLink update=":notaFiscalForm:pnlItensNota :notaFiscalForm:fstDadosItem" process=":notaFiscalForm:pnlItensNota" partialSubmit="true" 
 									actionListener="#{notaFiscalBean.excluirItem(itemNota)}" ajax="true">
-								<p:graphicImage value="/resources/images/excluir.jpg" width="20px" height="20px" alt="Excluir" />
+								<p:graphicImage value="/resources/images/excluir.jpg" alt="Excluir" />
 							</p:commandLink>
 						</p:column>	
 						
@@ -104,7 +104,7 @@
 						
 			</p:outputPanel>		
 			
-			<h:commandButton value="Salvar" styleClass="botaoSalvar ui-button-text-icon-left" 
+			<h:commandButton id="botaoSalvar" value="Salvar" styleClass="ui-button-text-icon-left" 
 				actionListener="#{notaFiscalBean.salvarNotaFiscal()}">
 						<f:ajax execute="fstDadosCliente" render="fstDadosCliente" />
 			</h:commandButton>

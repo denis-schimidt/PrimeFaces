@@ -13,3 +13,65 @@ body div form div a{
 	font-size: 10px!important;
 	text-decoration: none;
 }
+
+.ui-menuitem-text{
+	font-weight:bold;
+	font-family: Arial, Verdana;
+	font-size: 1.3em;
+}
+
+#pnlTopoCabecalho{
+	border-bottom-width: 1px;
+	border-bottom-color: rgb( 10,10,90);
+	border-bottom-style: solid;
+	padding-bottom: 5px;
+	text-align: center;
+}
+
+img{
+	width:27%;
+}
+
+.ui-menu.ui-widget .ui-separator {
+	border-image: -moz-linear-gradient(center top , #ffffff, #e6e6e6);
+}
+
+#pnlMenuBar{
+	margin-top: 4px;
+}
+
+.ui-menu.ui-menubar {
+    padding: 0 20px 0 10px;
+}
+
+* {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.ui-widget {
+	font-size: 12px;
+}
+
+#rodape {
+    background-color: #cecece;
+    border: 1px solid Gray;
+    bottom: 0;
+    color: Black;
+    font-family: Verdana;
+    font-size: 8pt;
+    font-weight: bold;
+    left: 0;
+    position: fixed;
+    text-align: center;
+    width: 100%;
+}
+
+.tituloTela{
+	font-style: italic;
+ 	font-weight: bold;	
+ 	text-align: center;
+ 	color: rgb( 10,10,90);
+ 	text-shadow: 2px 1px 5px rgba(150, 150, 150, 1);
+}

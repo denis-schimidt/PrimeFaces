@@ -13,7 +13,7 @@
 	<ui:define name="corpo">
 		<h:outputStylesheet library="css" name="produto.css" target="head" />
 		
-		<h:form id="formCadastroProduto">
+		<h:form id="formCadastroProduto" prependId="false">
 			<ui:define name="complementoTituloTela">
 				<h:outputLabel rendered="#{empty produtoBean.produto.id}" styleClass="tituloOperacaoTela" value=" > Novo Produto" />
 				<h:outputLabel rendered="#{not empty produtoBean.produto.id}" styleClass="tituloOperacaoTela" value=" > Editar Produto" />
@@ -30,14 +30,10 @@
 						<h:outputLabel value="Preço:" for="campoPreco" />
 						<p:inputText id="campoPreco" value="#{produtoBean.produto.preco}" type="currency" size="20" required="true"/>
 					</h:panelGrid>
-				
-					<div class="linhaEmBranco"/>
 					
-					<h:panelGroup layout="block">
+					<h:panelGroup id="divBotoes" layout="block">
 						<p:commandButton id="botaoGravar" styleClass="btn" process="@form" value="Gravar" action="#{produtoBean.salvarProduto}" 
 							update="@form :formListagemProdutos" icon="ui-icon-disk" />
-					
-						<span class="espacamento-entre-botoes"/>
 						
 						<p:commandButton id="botaoCancelar" styleClass="btn" value="Cancelar" actionListener="#{produtoBean.cancelarAlteracaoProduto}" 
 							rendered="#{not empty produtoBean.produto.id}" icon="ui-icon-arrowrefresh-1-w" update="@form" />
@@ -47,11 +43,11 @@
 			</p:fieldset>
 		</h:form>
 		
-		<div class="duplaLinhaEmBranco"/>
-		
 		<h:form id="formListagemProdutos">
-			<p:dataTable value="#{produtoBean.produtos}" var="produto"  binding="#{produtoBean.dataTable}" filteredValue="#{produtoBean.listaProdutosFiltrado}" 
-					rendered="#{not empty produtoBean.produtos}" paginatorAlwaysVisible="false"  paginator="true" rows="4">
+			<p:dataTable value="#{produtoBean.produtos}" var="produto" caseSensitiveSort="false" binding="#{produtoBean.dataTable}" filteredValue="#{produtoBean.listaProdutosFiltrado}" 
+					rendered="#{not empty produtoBean.produtos}" emptyMessage="Nenhum registro encontrado." rowsPerPageTemplate="5,10,15,20,25,30,35"
+					resizableColumns="true" paginatorAlwaysVisible="false" paginator="true" rows="5"
+					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {CurrentPageReport} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
 			
 				<p:column styleClass="colunaNome" headerText="Nome" sortBy="#{produto.nome}" filterMatchMode="contains" filterBy="#{produto.nome}">
 					<h:outputText value="#{produto.nome}" />
@@ -70,13 +66,13 @@
 				
 				<p:column styleClass="colunaAlterar" headerText="Alterar">	
 					<p:commandLink update=":formCadastroProduto" action="#{produtoBean.exibirProdutoAlteracao(produto)}" ajax="true">
-						<p:graphicImage value="/resources/images/alterar.jpg" width="25px" height="25px" alt="Alterar"/>
+						<p:graphicImage value="/resources/images/alterar.jpg" alt="Alterar"/>
 					</p:commandLink>
 				</p:column>
 				
 				<p:column styleClass="colunaExcluir" headerText="Excluir">
 					<p:commandLink update="@form :formCadastroProduto" action="#{produtoBean.excluirProduto(produto)}" ajax="true">
-						<p:graphicImage value="/resources/images/excluir.jpg" width="25px" height="25px" alt="Excluir" />
+						<p:graphicImage value="/resources/images/excluir.jpg" alt="Excluir" />
 					</p:commandLink>
 				</p:column>			
 			</p:dataTable>
