@@ -19,8 +19,44 @@ fieldset{
 	margin: 15px;
 }
 
-legend{
-	font-weight: bold;
+.ui-tabs .ui-tabs-panel{
+	background: rgb(249, 249, 249);
+	border-width: 1px;
+	width: 98%;
+	margin-left: 14px;
+}
+
+.ui-selectonemenu .ui-selectonemenu-label{
+	padding-right: 30px;
+	width: auto!important;
+}
+
+.ui-tabs .ui-tabs-nav.ui-widget-header li.ui-state-active a, .ui-tabs .ui-tabs-nav.ui-widget-header li.ui-state-active a{
+	background-image: -moz-linear-gradient(center top , #ffffff, #e6e6e6);
+}
+
+.ui-tabs.ui-tabs-top > .ui-tabs-nav{
+	padding: 0.2em 1.1em 0;
+}
+
+.ui-tabs .ui-tabs-nav.ui-widget-header li a{
+	color: #bebebe;
+	border-bottom: 1px solid #ffffff transparent;
+	border-left: 1px solid #dddddd;
+	border-right: 1px solid #dddddd;
+	border-top: 1px solid #dddddd;
+	margin-top: 15px;
+    margin-bottom: 2px;
+    padding-bottom: 4px;
+    padding-top: 4px;
+}
+
+.ui-tabs .ui-tabs-nav.ui-widget-header{
+	border-bottom: none;	
+}
+
+.ui-tabs.ui-widget-content{
+	border-style: none;
 }
 
 #botaoSalvarItem{
@@ -92,10 +128,16 @@ h3{
 	font-weight: normal;
 }
 
-form > fieldset > div > div > label{
+form > div > div > div > fieldset > div > div > label{
 	float: left;
-    padding-top:3px;
-    width: 9%;
+    padding-top: 3px;
+    width: 4%;
+}
+
+form > div > div > div > div > fieldset > div > div > label{
+	float: left;
+    padding-top: 6px;
+    width: 6%;
 }
 
 button{

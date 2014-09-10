@@ -14,51 +14,58 @@
 	<ui:define name="corpo">
 		<h:outputStylesheet library="css" name="notafiscal.css" target="head" />
 
-		<h:form id="notaFiscalForm" prependId="false">
+		<h:form prependId="false" id="notaFiscalForm">
 
-			<p:fieldset id="fstDadosCliente" legend="Dados da Nota">
-				<div class="campoForm">
-					<p:outputLabel value="CNPJ" for="cnpj" visible="true" />
-					
-					<p:inputMask mask="99.999.999/9999-99" value="#{notaFiscalBean.notaFiscal.cnpj}" id="cnpj" required="true" />
-				</div>	
-						
-				<div class="campoForm">
-					<p:outputLabel value="Data" for="data"/>
-					
-					<p:calendar pattern="dd/MM/yyyy" value="#{notaFiscalBean.notaFiscal.data}" id="data"
-							required="true" converter="localDateConverter" converterMessage="Data Inválida" />
+			<p:tabView prependId="false" id="tabs" activeIndex="#{notaFiscalBean.indiceTab}">
+				<p:tab title="Dados da Nota">
+					<p:fieldset id="fstDadosCliente" legend="Venda">
+						<div class="campoForm">
+							<p:outputLabel value="CNPJ" for="cnpj" visible="true" />
 							
-				</div>
-			</p:fieldset>
-			
-			<p:fieldset id="fstDadosItem" legend="#{notaFiscalBean.statusItem.legendaTelaItem}">
-			
-				<div class="campoForm">
-					<p:outputLabel value="Produto">
-						<span class="ui-outputlabel-rfi">*</span>
-					</p:outputLabel>
-					<p:selectOneMenu value="#{notaFiscalBean.produto}" required="true" converter="produtoConverter">
-						<f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
-						<f:selectItems value="#{produtoBean.produtos}" var="produto" itemValue="#{produto}" itemLabel="#{produto.nome}" />
-					</p:selectOneMenu>
-				</div>		
+							<p:inputMask mask="99.999.999/9999-99" value="#{notaFiscalBean.notaFiscal.cnpj}" id="cnpj" required="true" />
+						</div>	
+								
+						<div class="campoForm">
+							<p:outputLabel value="Data" for="data"/>
+							
+							<p:calendar pattern="dd/MM/yyyy" value="#{notaFiscalBean.notaFiscal.data}" id="data"
+									required="true" converter="localDateConverter" converterMessage="Data Inválida" />
+									
+						</div>
+					</p:fieldset>
+				</p:tab>
+				<p:tab title="Dados do Item">
+					<div id="divItensNota">
+						<p:fieldset id="fstDadosItem" legend="#{notaFiscalBean.statusItem.legendaTelaItem}">
 				
-				<div class="campoForm">
-					<p:outputLabel value="Quantidade" for="quantidade" visible="true" />
-					<p:inputText value="#{notaFiscalBean.item.quantidade}" id="quantidade" required="true" />	
-				</div>	
-				
-				<p:commandButton type="submit" partialSubmit="true" value="#{notaFiscalBean.statusItem.labelBotaoItem}" 
-					actionListener="#{notaFiscalBean.salvarItemNotaFiscal()}" ajax="true" 
-						icon="ui-icon-check" id="botaoSalvarItem" styleClass="btn" process="fstDadosItem" update="fstDadosItem pnlItensNota" />
-						
-				<p:commandButton partialSubmit="true" value="Cancelar" actionListener="#{notaFiscalBean.cancelarAlteracaoItem()}" ajax="true" 
-						rendered="#{notaFiscalBean.statusItem.edicao}" icon="ui-icon-arrowrefresh-1-w" id="botaoAlterarItem" styleClass="btn" 
-							process="fstDadosItem" update="fstDadosItem pnlItensNota" />
-			</p:fieldset>	
+							<div class="campoForm">
+								<p:outputLabel value="Produto">
+									<span class="ui-outputlabel-rfi">*</span>
+								</p:outputLabel>
+								<p:selectOneMenu value="#{notaFiscalBean.produto}" required="true" converter="produtoConverter">
+									<f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
+									<f:selectItems value="#{produtoBean.produtos}" var="produto" itemValue="#{produto}" itemLabel="#{produto.nome}" />
+								</p:selectOneMenu>
+							</div>		
+							
+							<div class="campoForm">
+								<p:outputLabel value="Quantidade" for="quantidade" visible="true" />
+								<p:inputText value="#{notaFiscalBean.item.quantidade}" id="quantidade" required="true" />	
+							</div>	
+							
+							<p:commandButton partialSubmit="true" value="#{notaFiscalBean.statusItem.labelBotaoItem}" 
+								actionListener="#{notaFiscalBean.salvarItemNotaFiscal()}" ajax="true" 
+									icon="ui-icon-check" id="botaoSalvarItem" styleClass="btn" process="tabs:fstDadosItem" update="tabs:fstDadosItem :notaFiscalForm:pnlItensNota" />
+									
+							<p:commandButton partialSubmit="true" value="Cancelar" actionListener="#{notaFiscalBean.cancelarAlteracaoItem()}" ajax="true" 
+									rendered="#{notaFiscalBean.statusItem.edicao}" icon="ui-icon-arrowrefresh-1-w" id="botaoAlterarItem" styleClass="btn" 
+										process="tabs:fstDadosItem" update="tabs:fstDadosItem :notaFiscalForm:pnlItensNota" />
+						</p:fieldset>		
+					</div>	
+				</p:tab>
+			</p:tabView>
 			
-			<p:outputPanel autoUpdate="true">
+			<p:outputPanel layout="block" autoUpdate="true">
 				<h:panelGroup id="pnlItensNota" layout="block" rendered="#{notaFiscalBean.notaFiscal.itens.size()>0}">
 				
 					<h3>Itens da Nota Fiscal</h3>
@@ -66,7 +73,7 @@
 					<p:dataTable id="tblItensNota" value="#{notaFiscalBean.notaFiscal.itens}" var="itemNota">
 					
 						<p:column headerText="Produto" styleClass="colunaProduto">
-							<h:outputText value="#{itemNota.produto.descricao}" />
+							<h:outputText value="#{itemNota.produto.nome}" />
 						</p:column>
 					
 						<p:column headerText="Valor Unit." styleClass="colunaValorUnitario">
@@ -86,14 +93,14 @@
 						</p:column>
 						
 						<p:column headerText="Alterar" styleClass="colunaAlterar">	
-							<p:commandLink update=":notaFiscalForm:pnlItensNota :notaFiscalForm:fstDadosItem" process=":notaFiscalForm:pnlItensNota" partialSubmit="true" 
+							<p:commandLink update=":notaFiscalForm:pnlItensNota :notaFiscalForm:tabs" process=":notaFiscalForm:pnlItensNota" partialSubmit="true" 
 										actionListener="#{notaFiscalBean.selecionarItem(itemNota)}" ajax="true">
 								<p:graphicImage value="/resources/images/alterar.jpg" alt="Alterar"/>
 							</p:commandLink>
 						</p:column>
 						
 						<p:column headerText="Excluir" styleClass="colunaExcluir">
-							<p:commandLink update=":notaFiscalForm:pnlItensNota :notaFiscalForm:fstDadosItem" process=":notaFiscalForm:pnlItensNota" partialSubmit="true" 
+							<p:commandLink update=":notaFiscalForm:pnlItensNota :notaFiscalForm:tabs:fstDadosItem" process=":notaFiscalForm:pnlItensNota" partialSubmit="true" 
 									actionListener="#{notaFiscalBean.excluirItem(itemNota)}" ajax="true">
 								<p:graphicImage value="/resources/images/excluir.jpg" alt="Excluir" />
 							</p:commandLink>

@@ -80,8 +80,14 @@ public class NotaFiscalBean implements Serializable{
 		int posicaoItemAExcluir = localizarPosicaoNaListaItem( item );
 		
 		if( posicaoItemAExcluir > chaveNaoEncontrada ){
+			atualizarProdutoEscolhidoNoItem();
 			notaFiscal.getItens().set( posicaoItemAExcluir, item );
 		}
+	}
+
+	private void atualizarProdutoEscolhidoNoItem() {
+		item.setProduto(produto);
+		item.setValorUnitario( produto.getPreco() );
 	}
 
 	private int localizarPosicaoNaListaItem( ItemMutavel itenProcurado ) {
@@ -104,8 +110,7 @@ public class NotaFiscalBean implements Serializable{
 	}
 
 	private void relacionarItemComProduto() {
-		item.setProduto( produto );
-		item.setValorUnitario( produto.getPreco() );
+		atualizarProdutoEscolhidoNoItem();
 	}
 
 	private void setarNovoIdTemporario() {
@@ -127,6 +132,10 @@ public class NotaFiscalBean implements Serializable{
 		}
 		
 		resetarBindingsTemporarios();
+	}
+	
+	public int getIndiceTab() {
+		return statusItem.getIndiceTab();
 	}
 	
 	public NotaFiscalMutavel getNotaFiscal() {
