@@ -40,3 +40,9 @@ table img{
 	width: 22px;
 	height: 22px;
 }
+
+#display{
+	font-size: 9px;
+	font-weight: bold;
+	color: navy;
+}

@@ -9,6 +9,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import br.com.schimidtsolutions.jsf.constantes.TemaTela;
+
 @Entity
 @Table(schema="development", name="USUARIO", uniqueConstraints=@UniqueConstraint(columnNames={"login"}) )
 public class Usuario{
@@ -25,17 +27,21 @@ public class Usuario{
 	@Column(name="SENHA", insertable=true, length=12, nullable=false, updatable=true )
 	private String senha;
 
+	@Column(name="TEMA_TELA", insertable=true, nullable=true, updatable=true )
+	private TemaTela temaTela;
+	
 	Usuario() {}
 	
 	private Usuario( final Builder builder ) {
 		login = builder.login;
 		senha = builder.senha;
 		id = builder.id;
+		temaTela = builder.temaTela;
 	}
 
 	@Override
 	public String toString() {
-		return String.format("Usuario [id=%s, login=%s]", id, login);
+		return String.format("Usuario [id=%s, login=%s, tema=%s]", id, login, temaTela );
 	}
 
 	@Override
@@ -80,10 +86,15 @@ public class Usuario{
 		return senha;
 	}
 	
+	public TemaTela getTemaTela() {
+		return temaTela;
+	}
+	
 	public static class Builder{
 		private Integer id;
 		private String login;
 		private String senha;
+		private TemaTela temaTela;
 		
 		public Builder comId(final Integer id) {
 			this.id = id;
@@ -99,6 +110,12 @@ public class Usuario{
 		
 		public Builder senha(final String senha) {
 			this.senha = senha;
+			
+			return this;
+		}
+		
+		public Builder comTema(final TemaTela temaTela ) {
+			this.temaTela = temaTela;
 			
 			return this;
 		}

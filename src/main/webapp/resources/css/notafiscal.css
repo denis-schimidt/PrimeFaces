@@ -7,46 +7,41 @@
 	margin-top: 20px;
 }
 
-.ui-icon-triangle-1-s {
-    background-position: -68px -16px;
-}
-
 input[type="text"], input[type="email"], input[type="url"], input[type="password"] {
     width: auto;
+}
+
+.ui-menu .ui-menuitem-link{
+	width: 100%;
 }
 
 fieldset{
 	margin: 15px;
 }
 
+#tblMenu{
+	width: 100%;
+}
+
+
+.ui-tabs.ui-tabs-top > .ui-tabs-nav{
+	padding:0;
+}
+
+.ui-tabs.ui-tabs-top .ui-tabs-nav.ui-widget-header{
+	border-bottom: none;
+}
+
+#cabecalho{
+	margin-bottom: 25px;
+}
+
 .ui-tabs .ui-tabs-panel{
 	background: rgb(249, 249, 249);
 	border-width: 1px;
-	width: 98%;
-	margin-left: 14px;
-}
-
-.ui-selectonemenu .ui-selectonemenu-label{
-	padding-right: 30px;
-	width: auto!important;
-}
-
-.ui-tabs .ui-tabs-nav.ui-widget-header li.ui-state-active a, .ui-tabs .ui-tabs-nav.ui-widget-header li.ui-state-active a{
-	background-image: -moz-linear-gradient(center top , #ffffff, #e6e6e6);
-}
-
-.ui-tabs.ui-tabs-top > .ui-tabs-nav{
-	padding: 0.2em 1.1em 0;
 }
 
 .ui-tabs .ui-tabs-nav.ui-widget-header li a{
-	color: #bebebe;
-	border-bottom: 1px solid #ffffff transparent;
-	border-left: 1px solid #dddddd;
-	border-right: 1px solid #dddddd;
-	border-top: 1px solid #dddddd;
-	margin-top: 15px;
-    margin-bottom: 2px;
     padding-bottom: 4px;
     padding-top: 4px;
 }
@@ -63,18 +58,21 @@ fieldset{
 	margin-right: 10px;
 }
 
-#tblItensNota{
-	float: left;
-	width: 98%;
-}
-
-table{
-	margin-left: 15px;
-}
-
 table img{
 	width: 22px;
 	height: 22px;
+}
+
+.ui-panelgrid{
+	width: 100%;
+}
+
+.ui-panelgrid .ui-panelgrid-cell{
+	padding: 0px;
+}
+
+.ui-panelgrid-cell{
+	width: 0%;
 }
 
 .colunaProduto{
@@ -109,7 +107,7 @@ table img{
 h3{
 	font-size: 1em;
 	font-family: verdana;
-	margin: 15px 15px 3px;
+	margin: 15px 0px 3px;
 	color: rgb( 10,10,70);
 	border-bottom-width: 1px;
 	border-bottom-color: rgb( 10,10,70);

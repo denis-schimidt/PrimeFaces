@@ -11,7 +11,7 @@
 
 <h:body>
 	<h:outputScript name="jsf.js" library="javax.faces" target="head" />
-	<h:outputStylesheet library="css" name="template.css" />
+	<h:outputStylesheet library="css" name="template.css" target="head" />
 
 	<div id="cabecalho">
 		
@@ -21,14 +21,26 @@
 			</span>
 			
 		</h:panelGroup>
-		
-		<h:panelGroup id="pnlMenuBar" rendered="#{menuBean.exibirMenuBar}" layout="block">
-			
-			<h:form>			
-				<p:menubar model="#{menuBean.menuModel}" />
-			</h:form>
-			
-		</h:panelGroup>	
+		<h:form>
+		    <h:panelGrid columns="3" id="tblMenu" width="100%" rendered="#{menuBean.exibirMenuBar}">
+    			<h:column>
+		    		<h:panelGroup id="pnlMenuBar" layout="block">
+						<p:menubar model="#{menuBean.menuModel}" />
+					</h:panelGroup>
+	    		</h:column>
+	    	    	    	    
+	    	    <h:column>
+	    	    	<h:outputText value="Tema:" />  
+	    	    </h:column>	    	    
+	    	    	    	    
+	    	    <h:column>	
+			        <p:themeSwitcher value="#{themeBean.tema}" id="themeSwitcher">
+			            <f:selectItems value="#{themeBean.listaTemas}" var="tema" itemLabel="#{tema.apelido}" itemValue="#{tema.nomeReal}"/>
+			            <p:ajax process="#{themeBean.salvarTema()}" /> 
+			        </p:themeSwitcher>
+	    	    </h:column>
+		    </h:panelGrid>
+		</h:form>
 	</div>
 
 	<ui:insert name="corpo" />

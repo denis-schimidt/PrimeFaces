@@ -14,10 +14,24 @@ body div form div a{
 	text-decoration: none;
 }
 
+.ui-menubar .ui-menuitem-link {
+  padding: 0.4em 0.1em;
+  width: auto;
+}
+
 .ui-menuitem-text{
 	font-weight:bold;
 	font-family: Arial, Verdana;
 	font-size: 1.3em;
+}
+
+.ui-icon-triangle-1-s{
+	background-position: -68px -16px;
+}
+
+.ui-selectonemenu .ui-selectonemenu-label{
+	padding-right: 30px;
+	width: auto!important;
 }
 
 #pnlTopoCabecalho{
@@ -28,8 +42,31 @@ body div form div a{
 	text-align: center;
 }
 
+body > div > form > table > tbody > tr > td:first-child{
+	width: 16%;
+} 
+
+body > div > form > table > tbody > tr > td:nth-child(2){
+	vertical-align: middle;
+	font-family: verdana, arial;
+	font-size: 12px;
+	text-align: right;
+	padding-bottom: 4px;
+}
+
+body > div > form > table > tbody > tr > td:last-child{
+	font-color: black;
+	width: 5%;
+	margin-right: 3px;
+} 
+
+
 img{
 	width:27%;
+}
+
+.ui-menu.ui-widget .ui-menuitem-link .ui-menuitem-text {
+  margin-right: 14px;
 }
 
 .ui-menu.ui-widget .ui-separator {
@@ -52,6 +89,10 @@ img{
 
 .ui-widget {
 	font-size: 12px;
+}
+
+#clmTema{
+	width: 70%;	
 }
 
 #rodape {

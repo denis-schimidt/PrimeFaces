@@ -2,6 +2,7 @@ package br.com.schimidtsolutions.jsf.managedbean.binding;
 
 import br.com.schimidtsolutions.jsf.client.dto.UsuarioDTO;
 import br.com.schimidtsolutions.jsf.client.interfaces.UsuarioMutavel;
+import br.com.schimidtsolutions.jsf.constantes.TemaTela;
 import br.com.schimidtsolutions.jsf.interfaces.CopiavelPara;
 import br.com.schimidtsolutions.jsf.managedbean.annotation.Binding;
 import br.com.schimidtsolutions.jsf.modelo.Usuario;
@@ -11,6 +12,7 @@ public class UsuarioBinding implements UsuarioMutavel, CopiavelPara<Usuario> {
 	private static final long serialVersionUID = -4910729432803285800L;
 	
 	private final UsuarioMutavel usuarioMutavel;
+	private TemaTela temaTela;
 
 	public UsuarioBinding() {
 		usuarioMutavel = new UsuarioDTO();
@@ -69,6 +71,16 @@ public class UsuarioBinding implements UsuarioMutavel, CopiavelPara<Usuario> {
 			.comId(getId())
 			.login(getLogin())
 			.senha(getSenha())
+			.comTema(getTemaTela())
 			.create();
+	}
+
+
+	public TemaTela getTemaTela() {
+		return temaTela;
+	}
+
+	public void setTemaTela(TemaTela telaTema) {
+		this.temaTela = telaTema;
 	}
 }

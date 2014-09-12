@@ -16,5 +16,4 @@ public interface UsuarioMutavel extends Serializable {
 	public abstract String getSenha();
 
 	public abstract void setSenha(String senha);
-
 }
